@@ -1,0 +1,33 @@
++ 1) не ддосить сервер пустыми строками
++ 2) gradle mitlimodule project
++ 3) удалить мавен
++ 4) нет классам-команд на клиент
+
+
+ВОПРОСЫ
+1) TCP IP
+2) Stream API ( терм и не тери опеоации с приперами, sequences )
+3) Java NIO
+
+
++ Lambda with receiver
+
+
+server{
+    port = PORT
+
+    onConnect {
+        //action
+    }
+
+
+    scheduleTask(time: Long) {
+
+        onTimeComplete{
+            print("Time is up ");
+        }
+
+
+    }
+
+}
