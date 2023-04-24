@@ -4,6 +4,7 @@ import basicClasses.*
 import commands.consoleCommands.Command
 import clientUtils.*
 import clientUtils.readers.*
+import exceptions.InvalidInputException
 import utils.*
 
 class CommandReceiver(private val commandInvoker: CommandInvoker,
@@ -47,8 +48,12 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
         inputManager.startScriptReader(filepath)
     }
 
-    fun unknownCommand(commandName:String, args: Map<String, String>) {
+    fun unknownCommand(commandName:String, commandArgs: List<String> ,args: Map<String, String>) {
         val sending = mutableMapOf<String, String>()
+
+        if (("id" in args.keys) and (commandArgs.isEmpty())) {
+            throw InvalidInputException()
+        } else
 
         for (arg in args.keys) {
             sending[arg] = when (args[arg]) {
@@ -57,6 +62,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
                 "Chapter" -> jsonCreator.objectToString(creator.createChapter())
                 "Coordinates" -> jsonCreator.objectToString(creator.createCoordinates())
                 "SpaceMarine" -> jsonCreator.objectToString(creator.createSpaceMarine())
+                "Long" -> commandArgs[0]
                 else -> ""
             }
         }
