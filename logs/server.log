@@ -1,0 +1,71 @@
+2023-04-24 12:28:21.051 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-24 12:28:21.062 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-24 12:28:21.063 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-24 12:28:21.063 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-24 12:28:21.064 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-24 12:28:21.064 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-24 12:28:21.065 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-24 12:28:21.065 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-24 12:28:21.067 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-24 12:28:21.070 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-24 12:28:21.071 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-24 12:28:21.073 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-24 12:28:21.073 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-24 12:28:21.074 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-24 12:28:21.075 [main] WARN  serverUtils.FileManager - defaultCollection.yaml (Не удается найти указанный файл)
+2023-04-24 12:28:21.075 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-24 12:28:21.078 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:6789
+2023-04-24 12:28:21.078 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-24 12:28:26.980 [Thread-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-24 12:28:26.981 [main] INFO  serverUtils.Console - Closing server
+2023-04-24 12:28:26.987 [Timer-0] INFO  serverUtils.Console - Scheduled task
+2023-04-24 12:28:27.987 [Timer-0] INFO  serverUtils.Console - Scheduled task
+2023-04-24 12:28:28.998 [Timer-0] INFO  serverUtils.Console - Scheduled task
+2023-04-24 12:28:30.012 [Timer-0] INFO  serverUtils.Console - Scheduled task
+2023-04-24 12:29:00.440 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-24 12:29:00.446 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-24 12:29:00.446 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-24 12:29:00.446 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-24 12:29:00.447 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-24 12:29:00.447 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-24 12:29:00.447 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-24 12:29:00.448 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-24 12:29:00.448 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-24 12:29:00.448 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-24 12:29:00.449 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-24 12:29:00.449 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-24 12:29:00.450 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-24 12:29:00.451 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-24 12:29:00.451 [main] INFO  serverUtils.FileManager - Loading from defaultCollection.yaml
+2023-04-24 12:29:00.464 [main] INFO  serverUtils.FileManager - Loaded 0 elements successfully
+2023-04-24 12:29:00.464 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-24 12:29:00.467 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:6789
+2023-04-24 12:29:00.467 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-24 12:29:04.679 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-24 12:29:04.703 [main] INFO  serverUtils.Console - Received ping request
+2023-04-24 12:29:04.709 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:04.776 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-24 12:29:04.804 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-24 12:29:04.804 [main] TRACE serverUtils.Console - Received initialization request
+2023-04-24 12:29:04.807 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:04.808 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-24 12:29:04.820 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-24 12:29:04.821 [main] TRACE serverUtils.Console - Received initialization request
+2023-04-24 12:29:04.821 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:04.823 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-24 12:29:07.226 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-24 12:29:07.226 [main] INFO  serverUtils.Console - Received ping request
+2023-04-24 12:29:07.226 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:07.226 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-24 12:29:07.228 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-24 12:29:07.228 [main] TRACE serverUtils.Console - Received initialization request
+2023-04-24 12:29:07.228 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:07.229 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-24 12:29:29.023 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-24 12:29:29.024 [main] INFO  serverUtils.Console - Received ping request
+2023-04-24 12:29:29.024 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:29.024 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-24 12:29:29.026 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-24 12:29:29.026 [main] TRACE serverUtils.Console - Received initialization request
+2023-04-24 12:29:29.027 [main] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-24 12:29:29.027 [main] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
