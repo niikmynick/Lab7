@@ -108,7 +108,6 @@ class Console {
             } catch (e: InvalidInputException) {
                 outputManager.surePrint(e.message)
                 logger.warn(e.message)
-                break
             } catch (e: Exception) {
                 outputManager.surePrint(e.message.toString())
                 logger.warn(e.message)
