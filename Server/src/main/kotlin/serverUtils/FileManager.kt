@@ -12,9 +12,8 @@ import utils.JsonCreator
 class FileManager(
     private val dbManager: DBManager
 ) {
-
-    private val logger: Logger = LogManager.getLogger(FileManager::class.java)
     private val jsonCreator = JsonCreator()
+    private val logger: Logger = LogManager.getLogger(FileManager::class.java)
 
     /**
      * Reads data from database and adds objects to [collection]
@@ -26,11 +25,9 @@ class FileManager(
             val collection = dbManager.loadCollection()
 
             for (element in collection) {
-                if (element.isNotBlank()) {
-                    val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element)
-                    collectionManager.add(spaceMarine)
-                    logger.info("Loaded $spaceMarine")
-                }
+                val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element)
+                collectionManager.add(spaceMarine)
+                logger.info("Loaded $spaceMarine")
             }
 
             logger.info("Loaded ${collectionManager.getCollection().size} elements successfully")
@@ -45,14 +42,14 @@ class FileManager(
             logger.info("Saving to database")
 
             for (element in collectionManager.getCollection()) {
-                dbManager.save(jsonCreator.objectToString(element))
+                dbManager.save(element)
                 logger.info("Saved $element")
             }
 
             logger.info("Saved ${collectionManager.getCollection().size} elements successfully")
 
         } catch (e: Exception) {
-            logger.warn(e.message.toString())
+            logger.warn(e)
         }
     }
 

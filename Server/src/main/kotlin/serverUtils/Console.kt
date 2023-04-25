@@ -27,7 +27,7 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    private val dbManager = DBManager()
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
@@ -48,6 +48,9 @@ class Console {
      * Registers commands and waits for user prompt
      */
     fun initialize() {
+        dbManager.initUsers()
+        dbManager.initCollection()
+
         logger.info("Initializing the server")
 
         commandInvoker.register("info", Info(commandReceiver))
