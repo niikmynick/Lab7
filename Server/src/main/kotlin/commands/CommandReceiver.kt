@@ -117,20 +117,6 @@ class CommandReceiver(private val collectionManager: CollectionManager,
         }
     }
 
-    /**
-     * Saves the collection
-     */
-    fun save(filepath:String) {
-        try {
-            Saver().save(filepath, collectionManager)
-            val answer = Answer(AnswerType.OK, "Collection was saved successfully")
-            connectionManager.send(answer)
-        } catch (e:Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
-        }
-    }
-
     fun addMin(args: Map<String, String>) {
         try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)

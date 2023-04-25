@@ -22,19 +22,23 @@ import kotlin.concurrent.timerTask
  * @property commandReceiver Receives commands and executes them
  */
 class Console {
-    private val connectionManager = ConnectionManager() //does not change anything
-    private val fileManager = FileManager()
+    // connection
+    private val connectionManager = ConnectionManager()
+    private val selector = Selector.open()
+
+    // collection
+    private val dbManager = DBManager()
+    private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
+    // commands
     private val commandInvoker = CommandInvoker(connectionManager)
     private val commandReceiver = CommandReceiver(collectionManager, connectionManager)
 
+    // utils
     private val jsonCreator = JsonCreator()
-
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var executeFlag = true
-
-    private val selector = Selector.open()
 
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
@@ -90,7 +94,7 @@ class Console {
 
     }
 
-    fun onConnect() {
+    private fun onConnect() {
         logger.trace("Received initialization request")
 
         val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
@@ -109,7 +113,7 @@ class Console {
     }
 
 
-    fun onTimeComplete(actions: Logger.() -> Unit) {
+    private fun onTimeComplete(actions: Logger.() -> Unit) {
         logger.actions()
     }
 
@@ -179,9 +183,8 @@ class Console {
     }
 
     fun save() {
-        val saver = Saver()
         try {
-            saver.save("defaultCollection.yaml", collectionManager)
+            fileManager.save(collectionManager)
             logger.info("Collection saved successfully")
         } catch (e:Exception) {
             logger.warn("Collection was not saved: ${e.message}")

@@ -1,27 +1,31 @@
 package serverUtils
 
 class DBManager {
-    fun createDB() {
+    fun init() {
         TODO()
     }
 
-    fun getConnection() {
+    fun connect() {
         TODO()
     }
 
-    fun getScope() {
+    fun registerUser(login: String, password: String) {
         TODO()
     }
 
-    fun registerUser() {
+    fun loginUser(login: String, password: String) {
         TODO()
     }
 
-    fun save() {
+    fun deleteUser(login: String) {
         TODO()
     }
 
-    fun load() {
+    fun save(element: String) {
+        TODO()
+    }
+
+    fun loadCollection() : List<String> {
         TODO()
     }
 

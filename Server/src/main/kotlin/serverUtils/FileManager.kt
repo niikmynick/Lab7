@@ -2,54 +2,58 @@ package serverUtils
 
 import basicClasses.SpaceMarine
 import collection.CollectionManager
-import com.charleskorn.kaml.Yaml
-import exceptions.NoEnvironmentVariableFound
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import java.io.FileReader
+import utils.JsonCreator
 
 /**
  * Class that contains environment variables and handles files
- * @property collectionFileName String containing file name
  */
-class FileManager() {
+class FileManager(
+    private val dbManager: DBManager
+) {
 
     private val logger: Logger = LogManager.getLogger(FileManager::class.java)
-
-    private var collectionFileName = try {
-        System.getenv("COLLECTION")
-    } catch (e:Exception) {
-        throw NoEnvironmentVariableFound()
-    }
+    private val jsonCreator = JsonCreator()
 
     /**
-     * Reads data from the file provided in [collectionFileName] and adds objects to [collection]
+     * Reads data from database and adds objects to [collection]
      * @param collectionManager Current collection
      */
     fun load(collectionManager: CollectionManager) {
         try {
-            if (collectionFileName == null) {
-                collectionFileName = "defaultCollection.yaml"
-            }
+            logger.info("Loading from database")
+            val collection = dbManager.loadCollection()
 
-            val file = FileReader(collectionFileName)
-            logger.info("Loading from $collectionFileName")
-            val datalist = file.readText().split("#ENDOFSPACEMARINE")
-            for (data in datalist) {
-                data.trim()
-                if (data.isNotBlank()) {
-                    val spaceMarine = Yaml.default.decodeFromString(SpaceMarine.serializer(), data)
+            for (element in collection) {
+                if (element.isNotBlank()) {
+                    val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element)
                     collectionManager.add(spaceMarine)
+                    logger.info("Loaded $spaceMarine")
                 }
             }
-            file.close()
 
             logger.info("Loaded ${collectionManager.getCollection().size} elements successfully")
+
         } catch (e: Exception) {
             logger.warn(e.message.toString())
         }
+    }
 
+    fun save(collectionManager: CollectionManager) {
+        try {
+            logger.info("Saving to database")
 
+            for (element in collectionManager.getCollection()) {
+                dbManager.save(jsonCreator.objectToString(element))
+                logger.info("Saved $element")
+            }
+
+            logger.info("Saved ${collectionManager.getCollection().size} elements successfully")
+
+        } catch (e: Exception) {
+            logger.warn(e.message.toString())
+        }
     }
 
 }
