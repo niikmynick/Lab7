@@ -12,7 +12,7 @@ import java.nio.channels.DatagramChannel
 /**
  * Class responsible for managing network connections
  */
-class ConnectionManager() {
+class ConnectionManager {
     private var host = "localhost"
     private var port = 6789
 

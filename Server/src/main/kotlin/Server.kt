@@ -12,7 +12,7 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val port = 6789
+        val port = 8080
         val host = "localhost"
 
         initialize()

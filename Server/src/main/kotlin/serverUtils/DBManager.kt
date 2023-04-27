@@ -63,10 +63,41 @@ class DBManager(
         return result
     }
 
-    fun deleteUser(login: String) {
+    fun changePassword(login: String, oldPassword: String, newPassword: String) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("DELETE FROM users WHERE login = '$login'")
+        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$login' AND password = '$oldPassword'")
+        val result = resultSet.next()
+        if (result) {
+            statement.executeUpdate("UPDATE users SET password = '$newPassword' WHERE login = '$login'")
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+    }
+
+    fun changeUsername(oldLogin: String, newLogin: String, password: String) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$oldLogin' AND password = '$password'")
+        val result = resultSet.next()
+        if (result) {
+            statement.executeUpdate("UPDATE users SET login = '$newLogin' WHERE login = '$oldLogin'")
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+    }
+
+    fun deleteUser(login: String, password: String) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$login' AND password = '$password'")
+        val result = resultSet.next()
+        if (result) {
+            statement.executeUpdate("DELETE FROM users WHERE login = '$login'")
+        }
+        resultSet.close()
         statement.close()
         connection.close()
     }

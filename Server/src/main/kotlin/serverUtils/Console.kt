@@ -11,6 +11,8 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
+import java.util.concurrent.Callable
+import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
 
 /**
@@ -31,6 +33,9 @@ class Console {
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
+    // users
+    private val userManager = UserManager(dbManager)
+
     // commands
     private val commandInvoker = CommandInvoker(connectionManager)
     private val commandReceiver = CommandReceiver(collectionManager, connectionManager)
@@ -39,6 +44,9 @@ class Console {
     private val jsonCreator = JsonCreator()
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var executeFlag = true
+
+    // multithreading
+    private val threadPool = ThreadPoolExecutor(10, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
 
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
@@ -97,25 +105,6 @@ class Console {
 
     }
 
-    private fun onConnect() {
-        logger.trace("Received initialization request")
-
-        val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
-            "commands" to mutableMapOf(),
-            "arguments" to mutableMapOf()
-        )
-        val commands = commandInvoker.getCommandMap()
-
-        for (command in commands.keys) {
-            sendingInfo["commands"]!! += (command to commands[command]!!.getInfo())
-            sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
-        }
-
-        val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo))
-        connectionManager.send(answer)
-    }
-
-
     private fun onTimeComplete(actions: Logger.() -> Unit) {
         logger.actions()
     }
@@ -142,32 +131,52 @@ class Console {
         while (executeFlag) {
             selector.select()
             val selectedKeys = selector.selectedKeys()
+
+            if (selectedKeys.isEmpty()) continue
+
             val iter = selectedKeys.iterator()
+
             while (iter.hasNext()) {
                 val key = iter.next()
+                iter.remove()
                 if (key.isReadable) {
                     val client = key.channel() as DatagramChannel
                     try {
                         connectionManager.datagramChannel = client
                         val query = connectionManager.receive()
+                        threadPool.execute {
+                            when (query.queryType) {
+                                QueryType.COMMAND_EXEC -> {
+                                    logger.info("Received command: ${query.information}")
+                                    commandInvoker.executeCommand(query)
+                                }
 
-                        when (query.queryType) {
-                            QueryType.COMMAND_EXEC -> {
-                                logger.info("Received command: ${query.information}")
-                                commandInvoker.executeCommand(query)
-                            }
+                                QueryType.INITIALIZATION -> {
+                                    logger.trace("Received initialization request")
 
-                            QueryType.INITIALIZATION -> {
-                                onConnect()
-                            }
+                                    val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
+                                        "commands" to mutableMapOf(),
+                                        "arguments" to mutableMapOf()
+                                    )
+                                    val commands = commandInvoker.getCommandMap()
 
-                            QueryType.PING -> {
-                                logger.info("Received ping request")
-                                val answer = Answer(AnswerType.SYSTEM, "Pong")
-                                connectionManager.send(answer)
+                                    for (command in commands.keys) {
+                                        sendingInfo["commands"]!! += (command to commands[command]!!.getInfo())
+                                        sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
+                                    }
+
+                                    val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo))
+                                    connectionManager.send(answer)
+                                }
+
+                                QueryType.PING -> {
+                                    logger.info("Received ping request")
+                                    val answer = Answer(AnswerType.SYSTEM, "Pong")
+                                    connectionManager.send(answer)
+                                }
                             }
                         }
-                    } catch (e:Exception) {
+                    } catch (e: Exception) {
                         logger.error("Error while executing command: ${e.message}")
                         val answer = Answer(AnswerType.ERROR, e.message.toString())
                         connectionManager.send(answer)
@@ -175,6 +184,64 @@ class Console {
                 }
             }
         }
+
+        threadPool.shutdown()
+
+//
+//        while (executeFlag) {
+//            selector.select()
+//            val selectedKeys = selector.selectedKeys()
+//
+//            if (selectedKeys.isEmpty()) continue
+//
+//            val iter = selectedKeys.iterator()
+//            while (iter.hasNext()) {
+//                val key = iter.next()
+//                iter.remove()
+//                if (key.isReadable) {
+//                    val client = key.channel() as DatagramChannel
+//                    try {
+//                        connectionManager.datagramChannel = client
+//                        val query = connectionManager.receive()
+//
+//                        when (query.queryType) {
+//                            QueryType.COMMAND_EXEC -> {
+//                                logger.info("Received command: ${query.information}")
+//                                commandInvoker.executeCommand(query)
+//                            }
+//
+//                            QueryType.INITIALIZATION -> {
+//                                logger.trace("Received initialization request")
+//
+//                                val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
+//                                    "commands" to mutableMapOf(),
+//                                    "arguments" to mutableMapOf()
+//                                )
+//                                val commands = commandInvoker.getCommandMap()
+//
+//                                for (command in commands.keys) {
+//                                    sendingInfo["commands"]!! += (command to commands[command]!!.getInfo())
+//                                    sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
+//                                }
+//
+//                                val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo))
+//                                connectionManager.send(answer)
+//                            }
+//
+//                            QueryType.PING -> {
+//                                logger.info("Received ping request")
+//                                val answer = Answer(AnswerType.SYSTEM, "Pong")
+//                                connectionManager.send(answer)
+//                            }
+//                        }
+//                    } catch (e:Exception) {
+//                        logger.error("Error while executing command: ${e.message}")
+//                        val answer = Answer(AnswerType.ERROR, e.message.toString())
+//                        connectionManager.send(answer)
+//                    }
+//                }
+//            }
+//        }
         connectionManager.datagramChannel.close()
         selector.close()
         logger.info("Closing server")
