@@ -29,7 +29,7 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 

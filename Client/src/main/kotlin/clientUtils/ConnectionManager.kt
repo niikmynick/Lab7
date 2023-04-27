@@ -9,7 +9,7 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 
 
-class ConnectionManager(private var host: String, private var port: Int) {
+class ConnectionManager(host: String, private var port: Int) {
 
     private val timeout = 5000
     private var datagramSocket = DatagramSocket()
@@ -31,12 +31,13 @@ class ConnectionManager(private var host: String, private var port: Int) {
         }
 
     }
-    fun connect() : Boolean {
+
+    fun connected(): Boolean {
         datagramSocket.soTimeout = timeout
         return ping() < timeout
     }
 
-    fun ping() : Double {
+    private fun ping() : Double {
         val query = Query(QueryType.PING, "Ping", mapOf())
         try {
             send(query)
@@ -61,7 +62,7 @@ class ConnectionManager(private var host: String, private var port: Int) {
         return receive()
     }
 
-    fun send(query: Query) {
+    private fun send(query: Query) {
         val jsonQuery = Json.encodeToString(Query.serializer(), query)
         val data = jsonQuery.toByteArray()
         hostInetAddress = datagramPacket.address
@@ -71,7 +72,7 @@ class ConnectionManager(private var host: String, private var port: Int) {
         datagramSocket.send(datagramPacket)
     }
 
-    fun receive(): Answer {
+    private fun receive(): Answer {
         val data = ByteArray(4096)
         val jsonAnswer : String
         datagramPacket = DatagramPacket(data, data.size)

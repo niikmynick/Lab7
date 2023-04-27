@@ -8,8 +8,7 @@ import exceptions.InvalidArgumentException
  *
  * @constructor Create command Exit
  */
-class Exit(
-) : Command() {
+class Exit: Command() {
 
     override fun getInfo(): String {
         return "Exits the app (without saving data)"

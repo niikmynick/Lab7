@@ -29,10 +29,10 @@ class Console {
     private val logger: Logger = LogManager.getLogger(Console::class.java)
 
 
-    fun getConnection() {
-        val connected = connectionManager.connect()
-        if (connected) {
+    fun connect() {
+        if (connectionManager.connected()) {
             logger.debug("Connected to server")
+            outputManager.println("Connected to server")
             initialize()
         } else {
             outputManager.println("No server connection")
@@ -46,10 +46,21 @@ class Console {
                 query = inputManager.read().trim().lowercase().split(" ")
             }
             if (query[0] == "y") {
-                getConnection()
+                connect()
             } else {
                 registerBasicCommands()
             }
+        }
+    }
+
+    private fun checkConnection(): Boolean {
+        return if (connectionManager.connected()) {
+            true
+        } else {
+            logger.warn("Connection with server is dead")
+            outputManager.println("Connection with server is dead")
+            connect()
+            false
         }
     }
 
@@ -63,7 +74,7 @@ class Console {
     /**
      * Registers commands and waits for user prompt
      */
-    fun initialize() {
+    private fun initialize() {
         val query = Query(QueryType.INITIALIZATION, "", mapOf())
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent initialization query")
@@ -102,7 +113,7 @@ class Console {
                 if (query[0] != "") {
                     commandInvoker.executeCommand(query)
                     executeFlag = commandInvoker.getCommandMap()[query[0]]?.getExecutionFlag()
-                    getConnection()
+                    checkConnection()
                 }
 
             } catch (e: InvalidInputException) {

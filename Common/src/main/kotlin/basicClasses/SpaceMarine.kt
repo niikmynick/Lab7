@@ -105,10 +105,6 @@ data class SpaceMarine (
         return coordinates
     }
 
-    fun getCreationDate(): LocalDate {
-        return creationDate
-    }
-
     /**
      * Get health
      *
