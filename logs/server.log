@@ -4123,3 +4123,427 @@ JSON input:
 2023-04-27 20:45:15.803 [pool-2-thread-2] TRACE serverUtils.Console - Received initialization request
 2023-04-27 20:45:15.805 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
 2023-04-27 20:45:15.805 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-27 20:50:24.061 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 20:50:24.068 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 20:50:24.068 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 20:50:24.069 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 20:50:24.070 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 20:50:24.070 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 20:50:24.071 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 20:50:24.071 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 20:50:24.072 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 20:50:24.073 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 20:50:24.073 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 20:50:24.073 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 20:50:24.073 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 20:50:24.073 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 20:50:24.074 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 20:50:26.873 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:50:26.873 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:50:26.874 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:50:26.874 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:50:26.874 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 20:50:26.874 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 20:50:26.876 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 20:50:26.876 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 20:50:26.882 [Timer-0] INFO  serverUtils.Console - Saving collection
+2023-04-27 20:50:26.883 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 20:50:30.070 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:50:33.283 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:50:36.834 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:50:40.088 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:50:40.088 [Timer-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 20:51:26.882 [Timer-0] INFO  serverUtils.Console - Saving collection
+2023-04-27 20:51:26.882 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 20:51:30.688 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:51:34.025 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:51:37.298 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:51:40.622 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:51:40.623 [Timer-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 20:56:26.237 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 20:56:26.243 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 20:56:26.244 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 20:56:26.244 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 20:56:26.245 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 20:56:26.245 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 20:56:26.245 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 20:56:26.245 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 20:56:26.246 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 20:56:26.247 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 20:56:26.247 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 20:56:26.247 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 20:56:26.248 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 20:56:26.248 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 20:56:26.248 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 20:56:29.598 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:56:29.599 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:56:29.599 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:56:29.599 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:56:29.599 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 20:56:29.599 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 20:56:29.601 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 20:56:29.601 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 20:56:38.998 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 20:56:39.005 [pool-2-thread-1] INFO  serverUtils.Console - Received ping request
+2023-04-27 20:56:39.009 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:56:39.038 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 20:56:39.075 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-27 20:56:39.076 [pool-2-thread-2] TRACE serverUtils.Console - Received initialization request
+2023-04-27 20:56:39.079 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:56:39.080 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-27 20:56:46.389 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"info","args":{}}
+2023-04-27 20:56:46.390 [pool-2-thread-3] INFO  serverUtils.Console - Received command: info
+2023-04-27 20:56:46.393 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:56:46.394 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Tree Set of SpaceMarine: size=4, date=Thu Apr 27 20:56:20 GMT+03:00 2023"}
+2023-04-27 20:56:46.396 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 20:56:46.396 [pool-2-thread-4] INFO  serverUtils.Console - Received ping request
+2023-04-27 20:56:46.396 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:56:46.396 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 20:57:37.929 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 20:57:37.934 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 20:57:37.935 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 20:57:37.935 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 20:57:37.935 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 20:57:37.935 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 20:57:37.936 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 20:57:37.936 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 20:57:37.936 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 20:57:37.937 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 20:57:37.937 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 20:57:37.938 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 20:57:37.938 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 20:57:37.938 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 20:57:37.938 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 20:57:41.368 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:57:41.369 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:57:41.369 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:57:41.369 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:57:41.369 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 20:57:41.369 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 20:57:41.372 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 20:57:41.373 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 20:57:41.374 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 20:57:44.650 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:57:48.336 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:57:52.153 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:57:52.232 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 20:57:52.238 [pool-2-thread-1] INFO  serverUtils.Console - Received ping request
+2023-04-27 20:57:52.241 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:57:52.242 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 20:57:52.253 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-27 20:57:52.253 [pool-2-thread-2] TRACE serverUtils.Console - Received initialization request
+2023-04-27 20:57:52.255 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:57:52.255 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-27 20:57:55.402 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:57:55.403 [Timer-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 20:57:55.404 [Timer-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 20:57:57.333 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"info","args":{}}
+2023-04-27 20:57:57.334 [pool-2-thread-3] INFO  serverUtils.Console - Received command: info
+2023-04-27 20:57:57.337 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:57:57.337 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Tree Set of SpaceMarine: size=4, date=Thu Apr 27 20:57:29 GMT+03:00 2023"}
+2023-04-27 20:57:57.339 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 20:57:57.340 [pool-2-thread-4] INFO  serverUtils.Console - Received ping request
+2023-04-27 20:57:57.340 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:57:57.340 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 20:58:02.303 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"show","args":{}}
+2023-04-27 20:58:02.304 [pool-2-thread-5] INFO  serverUtils.Console - Received command: show
+2023-04-27 20:58:02.305 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:58:02.306 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))\nSpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))"}
+2023-04-27 20:58:02.308 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 20:58:02.308 [pool-2-thread-6] INFO  serverUtils.Console - Received ping request
+2023-04-27 20:58:02.309 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 20:58:02.309 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 20:58:16.093 [Thread-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 20:58:19.527 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 20:58:23.643 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 20:58:27.159 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 20:58:31.241 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 20:58:31.242 [Thread-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 20:58:31.242 [Thread-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 20:58:31.244 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 20:58:41.375 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 20:58:44.958 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:00:02.687 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:00:02.694 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:00:02.695 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:00:02.695 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:00:02.696 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:00:02.696 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:00:02.696 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:00:02.697 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:00:02.698 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:00:02.699 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:00:02.699 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:00:02.699 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:00:02.700 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:00:02.700 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:00:02.700 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:00:08.198 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:00:08.199 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:00:08.199 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:00:08.199 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:00:08.200 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:00:08.200 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:00:08.202 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:00:08.203 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:00:08.204 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:00:12.001 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:00:15.768 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:00:19.676 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:00:23.753 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:00:23.754 [Timer-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:00:23.754 [Timer-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:00:32.955 [Thread-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:00:36.557 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:00:40.117 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:00:43.643 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:00:47.533 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:00:47.533 [Thread-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:00:47.533 [Thread-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:00:47.533 [Thread-0] INFO  serverUtils.Console - Closing server
+2023-04-27 21:00:47.534 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 21:01:08.203 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:01:11.599 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:03:37.912 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:03:37.920 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:03:37.922 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:03:37.922 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:03:37.922 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:03:37.923 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:03:37.923 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:03:37.923 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:03:37.924 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:03:37.925 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:03:37.925 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:03:37.926 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:03:37.926 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:03:37.926 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:03:37.926 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:03:41.352 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:03:41.353 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:03:41.353 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:03:41.353 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:03:41.353 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:03:41.354 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:03:41.357 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:03:41.359 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:03:46.887 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:03:46.891 [pool-2-thread-1] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:03:46.895 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:46.925 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:03:46.970 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"INITIALIZATION","information":"","args":{}}
+2023-04-27 21:03:46.971 [pool-2-thread-2] TRACE serverUtils.Console - Received initialization request
+2023-04-27 21:03:46.973 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:46.973 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-27 21:03:51.701 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"info","args":{}}
+2023-04-27 21:03:51.701 [pool-2-thread-3] INFO  serverUtils.Console - Received command: info
+2023-04-27 21:03:51.703 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:51.703 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Tree Set of SpaceMarine: size=4, date=Thu Apr 27 21:03:30 GMT+03:00 2023"}
+2023-04-27 21:03:51.705 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:03:51.705 [pool-2-thread-4] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:03:51.706 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:51.706 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:03:55.652 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"show","args":{}}
+2023-04-27 21:03:55.653 [pool-2-thread-5] INFO  serverUtils.Console - Received command: show
+2023-04-27 21:03:55.655 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:55.656 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))\nSpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))"}
+2023-04-27 21:03:55.658 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:03:55.658 [pool-2-thread-6] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:03:55.659 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:03:55.659 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:12.953 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:12.954 [pool-2-thread-7] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:12.954 [pool-2-thread-7] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.954 [pool-2-thread-7] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:12.957 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"info","args":{}}
+2023-04-27 21:04:12.958 [pool-2-thread-8] INFO  serverUtils.Console - Received command: info
+2023-04-27 21:04:12.958 [pool-2-thread-8] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.958 [pool-2-thread-8] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Tree Set of SpaceMarine: size=4, date=Thu Apr 27 21:03:30 GMT+03:00 2023"}
+2023-04-27 21:04:12.961 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:12.961 [pool-2-thread-9] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:12.962 [pool-2-thread-9] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.962 [pool-2-thread-9] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:12.963 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"show","args":{}}
+2023-04-27 21:04:12.964 [pool-2-thread-10] INFO  serverUtils.Console - Received command: show
+2023-04-27 21:04:12.965 [pool-2-thread-10] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.965 [pool-2-thread-10] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))\nSpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))"}
+2023-04-27 21:04:12.967 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:12.968 [pool-2-thread-1] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:12.968 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.968 [pool-2-thread-1] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:12.982 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"id\":1682618652978,\"name\":\"2\",\"coordinates\":{\"x\":2.0,\"y\":2},\"health\":2.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"2\",\"marinesCount\":2}}"}}
+2023-04-27 21:04:12.983 [pool-2-thread-2] INFO  serverUtils.Console - Received command: add
+2023-04-27 21:04:12.983 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.984 [pool-2-thread-2] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Space Marine 2 has been created and added to the collection"}
+2023-04-27 21:04:12.986 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:12.986 [pool-2-thread-3] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:12.986 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.986 [pool-2-thread-3] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:12.990 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"name\":\"1\",\"coordinates\":{\"x\":1.0,\"y\":1},\"health\":1.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"1\",\"marinesCount\":1}}"}}
+2023-04-27 21:04:12.991 [pool-2-thread-4] INFO  serverUtils.Console - Received command: add
+2023-04-27 21:04:12.992 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.992 [pool-2-thread-4] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Space Marine 1 has been created and added to the collection"}
+2023-04-27 21:04:12.995 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:12.995 [pool-2-thread-5] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:12.996 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:12.996 [pool-2-thread-5] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:13.000 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"name\":\"3\",\"coordinates\":{\"x\":3.0,\"y\":3},\"health\":3.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"3\",\"marinesCount\":3}}"}}
+2023-04-27 21:04:13.000 [pool-2-thread-6] INFO  serverUtils.Console - Received command: add
+2023-04-27 21:04:13.001 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:13.001 [pool-2-thread-6] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"Space Marine 3 has been created and added to the collection"}
+2023-04-27 21:04:13.003 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:13.004 [pool-2-thread-7] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:13.004 [pool-2-thread-7] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:13.004 [pool-2-thread-7] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:04:13.006 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"COMMAND_EXEC","information":"show","args":{}}
+2023-04-27 21:04:13.006 [pool-2-thread-8] INFO  serverUtils.Console - Received command: show
+2023-04-27 21:04:13.007 [pool-2-thread-8] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:13.007 [pool-2-thread-8] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"OK","message":"SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))\nSpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))"}
+2023-04-27 21:04:13.009 [main] INFO  serverUtils.ConnectionManager - Received: {"queryType":"PING","information":"Ping","args":{}}
+2023-04-27 21:04:13.010 [pool-2-thread-9] INFO  serverUtils.Console - Received ping request
+2023-04-27 21:04:13.010 [pool-2-thread-9] INFO  serverUtils.ConnectionManager - Sending answer to /127.0.0.1:6790
+2023-04-27 21:04:13.010 [pool-2-thread-9] INFO  serverUtils.ConnectionManager - Sending: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-27 21:05:41.370 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:05:44.879 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:05:48.486 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:05:52.124 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:05:55.512 [Timer-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:05:55.513 [Timer-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:05:55.513 [Timer-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:06:00.053 [Thread-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:06:03.926 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:06:07.123 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:06:10.640 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:06:13.880 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:06:13.881 [Thread-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:06:13.881 [Thread-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:06:13.881 [Thread-0] INFO  serverUtils.Console - Closing server
+2023-04-27 21:06:13.884 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 21:06:41.370 [Timer-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:06:50.574 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:06:50.579 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:06:50.580 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:06:50.580 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:06:50.581 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:06:50.581 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:06:50.581 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:06:50.582 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:06:50.583 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:06:50.584 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:06:54.269 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:06:54.270 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:06:54.270 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:06:54.270 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:06:54.271 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:06:54.271 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:06:54.272 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:06:54.274 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:06:56.934 [Thread-0] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:07:00.471 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:07:04.738 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:07:08.434 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:07:12.351 [Thread-0] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:07:12.351 [Thread-0] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:07:12.352 [Thread-0] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:07:12.352 [Thread-0] INFO  serverUtils.Console - Closing server
+2023-04-27 21:07:12.353 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 21:07:12.354 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 21:08:51.086 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:08:51.094 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:08:51.097 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:08:51.097 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:08:51.098 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:08:51.098 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:08:51.098 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:08:51.099 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:08:51.100 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:08:51.100 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:08:51.100 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:08:51.101 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:08:51.101 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:08:51.101 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:08:51.101 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:08:55.061 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:08:55.062 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:08:55.062 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:08:55.062 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:08:55.063 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:08:55.063 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:08:55.065 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:08:55.066 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:08:57.832 [Thread-1] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:09:01.411 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:09:05.360 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:09:08.982 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:09:12.568 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:09:12.568 [Thread-1] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:09:12.569 [Thread-1] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:09:12.569 [Thread-1] INFO  serverUtils.Console - Closing server
+2023-04-27 21:09:12.570 [main] INFO  serverUtils.Console - Closing server
+2023-04-27 21:11:09.654 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:11:09.662 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:11:09.663 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:11:09.663 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:11:09.664 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:11:09.664 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:11:09.665 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:11:09.665 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:11:09.666 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:11:09.666 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:11:09.667 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:11:09.667 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:11:09.668 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:11:09.668 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:11:09.668 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:11:13.140 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:11:13.140 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:11:13.141 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:11:13.141 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:11:13.141 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:11:13.141 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:11:13.144 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:11:13.145 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:11:16.517 [Thread-1] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:11:19.999 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:11:23.741 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:11:27.495 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:11:31.112 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:11:31.112 [Thread-1] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:11:31.112 [Thread-1] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:11:31.112 [Thread-1] INFO  serverUtils.Console - Closing server
+2023-04-27 21:12:06.858 [main] INFO  serverUtils.Console - Initializing the server
+2023-04-27 21:12:06.865 [main] DEBUG serverUtils.Console - Command 'info' registered
+2023-04-27 21:12:06.865 [main] DEBUG serverUtils.Console - Command 'show' registered
+2023-04-27 21:12:06.866 [main] DEBUG serverUtils.Console - Command 'add' registered
+2023-04-27 21:12:06.866 [main] DEBUG serverUtils.Console - Command 'update_id' registered
+2023-04-27 21:12:06.867 [main] DEBUG serverUtils.Console - Command 'remove_by_id' registered
+2023-04-27 21:12:06.867 [main] DEBUG serverUtils.Console - Command 'clear' registered
+2023-04-27 21:12:06.867 [main] DEBUG serverUtils.Console - Command 'add_if_min' registered
+2023-04-27 21:12:06.867 [main] DEBUG serverUtils.Console - Command 'remove_greater' registered
+2023-04-27 21:12:06.868 [main] DEBUG serverUtils.Console - Command 'remove_lower' registered
+2023-04-27 21:12:06.868 [main] DEBUG serverUtils.Console - Command 'remove_any_by_chapter' registered
+2023-04-27 21:12:06.868 [main] DEBUG serverUtils.Console - Command 'count_by_melee_weapon' registered
+2023-04-27 21:12:06.868 [main] DEBUG serverUtils.Console - Command 'filter_by_chapter' registered
+2023-04-27 21:12:06.868 [main] DEBUG serverUtils.Console - Command 'filter_by_weapon' registered
+2023-04-27 21:12:06.869 [main] INFO  serverUtils.FileManager - Loading from database
+2023-04-27 21:12:09.815 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:12:09.816 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:12:09.816 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:12:09.817 [main] INFO  serverUtils.FileManager - Loaded SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:12:09.817 [main] INFO  serverUtils.FileManager - Loaded 4 elements successfully
+2023-04-27 21:12:09.817 [main] INFO  serverUtils.Console - Collection loaded
+2023-04-27 21:12:09.819 [main] INFO  serverUtils.ConnectionManager - Server started on localhost/127.0.0.1:8080
+2023-04-27 21:12:09.820 [main] INFO  serverUtils.Console - The server is ready to receive commands
+2023-04-27 21:12:12.051 [Thread-1] INFO  serverUtils.FileManager - Saving to database
+2023-04-27 21:12:15.386 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675774 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))
+2023-04-27 21:12:18.606 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675748 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-27, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))
+2023-04-27 21:12:22.107 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682413675784 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-27, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))
+2023-04-27 21:12:26.082 [Thread-1] INFO  serverUtils.FileManager - Saved SpaceMarine(id=1682614708573 ,name=spacemarine, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-27, health=1.0, loyal=true, category=INCEPTOR, meleeWeapon=POWER_SWORD, chapter=Chapter(name=a, marinesCount=1))
+2023-04-27 21:12:26.082 [Thread-1] INFO  serverUtils.FileManager - Saved 4 elements successfully
+2023-04-27 21:12:26.082 [Thread-1] INFO  serverUtils.Console - Collection saved successfully
+2023-04-27 21:12:26.082 [Thread-1] INFO  serverUtils.Console - Closing server

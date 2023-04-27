@@ -45,6 +45,9 @@ class Console {
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var executeFlag = true
 
+    // auto save
+    private val timer = Timer()
+
     // multithreading
     private val threadPool = ThreadPoolExecutor(10, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
     private val forkJoinPool = ForkJoinPool()
@@ -106,13 +109,11 @@ class Console {
 
     }
 
-    private fun onTimeComplete(actions: Logger.() -> Unit) {
-        logger.actions()
+    private fun onTimeComplete(actions: Console.() -> Unit) {
+        actions()
     }
 
-    fun scheduleTask(time:Long, actions: Logger.() -> Unit) {
-
-        val timer = Timer()
+    fun scheduleTask(time:Long, actions: Console.() -> Unit) {
 
         timer.schedule(timerTask {
             run {
@@ -120,8 +121,9 @@ class Console {
                     actions()
                 }
             }
-        }, 5, time)
+        }, 120000, time)
     }
+
     /**
      * Enters interactive mode and waits for incoming queries
      */
@@ -244,15 +246,17 @@ class Console {
 //                }
 //            }
 //        }
-
         connectionManager.datagramChannel.close()
         selector.close()
-        logger.info("Closing server")
     }
 
     fun stop() {
+        logger.info("Closing server")
+
         executeFlag = false
+
         selector.wakeup()
+        timer.cancel()
     }
 
     fun save() {

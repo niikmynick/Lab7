@@ -17,7 +17,7 @@ fun main() {
 
         initialize()
 
-        val thread = thread {
+        thread {
             while (true) {
                 when (readlnOrNull()) {
                     "exit" -> {
@@ -33,18 +33,17 @@ fun main() {
         }
 
         start {
+
             startServer(host, port)
 
-            startInteractiveMode()
-
-            scheduleTask(1000) {
-                run {
-                    info("Scheduled task")
-                }
-            }
         }
 
-        thread.join()
+        scheduleTask(60000) {
+            save()
+        }
+
+        startInteractiveMode()
+
     }
 
 }
