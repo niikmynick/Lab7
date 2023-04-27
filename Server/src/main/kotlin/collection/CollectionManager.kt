@@ -4,6 +4,7 @@ import basicClasses.SpaceMarine
 import exceptions.SpaceMarineIdAlreadyExists
 import java.util.Date
 import java.util.TreeSet
+import java.util.concurrent.locks.ReentrantLock
 import java.util.function.Predicate
 
 /**
@@ -14,6 +15,7 @@ import java.util.function.Predicate
 class CollectionManager {
     private val collection = TreeSet<SpaceMarine>()
     private val date: Date = Date()
+    private val lock = ReentrantLock()
 
     fun getCollection(): TreeSet<SpaceMarine> {
         return collection
@@ -22,7 +24,12 @@ class CollectionManager {
     fun add(element: SpaceMarine) {
         if (element == this.getByID(element.getId())) throw SpaceMarineIdAlreadyExists("Space Marine" +
                 "$element cannot be added to collection as a Space Marine with this id already exists")
-        collection.add(element)
+        lock.lock()
+        try {
+            collection.add(element)
+        } finally {
+            lock.unlock()
+        }
     }
 
     /**
@@ -41,8 +48,13 @@ class CollectionManager {
             mutableListOf("Collection is empty")
         } else {
             val output = mutableListOf<String>()
-            for (spaceMarine in collection) {
-                output.add(spaceMarine.toString())
+            lock.lock()
+            try {
+                for (spaceMarine in collection) {
+                    output.add(spaceMarine.toString())
+                }
+            } finally {
+                lock.unlock()
             }
             output
         }
@@ -52,13 +64,18 @@ class CollectionManager {
      * Updates values of an element
      */
     fun update(data: SpaceMarine, spaceMarine: SpaceMarine) {
-        spaceMarine.setName(data.getName())
-        spaceMarine.setCoordinates(data.getCoordinates())
-        spaceMarine.setCategory(data.getCategory())
-        spaceMarine.setChapter(data.getChapter())
-        spaceMarine.setHealth(data.getHealth())
-        spaceMarine.setLoyalty(data.getLoyalty())
-        spaceMarine.setMeleeWeapon(data.getWeapon())
+        lock.lock()
+        try {
+            spaceMarine.setName(data.getName())
+            spaceMarine.setCoordinates(data.getCoordinates())
+            spaceMarine.setCategory(data.getCategory())
+            spaceMarine.setChapter(data.getChapter())
+            spaceMarine.setHealth(data.getHealth())
+            spaceMarine.setLoyalty(data.getLoyalty())
+            spaceMarine.setMeleeWeapon(data.getWeapon())
+        } finally {
+            lock.unlock()
+        }
     }
 
     /**
@@ -66,7 +83,12 @@ class CollectionManager {
      * @param spaceMarine element in the collection
      */
     fun remove(spaceMarine: SpaceMarine) : Boolean {
-        return collection.remove(spaceMarine)
+        lock.lock()
+        try {
+            return collection.remove(spaceMarine)
+        } finally {
+            lock.unlock()
+        }
     }
 
     fun clear() {
@@ -79,16 +101,25 @@ class CollectionManager {
      * @return Found element or null
      */
     fun getByID(id: Long) : SpaceMarine? {
-        for (spaceMarine in collection) {
-            if (spaceMarine.getId() == id) {
-                return spaceMarine
+        lock.lock()
+        try {
+            for (spaceMarine in collection) {
+                if (spaceMarine.getId() == id) {
+                    return spaceMarine
+                }
             }
+        } finally {
+            lock.unlock()
         }
         return null
     }
 
     fun filter(predicate: Predicate<SpaceMarine>): List<SpaceMarine> {
-        return collection.filter { e -> predicate.test(e)}
+        lock.lock()
+        try {
+            return collection.filter { e -> predicate.test(e) }
+        } finally {
+            lock.unlock()
+        }
     }
-
 }

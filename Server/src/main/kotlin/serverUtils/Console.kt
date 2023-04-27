@@ -11,7 +11,7 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
-import java.util.concurrent.Callable
+import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
 
@@ -47,6 +47,7 @@ class Console {
 
     // multithreading
     private val threadPool = ThreadPoolExecutor(10, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
+    private val forkJoinPool = ForkJoinPool()
 
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
@@ -146,6 +147,7 @@ class Console {
                         val query = connectionManager.receive()
                         threadPool.execute {
                             when (query.queryType) {
+
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
                                     commandInvoker.executeCommand(query)
@@ -242,6 +244,7 @@ class Console {
 //                }
 //            }
 //        }
+
         connectionManager.datagramChannel.close()
         selector.close()
         logger.info("Closing server")
