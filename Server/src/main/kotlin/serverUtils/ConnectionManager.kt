@@ -8,6 +8,7 @@ import utils.Query
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.nio.channels.DatagramChannel
+import java.util.concurrent.ForkJoinPool
 
 /**
  * Class responsible for managing network connections
@@ -17,10 +18,11 @@ class ConnectionManager {
     private var port = 6789
 
     private val logger: Logger = LogManager.getLogger(ConnectionManager::class.java)
+    private val pool = ForkJoinPool.commonPool()
 
     private var address = InetSocketAddress(host, port)
 
-    var datagramChannel = DatagramChannel.open()
+    var datagramChannel: DatagramChannel = DatagramChannel.open()
     private var buffer = ByteBuffer.allocate(4096)
     private var remoteAddress = InetSocketAddress(port)
 
@@ -56,6 +58,11 @@ class ConnectionManager {
         return Json.decodeFromString(Query.serializer(), jsonQuery)
     }
 
+    private fun sendAsync(data: ByteBuffer, address: InetSocketAddress) {
+        pool.execute {
+            datagramChannel.send(data, address)
+        }
+    }
     /**
      * Encodes and sends the answer to the client
      */
@@ -66,6 +73,6 @@ class ConnectionManager {
         val jsonAnswer = Json.encodeToString(Answer.serializer(), answer).toByteArray()
         val data = ByteBuffer.wrap(jsonAnswer)
 
-        datagramChannel.send(data, remoteAddress)
+       sendAsync(data, remoteAddress)
     }
 }
