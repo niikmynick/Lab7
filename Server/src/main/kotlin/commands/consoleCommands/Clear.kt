@@ -33,7 +33,7 @@ class Clear() : Command() {
     /**
      * Calls [CommandReceiver.clear]
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(0, args)) {
             commandReceiver.clear()
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")

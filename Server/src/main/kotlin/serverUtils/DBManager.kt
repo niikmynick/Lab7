@@ -14,7 +14,7 @@ class DBManager(
     fun initUsers() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (login VARCHAR(50) PRIMARY KEY, password VARCHAR(50))")
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (login VARCHAR(50) PRIMARY KEY, password VARCHAR(500), salt varchar(100))")
         statement.close()
         connection.close()
     }
@@ -27,10 +27,19 @@ class DBManager(
         connection.close()
     }
 
-    fun userExists(login: String) : Boolean {
+    fun initRelationships() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$login'")
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS relationships (username VARCHAR(50) references users(login), spacemarine VARCHAR(1000) references collection(id))")
+        statement.close()
+        connection.close()
+    }
+
+    fun userExists(login: String) : Boolean {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.prepareStatement("SELECT * FROM users WHERE login = ?")
+        statement.setString(1, login)
+        val resultSet = statement.executeQuery()
         val result = resultSet.next()
         resultSet.close()
         statement.close()
@@ -38,13 +47,27 @@ class DBManager(
         return result
     }
 
-    fun registerUser(login: String, password: String) : Boolean {
+    fun retrieveSalt(login: String) : String {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$login'")
+        val statement = connection.prepareStatement("SELECT salt FROM users WHERE login = ?")
+        statement.setString(1, login)
+        val resultSet = statement.executeQuery()
+        resultSet.next()
+        return resultSet.getString("salt")
+    }
+
+    fun registerUser(login: String, password: String, salt: String) : Boolean {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.prepareStatement("SELECT * FROM users WHERE login = ?")
+        statement.setString(1, login)
+        val resultSet = statement.executeQuery()
         val result = resultSet.next()
         if (!result) {
-            statement.executeUpdate("INSERT INTO users (login, password) VALUES ('$login', '$password')")
+            val st = connection.prepareStatement("INSERT INTO users (login, password, salt) VALUES (?, ?, ?)")
+            st.setString(1, login)
+            st.setString(2, password)
+            st.setString(3, salt)
+            st.executeUpdate()
         }
         resultSet.close()
         statement.close()
@@ -54,8 +77,10 @@ class DBManager(
 
     fun loginUser(login: String, password: String) : Boolean {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM users WHERE login = '$login' AND password = '$password'")
+        val statement = connection.prepareStatement("SELECT * FROM users WHERE login = ? AND password = ?")
+        statement.setString(1, login)
+        statement.setString(2, password)
+        val resultSet = statement.executeQuery()
         val result = resultSet.next()
         resultSet.close()
         statement.close()

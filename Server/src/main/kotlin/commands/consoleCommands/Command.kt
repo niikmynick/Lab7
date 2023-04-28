@@ -24,5 +24,5 @@ abstract class Command {
      *
      * @return
      */
-    abstract fun execute(args: Map<String, String>)
+    abstract fun execute(args: Map<String, String>, token: String)
 }

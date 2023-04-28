@@ -46,7 +46,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Creates new Space Marine and adds it into collection
      */
-    fun add(args: Map<String, String>) {
+    fun add(args: Map<String, String>, token: String) {
         try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
             collectionManager.add(spaceMarine)

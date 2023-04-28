@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger
 import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
+import java.sql.Timestamp
 import java.util.*
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.ThreadPoolExecutor
@@ -29,7 +30,8 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+    //private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
@@ -152,7 +154,12 @@ class Console {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
-                                    commandInvoker.executeCommand(query)
+                                    if (query.token in userManager.userMap.keys) {
+                                        commandInvoker.executeCommand(query)
+                                    } else {
+                                        val answer = Answer(AnswerType.ERROR, "Unknown token. Authorize again.")
+                                        connectionManager.send(answer)
+                                    }
                                 }
 
                                 QueryType.INITIALIZATION -> {
@@ -177,6 +184,32 @@ class Console {
                                     logger.info("Received ping request")
                                     val answer = Answer(AnswerType.SYSTEM, "Pong")
                                     connectionManager.send(answer)
+                                }
+
+                                QueryType.AUTHORIZATION -> {
+                                    logger.info("Received authorization request")
+                                    if (query.information == "logout") {
+                                        userManager.removeToken(query.token)
+                                    } else {
+                                        val answer: Answer = if (userManager.userExists(query.args["username"]!!)) {
+                                            val token =
+                                                userManager.login(query.args["username"]!!, query.args["password"]!!)
+                                            if (token.isNotEmpty()) {
+                                                Answer(AnswerType.OK, "Authorized", token)
+                                            } else {
+                                                Answer(AnswerType.ERROR, "Wrong password")
+                                            }
+                                        } else {
+                                            val token =
+                                                userManager.register(query.args["username"]!!, query.args["password"]!!)
+                                            if (token.isNotEmpty()) {
+                                                Answer(AnswerType.OK, "Registered", token)
+                                            } else {
+                                                Answer(AnswerType.ERROR, "Could not register")
+                                            }
+                                        }
+                                        connectionManager.send(answer)
+                                    }
                                 }
                             }
                         }
@@ -265,6 +298,17 @@ class Console {
             logger.info("Collection saved successfully")
         } catch (e:Exception) {
             logger.warn("Collection was not saved: ${e.message}")
+        }
+    }
+
+    fun cleanTokens() {
+        for (token in userManager.userMap.keys) {
+            val time = userManager.userMap[token]?.values
+            if (time != null) {
+                if (Timestamp(System.currentTimeMillis()).time - time.first().time > 300000) { //300000
+                    userManager.removeToken(token)
+                }
+            }
         }
     }
 }

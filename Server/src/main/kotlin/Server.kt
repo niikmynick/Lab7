@@ -38,7 +38,8 @@ fun main() {
 
         }
 
-        scheduleTask(60000) {
+        scheduleTask(60000) {//60000
+            cleanTokens()
             save()
         }
 

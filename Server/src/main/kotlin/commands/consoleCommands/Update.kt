@@ -35,7 +35,7 @@ class Update() : Command() {
     /**
      * Calls [CommandReceiver.updateByID] with provided id
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(2, args)) {
             try {
                 commandReceiver.updateByID(args)

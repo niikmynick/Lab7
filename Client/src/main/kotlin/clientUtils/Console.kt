@@ -1,5 +1,6 @@
 package clientUtils
 
+import clientUtils.readers.StringReader
 import commands.*
 import commands.consoleCommands.*
 import exceptions.InvalidInputException
@@ -66,7 +67,7 @@ class Console {
 
     private fun registerBasicCommands() {
         commandInvoker.register("help", Help(commandReceiver))
-        commandInvoker.register("exit", Exit())
+        commandInvoker.register("exit", Exit(connectionManager))
         commandInvoker.register("execute_script", ScriptFromFile(commandReceiver))
         logger.debug("Registered basic client commands")
     }
@@ -102,6 +103,22 @@ class Console {
         registerBasicCommands()
     }
 
+    fun authorize() {
+        outputManager.surePrint("Login or register to use the collection: ")
+        val username = StringReader(outputManager, inputManager).read("Username: ")
+        val password = StringReader(outputManager, inputManager).read("Password: ")
+        val query = Query(QueryType.AUTHORIZATION, "", mapOf("username" to username, "password" to password))
+        val answer = connectionManager.checkedSendReceive(query)
+        logger.debug("Sent authorization query")
+        if (answer.answerType == AnswerType.ERROR) {
+            outputManager.println(answer.message)
+            authorize()
+        } else {
+            logger.debug("Authorized")
+            token = answer.token
+        }
+
+    }
     fun startInteractiveMode() {
         var executeFlag: Boolean? = true
         outputManager.surePrint("Waiting for user prompt ...")
@@ -125,5 +142,9 @@ class Console {
             }
 
         } while (executeFlag != false)
+    }
+
+    companion object {
+        var token = ""
     }
 }

@@ -33,7 +33,7 @@ class CommandInvoker(private val connectionManager: ConnectionManager) {
             commandsHistory += commandName
 
             val command: Command = commandMap[commandName]!!
-            command.execute(query.args)
+            command.execute(query.args, query.token)
 
         } catch (e:Error) {
             val answer = Answer(AnswerType.ERROR, e.toString())

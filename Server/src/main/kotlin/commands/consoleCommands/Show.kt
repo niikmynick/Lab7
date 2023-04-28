@@ -32,7 +32,7 @@ class Show() : Command() {
     /**
      * Calls [CommandReceiver.show]
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(0, args)) {
             commandReceiver.show()
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")

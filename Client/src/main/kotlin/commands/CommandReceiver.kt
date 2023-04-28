@@ -67,7 +67,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
             }
         }
 
-        val query = Query(QueryType.COMMAND_EXEC, commandName, sending)
+        val query = Query(QueryType.COMMAND_EXEC, commandName, sending, Console.token)
         val answer = connectionManager.checkedSendReceive(query)
         outputManager.println(answer.message)
     }

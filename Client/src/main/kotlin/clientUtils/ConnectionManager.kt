@@ -62,7 +62,7 @@ class ConnectionManager(host: String, private var port: Int) {
         return receive()
     }
 
-    private fun send(query: Query) {
+    fun send(query: Query) {
         val jsonQuery = Json.encodeToString(Query.serializer(), query)
         val data = jsonQuery.toByteArray()
         hostInetAddress = datagramPacket.address

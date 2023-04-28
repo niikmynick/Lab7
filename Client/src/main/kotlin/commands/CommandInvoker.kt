@@ -40,8 +40,8 @@ class CommandInvoker(private val outputManager: OutputManager) {
     fun executeCommand(query: List<String>) {
         try {
             if (query.isNotEmpty()) {
-                commandsHistory += query[0]
-                val command: Command = commandMap[query[0]]!!
+                commandsHistory += query[0].lowercase()
+                val command: Command = commandMap[query[0].lowercase()]!!
                 command.execute(query.slice(1 until query.size))
             }
         } catch (e:IllegalStateException) {

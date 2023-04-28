@@ -35,7 +35,7 @@ class RemoveGreater() : Command() {
     /**
      * Calls [CommandReceiver.removeGreater]
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             try {
                 commandReceiver.removeGreater(args)

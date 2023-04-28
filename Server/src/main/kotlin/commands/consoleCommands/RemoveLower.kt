@@ -35,7 +35,7 @@ class RemoveLower() : Command() {
     /**
      * Calls [CommandReceiver.removeLower]
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             try {
                 commandReceiver.removeLower(args)

@@ -8,6 +8,7 @@ fun main() {
     val console = Console()
 
     console.connect()
+    console.authorize()
 
     console.startInteractiveMode()
 }

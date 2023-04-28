@@ -35,7 +35,7 @@ class FilterByChapter() : Command() {
     /**
      * Calls [CommandReceiver.filterByChapter]
      */
-    override fun execute(args: Map<String, String>) {
+    override fun execute(args: Map<String, String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             commandReceiver.filterByChapter(args)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
