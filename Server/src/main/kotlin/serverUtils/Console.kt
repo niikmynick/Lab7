@@ -36,7 +36,7 @@ class Console {
     private val collectionManager = CollectionManager()
 
     // users
-    private val userManager = UserManager(dbManager)
+    private val user = User(dbManager)
 
     // commands
     private val commandInvoker = CommandInvoker(connectionManager)
@@ -51,8 +51,7 @@ class Console {
     private val timer = Timer()
 
     // multithreading
-    private val threadPool = ThreadPoolExecutor(10, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
-    private val forkJoinPool = ForkJoinPool()
+    private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
 
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
@@ -62,8 +61,7 @@ class Console {
      * Registers commands and waits for user prompt
      */
     fun initialize() {
-        dbManager.initUsers()
-        dbManager.initCollection()
+        dbManager.initDB()
 
         logger.info("Initializing the server")
 
