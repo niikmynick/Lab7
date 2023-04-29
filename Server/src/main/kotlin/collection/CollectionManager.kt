@@ -14,6 +14,8 @@ import java.util.function.Predicate
  */
 class CollectionManager {
     private val collection = TreeSet<SpaceMarine>()
+    private val relationship = mutableMapOf<Long, String>()
+
     private val date: Date = Date()
     private val lock = ReentrantLock()
 
@@ -21,12 +23,13 @@ class CollectionManager {
         return collection
     }
 
-    fun add(element: SpaceMarine) {
+    fun add(element: SpaceMarine, username: String) {
         if (element == this.getByID(element.getId())) throw SpaceMarineIdAlreadyExists("Space Marine" +
                 "$element cannot be added to collection as a Space Marine with this id already exists")
         lock.lock()
         try {
             collection.add(element)
+            relationship[element.getId()] = username
         } finally {
             lock.unlock()
         }
@@ -63,7 +66,9 @@ class CollectionManager {
     /**
      * Updates values of an element
      */
-    fun update(data: SpaceMarine, spaceMarine: SpaceMarine) {
+    fun update(data: SpaceMarine, spaceMarine: SpaceMarine, username: String) {
+        if (relationship[spaceMarine.getId()] != username) throw Exception("You don't have permission to update this element")
+
         lock.lock()
         try {
             spaceMarine.setName(data.getName())
@@ -82,7 +87,9 @@ class CollectionManager {
      * Removes element
      * @param spaceMarine element in the collection
      */
-    fun remove(spaceMarine: SpaceMarine) : Boolean {
+    fun remove(spaceMarine: SpaceMarine, username: String) : Boolean {
+        if (relationship[spaceMarine.getId()] != username) throw Exception("You don't have permission to remove this element")
+
         lock.lock()
         try {
             return collection.remove(spaceMarine)
@@ -91,8 +98,12 @@ class CollectionManager {
         }
     }
 
-    fun clear() {
-        collection.clear()
+    fun clear(username: String) {
+        for (spaceMarine in collection) {
+            if (relationship[spaceMarine.getId()] == username) {
+                collection.remove(spaceMarine)
+            }
+        }
     }
 
     /**

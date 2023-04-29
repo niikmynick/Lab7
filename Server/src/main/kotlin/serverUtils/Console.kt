@@ -7,6 +7,7 @@ import commands.consoleCommands.*
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import users.UserManager
 import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
@@ -31,12 +32,12 @@ class Console {
 
     // collection
     //private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
     // users
-    private val user = User(dbManager)
+    private val userManager = UserManager(dbManager)
 
     // commands
     private val commandInvoker = CommandInvoker(connectionManager)
@@ -152,8 +153,9 @@ class Console {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
-                                    if (query.token in userManager.userMap.keys) {
+                                    if (query.token in userManager.getTokens()) {
                                         commandInvoker.executeCommand(query)
+
                                     } else {
                                         val answer = Answer(AnswerType.ERROR, "Unknown token. Authorize again.")
                                         connectionManager.send(answer)
@@ -300,12 +302,10 @@ class Console {
     }
 
     fun cleanTokens() {
-        for (token in userManager.userMap.keys) {
-            val time = userManager.userMap[token]?.values
-            if (time != null) {
-                if (Timestamp(System.currentTimeMillis()).time - time.first().time > 300000) { //300000
-                    userManager.removeToken(token)
-                }
+        for (token in userManager.getTokens()) {
+            val time = userManager.getTokenTime(token)
+            if (Timestamp(System.currentTimeMillis()).time - time.time > 300000) { //300000
+                userManager.removeToken(token)
             }
         }
     }
