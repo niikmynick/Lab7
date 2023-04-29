@@ -11,7 +11,7 @@ class DBManager(
 ) {
     private val jsonCreator = JsonCreator()
 
-    fun initUsers() {
+    private fun initUsers() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (login VARCHAR(50) PRIMARY KEY, password VARCHAR(500), salt varchar(100))")
@@ -19,7 +19,7 @@ class DBManager(
         connection.close()
     }
 
-    fun initCollection() {
+    private fun initCollection() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS collection (ID VARCHAR(1000) PRIMARY KEY, INFO VARCHAR(1000))")
@@ -33,6 +33,20 @@ class DBManager(
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS relationships (username VARCHAR(50) references users(login), spacemarine VARCHAR(1000) references collection(id))")
         statement.close()
         connection.close()
+    }
+
+    private fun initRelationship() {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS relationship (user_login VARCHAR(50), element_id VARCHAR(1000))")
+        statement.close()
+        connection.close()
+    }
+
+    fun initDB() {
+        initUsers()
+        initCollection()
+        initRelationship()
     }
 
     fun userExists(login: String) : Boolean {
@@ -127,6 +141,19 @@ class DBManager(
         connection.close()
     }
 
+    fun getUserElements(login: String) : MutableList<String> {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT element_id FROM relationship WHERE user_login = '$login'")
+        val result = mutableListOf<String>()
+        while (resultSet.next()) {
+            result.add(resultSet.getString("element_id"))
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+        return result
+    }
     fun save(spaceMarine: SpaceMarine) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
