@@ -46,7 +46,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Creates new Space Marine and adds it into collection
      */
-    fun add(args: Map<String, String>, token: String) {
+    fun add(args: Map<String, String>, username: String) {
         try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
             collectionManager.add(spaceMarine)
@@ -61,7 +61,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Searches for a Space Marine with provided id and updates its values
      */
-    fun updateByID(args: Map<String, String>) {
+    fun updateByID(args: Map<String, String>, username: String) {
         val id = args["id"]!!
 
         try {
@@ -81,7 +81,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Searches for a Space Marine with the provided id and removes it from the collection
      */
-    fun removeByID(args: Map<String, String>) {
+    fun removeByID(args: Map<String, String>, username: String) {
         val id = args["id"]!!
 
         try {
@@ -101,7 +101,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Clears the collection
      */
-    fun clear() {
+    fun clear(username: String) {
         if (collectionManager.getCollection().size > 0) {
             try {
                 collectionManager.clear()
@@ -117,7 +117,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
         }
     }
 
-    fun addMin(args: Map<String, String>) {
+    fun addMin(args: Map<String, String>, username: String) {
         try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
             if (collectionManager.getCollection().isNotEmpty()) {
@@ -144,7 +144,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Removes all elements greater than provided
      */
-    fun removeGreater(args: Map<String, String>) {
+    fun removeGreater(args: Map<String, String>, username: String) {
         val id = args["id"]
         try {
             val collection = collectionManager.getCollection()
@@ -174,7 +174,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Removes all elements lower than provided
      */
-    fun removeLower(args: Map<String, String>) {
+    fun removeLower(args: Map<String, String>, username: String) {
         val id = args["id"]
         try {
             val collection = collectionManager.getCollection()
@@ -205,7 +205,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Removes first found element with [Chapter] equal to provided
      */
-    fun removeByChapter(args: Map<String, String>) {
+    fun removeByChapter(args: Map<String, String>, username: String) {
         try {
             val chapter = jsonCreator.stringToObject<Chapter>(args["chapter"]!!)
 

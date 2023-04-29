@@ -35,9 +35,9 @@ class RemoveAnyChapter() : Command() {
     /**
      * Calls [CommandReceiver.removeByChapter]
      */
-    override fun execute(args: Map<String, String>, token: String) {
+    override fun execute(args: Map<String, String>, username: String) {
         if (Validator.verifyArgs(1, args)) {
-            commandReceiver.removeByChapter(args)
+            commandReceiver.removeByChapter(args, username)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

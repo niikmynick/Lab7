@@ -155,7 +155,10 @@ class Console {
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
                                     if (query.token in userManager.userMap.keys) {
-                                        commandInvoker.executeCommand(query)
+                                        val tokenInfo = userManager.userMap[query.token]!!
+                                        val username = tokenInfo.keys.first()
+                                        commandInvoker.executeCommand(query, username)
+                                        userManager.userMap[query.token]!![username] = Timestamp(System.currentTimeMillis())
                                     } else {
                                         val answer = Answer(AnswerType.ERROR, "Unknown token. Authorize again.")
                                         connectionManager.send(answer)

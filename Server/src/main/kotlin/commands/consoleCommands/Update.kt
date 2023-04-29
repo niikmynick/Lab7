@@ -35,10 +35,10 @@ class Update() : Command() {
     /**
      * Calls [CommandReceiver.updateByID] with provided id
      */
-    override fun execute(args: Map<String, String>, token: String) {
+    override fun execute(args: Map<String, String>, username: String) {
         if (Validator.verifyArgs(2, args)) {
             try {
-                commandReceiver.updateByID(args)
+                commandReceiver.updateByID(args, username)
             } catch (e:Exception) {
                 throw InvalidArgumentException("Expected an argument but it was not found")
             }

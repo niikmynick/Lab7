@@ -31,9 +31,9 @@ class Add() : Command() {
     /**
      * Calls [CommandReceiver.add]
      */
-    override fun execute(args: Map<String, String>, token: String) {
+    override fun execute(args: Map<String, String>, username: String) {
         if (Validator.verifyArgs(1, args)) {
-            commandReceiver.add(args, token)
+            commandReceiver.add(args, username)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

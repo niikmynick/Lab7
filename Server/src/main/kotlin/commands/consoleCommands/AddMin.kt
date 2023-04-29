@@ -34,9 +34,9 @@ class AddMin() : Command() {
     /**
      * Calls [CommandReceiver.addMin]
      */
-    override fun execute(args: Map<String, String>, token: String) {
+    override fun execute(args: Map<String, String>, username: String) {
         if (Validator.verifyArgs(1, args)) {
-            commandReceiver.addMin(args)
+            commandReceiver.addMin(args, username)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

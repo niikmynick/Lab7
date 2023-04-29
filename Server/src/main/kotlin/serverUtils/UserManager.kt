@@ -12,11 +12,11 @@ class UserManager (
 ) {
 
     private val logger = LogManager.getLogger(UserManager::class.java)
-    val userMap = mutableMapOf<String,Map<String, Timestamp>>()
+    val userMap = mutableMapOf<String,MutableMap<String, Timestamp>>()
 
-    private fun createToken(username: String) : String {
+    fun createToken(username: String) : String {
         val token = hashing(username, createSalt())
-        userMap[token] = mapOf(username to Timestamp(System.currentTimeMillis()))
+        userMap[token] = mutableMapOf(username to Timestamp(System.currentTimeMillis()))
         logger.debug("Created token")
         return token
     }
