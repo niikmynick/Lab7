@@ -153,7 +153,7 @@ class Console {
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
                                     if (query.token in userManager.getTokens()) {
-                                        commandInvoker.executeCommand(query)
+                                        commandInvoker.executeCommand(query, "")
 
                                     } else {
                                         val answer = Answer(AnswerType.ERROR, "Unknown token. Authorize again.")
