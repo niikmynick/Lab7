@@ -35,10 +35,10 @@ class RemoveID() : Command() {
     /**
      * Calls [CommandReceiver.removeByID]
      */
-    override fun execute(args: Map<String, String>, token: String) {
+    override fun execute(args: Map<String, String>, username: String) {
         if (Validator.verifyArgs(1, args)) {
             try {
-                commandReceiver.removeByID(args)
+                commandReceiver.removeByID(args, username)
             } catch (e:Exception) {
                 throw InvalidArgumentException("Expected an argument but it was not found")
             }
