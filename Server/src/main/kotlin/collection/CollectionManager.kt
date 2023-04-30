@@ -23,6 +23,10 @@ class CollectionManager {
         return collection
     }
 
+    fun getRelationship(): MutableMap<Long, String> {
+        return relationship
+    }
+
     fun add(element: SpaceMarine, username: String) {
         if (element == this.getByID(element.getId())) throw SpaceMarineIdAlreadyExists("Space Marine" +
                 "$element cannot be added to collection as a Space Marine with this id already exists")

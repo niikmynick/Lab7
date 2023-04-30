@@ -138,9 +138,9 @@ class Console {
                 outputManager.print("$ ")
                 val query = inputManager.read().trim().split(" ")
                 if (query[0] != "") {
+                    checkConnection()
                     commandInvoker.executeCommand(query, token)
                     executeFlag = commandInvoker.getCommandMap()[query[0]]?.getExecutionFlag()
-                    checkConnection()
                 }
 
             } catch (e: InvalidInputException) {

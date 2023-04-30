@@ -30,8 +30,8 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "")
+//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
@@ -104,7 +104,7 @@ class Console {
         commandInvoker.register("filter_by_weapon", FilterByWeapon(commandReceiver))
         logger.debug("Command 'filter_by_weapon' registered")
 
-        fileManager.load(collectionManager)
+        fileManager.load(collectionManager, userManager)
         logger.info("Collection loaded")
 
     }
@@ -153,8 +153,10 @@ class Console {
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
                                     if (query.token in userManager.getTokens()) {
+                                        val user = userManager.users[query.token]!!
+                                        user.setAccessTime(Timestamp(System.currentTimeMillis()))
+                                        userManager.users[query.token] = user
                                         commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
-
                                     } else {
                                         val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.")
                                         connectionManager.send(answer)
@@ -293,7 +295,7 @@ class Console {
 
     fun save() {
         try {
-            fileManager.save(collectionManager)
+            fileManager.save(collectionManager, userManager)
             logger.info("Collection saved successfully")
         } catch (e:Exception) {
             logger.warn("Collection was not saved: ${e.message}")

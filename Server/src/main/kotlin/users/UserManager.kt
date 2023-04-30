@@ -13,7 +13,7 @@ import kotlin.experimental.and
 class UserManager(
     private val dbManager: DBManager
 ) {
-    private val users = mutableMapOf<String, User>()
+    val users = mutableMapOf<String, User>()
 
     private val lock = ReentrantLock()
     private val logger = LogManager.getLogger(UserManager::class.java)
@@ -29,6 +29,10 @@ class UserManager(
         } finally {
             lock.unlock()
         }
+    }
+
+    fun getUsersMap() : MutableMap<String, User>{
+        return users
     }
 
     fun getTokenTime(token: String) : Timestamp {

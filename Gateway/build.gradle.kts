@@ -26,5 +26,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("ServerKt")
+    mainClass.set("GatewayKt")
 }

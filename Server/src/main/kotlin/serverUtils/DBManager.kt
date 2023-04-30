@@ -1,6 +1,7 @@
 package serverUtils
 
 import basicClasses.SpaceMarine
+import users.User
 import utils.JsonCreator
 import java.sql.DriverManager
 
@@ -14,7 +15,15 @@ class DBManager(
     private fun initUsers() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (login VARCHAR(50) PRIMARY KEY, password VARCHAR(500), salt varchar(100))")
+        statement.executeUpdate("create table if not exists users(login character varying(50) primary key,password character varying(500),salt character varying(100));")
+        statement.close()
+        connection.close()
+    }
+
+    private fun initTokens() {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        statement.executeUpdate("create table if not exists tokens(token varchar(1000) primary key,user_login varchar(50) references users (login) ON DELETE SET NULL ON UPDATE CASCADE,access_time timestamp not null);")
         statement.close()
         connection.close()
     }
@@ -22,15 +31,7 @@ class DBManager(
     private fun initCollection() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS collection (ID VARCHAR(1000) PRIMARY KEY, INFO VARCHAR(1000))")
-        statement.close()
-        connection.close()
-    }
-
-    fun initRelationships() {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS relationships (username VARCHAR(50) references users(login), spacemarine VARCHAR(1000) references collection(id))")
+        statement.executeUpdate("create table if not exists collection(id character varying(1000) primary key,info character varying(1000) not null);")
         statement.close()
         connection.close()
     }
@@ -38,14 +39,14 @@ class DBManager(
     private fun initRelationship() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("CREATE TABLE IF NOT EXISTS relationship (user_login VARCHAR(50), element_id VARCHAR(1000))")
+        statement.executeUpdate("create table if not exists relationships(user_login character varying(50) references users (login) ON DELETE SET NULL ON UPDATE CASCADE,element_id character varying(1000) UNIQUE references collection (id) ON DELETE CASCADE ON UPDATE CASCADE);")
         statement.close()
         connection.close()
     }
 
     fun getRelationship(id:String): String {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.prepareStatement("SELECT * FROM relationships WHERE spacemarine = ?")
+        val statement = connection.prepareStatement("SELECT * FROM relationships WHERE element_id = ?")
         statement.setString(1, id)
         val resultSet = statement.executeQuery()
         resultSet.next()
@@ -59,6 +60,7 @@ class DBManager(
         initUsers()
         initCollection()
         initRelationship()
+        initTokens()
     }
 
     fun userExists(login: String) : Boolean {
@@ -156,7 +158,7 @@ class DBManager(
     fun getUserElements(login: String) : MutableList<String> {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT element_id FROM relationship WHERE user_login = '$login'")
+        val resultSet = statement.executeQuery("SELECT element_id FROM relationships WHERE user_login = '$login'")
         val result = mutableListOf<String>()
         while (resultSet.next()) {
             result.add(resultSet.getString("element_id"))
@@ -166,7 +168,7 @@ class DBManager(
         connection.close()
         return result
     }
-    fun save(spaceMarine: SpaceMarine) {
+    fun saveSpacemarine(spaceMarine: SpaceMarine) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
         val resultSet = statement.executeQuery("SELECT * FROM collection WHERE ID = '${spaceMarine.getId()}'")
@@ -177,6 +179,22 @@ class DBManager(
             statement.executeUpdate("INSERT INTO collection (ID, INFO) VALUES ('${spaceMarine.getId()}', '${jsonCreator.objectToString(spaceMarine)}')")
         }
         resultSet.close()
+        statement.close()
+        connection.close()
+    }
+
+    fun saveRelationship(element: MutableMap.MutableEntry<Long, String>) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeUpdate("INSERT INTO relationships (user_login, element_id) VALUES ('${element.value}','${element.key}') ON CONFLICT DO NOTHING;")
+        statement.close()
+        connection.close()
+    }
+
+    fun saveTokens(element: MutableMap.MutableEntry<String, User>) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeUpdate("INSERT INTO tokens (token, user_login, access_time) VALUES ('${element.key}','${element.value.getName()}','${element.value.getAccessTime()}') ON CONFLICT DO NOTHING;")
         statement.close()
         connection.close()
     }
