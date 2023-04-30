@@ -43,6 +43,18 @@ class DBManager(
         connection.close()
     }
 
+    fun getRelationship(id:String): String {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.prepareStatement("SELECT * FROM relationships WHERE spacemarine = ?")
+        statement.setString(1, id)
+        val resultSet = statement.executeQuery()
+        resultSet.next()
+        val result = resultSet.getString("username")
+        resultSet.close()
+        statement.close()
+        connection.close()
+        return result
+    }
     fun initDB() {
         initUsers()
         initCollection()

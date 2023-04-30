@@ -26,7 +26,8 @@ class FileManager(
 
             for (element in collection) {
                 val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element)
-                collectionManager.add(spaceMarine)
+                val parent = dbManager.getRelationship(spaceMarine.getId().toString())
+                collectionManager.add(spaceMarine, parent)
                 logger.info("Loaded $spaceMarine")
             }
 

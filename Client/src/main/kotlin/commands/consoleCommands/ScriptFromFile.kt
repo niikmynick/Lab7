@@ -22,7 +22,7 @@ class ScriptFromFile(
     /**
      * Calls [CommandReceiver.executeScript]
      */
-    override fun execute(args: List<String>) {
+    override fun execute(args: List<String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             try {
                 commandReceiver.executeScript(args[0])

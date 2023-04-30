@@ -105,7 +105,7 @@ class CommandReceiver(private val collectionManager: CollectionManager,
         if (collectionManager.getCollection().size > 0) {
             try {
                 collectionManager.clear(username)
-                val answer = Answer(AnswerType.OK, "Collection has been cleared")
+                val answer = Answer(AnswerType.OK, "Your collection has been cleared")
                 connectionManager.send(answer)
             } catch (e: Exception) {
                 val answer = Answer(AnswerType.ERROR, e.message.toString())

@@ -28,6 +28,7 @@ class Console {
     private val jsonCreator = JsonCreator()
 
     private val logger: Logger = LogManager.getLogger(Console::class.java)
+    private var token = ""
 
 
     fun connect() {
@@ -79,24 +80,33 @@ class Console {
         val query = Query(QueryType.INITIALIZATION, "", mapOf())
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent initialization query")
-        if (answer.answerType == AnswerType.ERROR) {
-            outputManager.println(answer.message)
-        } else {
-            val serverCommands = jsonCreator.stringToObject<Map<String, Map<String, String>>>(answer.message)
-            logger.info("Received commands from server: ${serverCommands["commands"]!!.keys.toList()}")
+        when (answer.answerType) {
+            AnswerType.ERROR -> outputManager.println(answer.message)
+            AnswerType.AUTH_ERROR -> {
+                outputManager.println(answer.message)
+                authorize()
+            }
+            AnswerType.SYSTEM -> {
+                val serverCommands = jsonCreator.stringToObject<Map<String, Map<String, String>>>(answer.message)
+                logger.info("Received commands from server: ${serverCommands["commands"]!!.keys.toList()}")
 
-            commandInvoker.clearCommandMap()
+                commandInvoker.clearCommandMap()
 
-            for (i in serverCommands["commands"]!!.keys) {
-                commandInvoker.register(
-                    i,
-                    UnknownCommand(
-                        commandReceiver,
+                for (i in serverCommands["commands"]!!.keys) {
+                    commandInvoker.register(
                         i,
-                        serverCommands["commands"]!![i]!!,
-                        jsonCreator.stringToObject(serverCommands["arguments"]!![i]!!)
+                        UnknownCommand(
+                            commandReceiver,
+                            i,
+                            serverCommands["commands"]!![i]!!,
+                            jsonCreator.stringToObject(serverCommands["arguments"]!![i]!!)
+                        )
                     )
-                )
+                }
+            }
+            else -> {
+                outputManager.println("Unknown answer type")
+                logger.warn("Unknown answer type")
             }
         }
 
@@ -128,7 +138,7 @@ class Console {
                 outputManager.print("$ ")
                 val query = inputManager.read().trim().split(" ")
                 if (query[0] != "") {
-                    commandInvoker.executeCommand(query)
+                    commandInvoker.executeCommand(query, token)
                     executeFlag = commandInvoker.getCommandMap()[query[0]]?.getExecutionFlag()
                     checkConnection()
                 }
@@ -142,9 +152,5 @@ class Console {
             }
 
         } while (executeFlag != false)
-    }
-
-    companion object {
-        var token = ""
     }
 }

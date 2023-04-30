@@ -14,7 +14,7 @@ class UnknownCommand(
         return info
     }
 
-    override fun execute(args: List<String>) {
-            commandReceiver.unknownCommand(name, args, argsTypes)
+    override fun execute(args: List<String>, token: String) {
+            commandReceiver.unknownCommand(name, args, argsTypes, token)
     }
 }

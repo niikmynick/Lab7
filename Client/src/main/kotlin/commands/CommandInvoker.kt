@@ -37,12 +37,12 @@ class CommandInvoker(private val outputManager: OutputManager) {
      *
      * @param query A single line string split into command and argument
      */
-    fun executeCommand(query: List<String>) {
+    fun executeCommand(query: List<String>, token: String) {
         try {
             if (query.isNotEmpty()) {
                 commandsHistory += query[0].lowercase()
                 val command: Command = commandMap[query[0].lowercase()]!!
-                command.execute(query.slice(1 until query.size))
+                command.execute(query.slice(1 until query.size), token)
             }
         } catch (e:IllegalStateException) {
             outputManager.println("Command ${query[0]} does not exist")

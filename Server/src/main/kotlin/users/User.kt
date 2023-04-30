@@ -1,4 +1,4 @@
-package serverUtils
+package users
 
 import java.sql.Timestamp
 

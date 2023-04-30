@@ -48,7 +48,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
         inputManager.startScriptReader(filepath)
     }
 
-    fun unknownCommand(commandName:String, commandArgs: List<String> ,args: Map<String, String>) {
+    fun unknownCommand(commandName:String, commandArgs: List<String> ,args: Map<String, String>, token: String) {
         val sending = mutableMapOf<String, String>()
 
         if (("id" in args.keys) and (commandArgs.isEmpty())) {
@@ -67,7 +67,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
             }
         }
 
-        val query = Query(QueryType.COMMAND_EXEC, commandName, sending, Console.token)
+        val query = Query(QueryType.COMMAND_EXEC, commandName, sending, token)
         val answer = connectionManager.checkedSendReceive(query)
         outputManager.println(answer.message)
     }

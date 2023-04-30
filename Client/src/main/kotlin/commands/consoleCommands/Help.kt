@@ -22,7 +22,7 @@ class Help(
     /**
      * Calls [CommandReceiver.help]
      */
-    override fun execute(args: List<String>) {
+    override fun execute(args: List<String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             commandReceiver.help(args[0])
 

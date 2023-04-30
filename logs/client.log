@@ -1461,3 +1461,388 @@
 2023-04-28 10:42:25.942 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
 2023-04-28 10:42:25.944 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
 2023-04-28 10:42:25.944 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.2527 ms
+2023-04-30 16:12:03.505 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 16:12:03.665 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 16:12:03.798 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:12:03.824 [main] INFO  clientUtils.ConnectionManager - Ping with server: 155.0174 ms
+2023-04-30 16:12:03.824 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 16:12:03.835 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 16:12:03.850 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 16:12:03.852 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 16:12:03.854 [main] WARN  clientUtils.Console - Unknown answer type
+2023-04-30 16:12:03.861 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 16:12:18.498 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 16:12:23.512 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:17:44.355 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 16:17:44.503 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 16:17:44.633 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:17:44.652 [main] INFO  clientUtils.ConnectionManager - Ping with server: 145.359099 ms
+2023-04-30 16:17:44.652 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 16:17:44.661 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 16:17:44.670 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 16:17:44.671 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 16:17:44.672 [main] WARN  clientUtils.Console - Unknown answer type
+2023-04-30 16:17:44.679 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 16:18:02.159 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 16:18:03.503 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Registered","token":"15a5924256d5f55142829a301c76e681c0f131914bc0350a11262b3df3ab639c341112ce8a97073166b234793c28"}
+2023-04-30 16:18:03.503 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:18:03.504 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 16:18:07.231 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:07.236 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:07.236 [main] INFO  clientUtils.ConnectionManager - Ping with server: 4.499499 ms
+2023-04-30 16:18:22.506 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.510 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.511 [main] INFO  clientUtils.ConnectionManager - Ping with server: 4.5447 ms
+2023-04-30 16:18:22.511 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.514 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.514 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.201001 ms
+2023-04-30 16:18:22.515 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.527 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.527 [main] INFO  clientUtils.ConnectionManager - Ping with server: 11.4073 ms
+2023-04-30 16:18:22.527 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.531 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.531 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.7318 ms
+2023-04-30 16:18:22.532 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.534 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.535 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.219301 ms
+2023-04-30 16:18:22.535 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.539 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.539 [main] INFO  clientUtils.ConnectionManager - Ping with server: 4.002 ms
+2023-04-30 16:18:22.539 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.543 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.543 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.8336 ms
+2023-04-30 16:18:22.544 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.548 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.548 [main] INFO  clientUtils.ConnectionManager - Ping with server: 4.232701 ms
+2023-04-30 16:18:22.549 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.552 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.552 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.319301 ms
+2023-04-30 16:18:22.552 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.556 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.556 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.3505 ms
+2023-04-30 16:18:22.556 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.560 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.560 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.730299 ms
+2023-04-30 16:18:22.560 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.564 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.564 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.3032 ms
+2023-04-30 16:18:22.564 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.567 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.567 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.4707 ms
+2023-04-30 16:18:22.567 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.570 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.570 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.184399 ms
+2023-04-30 16:18:22.570 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.572 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.572 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.3216 ms
+2023-04-30 16:18:22.573 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.575 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.575 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.1679 ms
+2023-04-30 16:18:22.575 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.577 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.578 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.0663 ms
+2023-04-30 16:18:22.578 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.580 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.580 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.0307 ms
+2023-04-30 16:18:22.580 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.582 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.582 [main] INFO  clientUtils.ConnectionManager - Ping with server: 1.625 ms
+2023-04-30 16:18:22.582 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.584 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.584 [main] INFO  clientUtils.ConnectionManager - Ping with server: 1.5901 ms
+2023-04-30 16:18:22.584 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.586 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.586 [main] INFO  clientUtils.ConnectionManager - Ping with server: 1.7594 ms
+2023-04-30 16:18:22.586 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.588 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.588 [main] INFO  clientUtils.ConnectionManager - Ping with server: 1.775 ms
+2023-04-30 16:18:22.588 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.591 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.591 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.7495 ms
+2023-04-30 16:18:22.591 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.594 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.594 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.259099 ms
+2023-04-30 16:18:22.594 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.596 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.597 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.497699 ms
+2023-04-30 16:18:22.597 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.600 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.601 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.349399 ms
+2023-04-30 16:18:22.601 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.604 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.605 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.283999 ms
+2023-04-30 16:18:22.605 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.608 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.609 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.0898 ms
+2023-04-30 16:18:22.609 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.612 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.612 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.673399 ms
+2023-04-30 16:18:22.612 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.615 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.615 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.5763 ms
+2023-04-30 16:18:22.615 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.618 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.618 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.3196 ms
+2023-04-30 16:18:22.618 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.620 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.621 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.351 ms
+2023-04-30 16:18:22.621 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.623 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.624 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.708799 ms
+2023-04-30 16:18:22.624 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:18:22.628 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:18:22.628 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.4995 ms
+2023-04-30 16:19:21.876 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:21.879 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:21.879 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.8561 ms
+2023-04-30 16:19:25.398 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:25.401 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:25.401 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.5817 ms
+2023-04-30 16:19:36.972 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:36.975 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:36.975 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.6446 ms
+2023-04-30 16:19:41.610 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"logout","args":{},"token":"15a5924256d5f55142829a301c76e681c0f131914bc0350a11262b3df3ab639c341112ce8a97073166b234793c28"} to /127.0.0.1:8080
+2023-04-30 16:19:41.610 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:41.612 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:41.613 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.240601 ms
+2023-04-30 16:19:46.494 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 16:19:46.595 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 16:19:46.621 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:46.637 [main] INFO  clientUtils.ConnectionManager - Ping with server: 36.7642 ms
+2023-04-30 16:19:46.637 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 16:19:46.647 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:46.653 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 16:19:46.654 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 16:19:46.655 [main] WARN  clientUtils.Console - Unknown answer type
+2023-04-30 16:19:46.662 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 16:19:53.962 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 16:19:55.837 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Authorized","token":"0c346226815767453f0ed0b5cb554c432f0538173820196843e355b323f616a7c2446f2b06fd96f392186d562a2"}
+2023-04-30 16:19:55.837 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:19:55.837 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 16:19:57.636 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:57.638 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:57.639 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.591099 ms
+2023-04-30 16:19:59.589 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:19:59.592 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:19:59.592 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.1155 ms
+2023-04-30 16:20:03.441 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:20:03.444 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:20:03.444 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.606099 ms
+2023-04-30 16:20:07.578 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"logout","args":{},"token":"0c346226815767453f0ed0b5cb554c432f0538173820196843e355b323f616a7c2446f2b06fd96f392186d562a2"} to /127.0.0.1:8080
+2023-04-30 16:20:07.579 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:20:07.582 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:20:07.582 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.486001 ms
+2023-04-30 16:21:50.066 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 16:21:50.161 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 16:21:50.289 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:21:50.305 [main] INFO  clientUtils.ConnectionManager - Ping with server: 140.831601 ms
+2023-04-30 16:21:50.306 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 16:21:50.314 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 16:21:50.324 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 16:21:50.326 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 16:21:50.331 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 16:21:50.343 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 16:21:55.308 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"r"}} to /127.0.0.1:8080
+2023-04-30 16:21:57.645 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"ERROR","message":"Wrong password"}
+2023-04-30 16:21:57.646 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:22:05.896 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 16:22:08.304 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Authorized","token":"6130847564b827772ef47c6442241005387a144cdd135bcbe65b3d4667a70b030d618247e2586d52f36155a00970"}
+2023-04-30 16:22:08.305 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:22:08.305 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 16:22:13.276 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:22:13.279 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:22:13.280 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.519301 ms
+2023-04-30 16:22:15.746 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"6130847564b827772ef47c6442241005387a144cdd135bcbe65b3d4667a70b030d618247e2586d52f36155a00970"} to /127.0.0.1:8080
+2023-04-30 16:22:15.751 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"AUTH_ERROR","message":"Unknown token. Authorize again."}
+2023-04-30 16:22:15.751 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:22:15.754 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:22:15.755 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.4022 ms
+2023-04-30 16:22:22.505 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:22:22.509 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:22:22.510 [main] INFO  clientUtils.ConnectionManager - Ping with server: 4.379899 ms
+2023-04-30 16:22:24.983 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"info","args":{},"token":"6130847564b827772ef47c6442241005387a144cdd135bcbe65b3d4667a70b030d618247e2586d52f36155a00970"} to /127.0.0.1:8080
+2023-04-30 16:22:24.986 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"AUTH_ERROR","message":"Unknown token. Authorize again."}
+2023-04-30 16:22:24.987 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:22:24.990 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:22:24.990 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.301701 ms
+2023-04-30 16:46:09.815 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 16:46:09.916 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 16:46:10.067 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:46:10.085 [main] INFO  clientUtils.ConnectionManager - Ping with server: 163.1493 ms
+2023-04-30 16:46:10.085 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 16:46:10.095 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 16:46:10.105 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 16:46:10.105 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 16:46:10.110 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 16:46:10.115 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 16:46:25.889 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 16:46:27.885 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Authorized","token":"712b9f4167550056049300cb027fe55955ec4324561f98c3f41f72d2a4b120d14e4771125aac6c394a2c7055e0d733a"}
+2023-04-30 16:46:27.886 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 16:46:27.886 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 16:46:38.325 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:46:38.329 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:46:38.329 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.8448 ms
+2023-04-30 16:46:40.675 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"712b9f4167550056049300cb027fe55955ec4324561f98c3f41f72d2a4b120d14e4771125aac6c394a2c7055e0d733a"} to /127.0.0.1:8080
+2023-04-30 16:46:40.679 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"AUTH_ERROR","message":"Unknown token. Authorize again."}
+2023-04-30 16:46:40.680 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 16:46:40.683 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 16:46:40.683 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.294999 ms
+2023-04-30 17:04:52.812 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 17:04:52.904 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 17:04:53.036 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:04:53.054 [main] INFO  clientUtils.ConnectionManager - Ping with server: 146.1652 ms
+2023-04-30 17:04:53.054 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 17:04:53.065 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 17:04:53.077 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 17:04:53.079 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 17:04:53.083 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 17:04:53.090 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 17:05:03.445 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmynick"}} to /127.0.0.1:8080
+2023-04-30 17:05:07.384 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"ERROR","message":"Wrong password"}
+2023-04-30 17:05:07.385 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 17:05:28.508 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 17:05:28.622 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 17:05:28.644 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:05:28.658 [main] INFO  clientUtils.ConnectionManager - Ping with server: 33.5655 ms
+2023-04-30 17:05:28.659 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 17:05:28.666 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 17:05:28.671 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 17:05:28.672 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 17:05:28.676 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 17:05:28.680 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 17:05:38.462 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 17:05:40.524 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Authorized","token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"}
+2023-04-30 17:05:40.525 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 17:05:40.525 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 17:05:44.668 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:05:44.672 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:05:44.672 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.7395 ms
+2023-04-30 17:05:46.426 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:05:46.434 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Collection is empty"}
+2023-04-30 17:05:46.434 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:05:46.438 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:05:46.438 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.8653 ms
+2023-04-30 17:06:03.407 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.411 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.411 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.626799 ms
+2023-04-30 17:06:03.411 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"info","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.418 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Tree Set of SpaceMarine: size=0, date=Sun Apr 30 17:04:43 GMT+03:00 2023"}
+2023-04-30 17:06:03.418 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.421 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.421 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.789001 ms
+2023-04-30 17:06:03.421 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.424 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Collection is empty"}
+2023-04-30 17:06:03.424 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.428 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.428 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.547701 ms
+2023-04-30 17:06:03.439 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"id\":1682863563436,\"name\":\"2\",\"coordinates\":{\"x\":2.0,\"y\":2},\"health\":2.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"2\",\"marinesCount\":2}}"},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.452 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Space Marine 2 has been created and added to the collection"}
+2023-04-30 17:06:03.453 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.456 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.456 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.200899 ms
+2023-04-30 17:06:03.457 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"id\":1682863563456,\"name\":\"1\",\"coordinates\":{\"x\":1.0,\"y\":1},\"health\":1.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"1\",\"marinesCount\":1}}"},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.460 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Space Marine 1 has been created and added to the collection"}
+2023-04-30 17:06:03.460 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.464 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.464 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.550899 ms
+2023-04-30 17:06:03.465 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"add","args":{"spaceMarine":"{\"name\":\"3\",\"coordinates\":{\"x\":3.0,\"y\":3},\"health\":3.0,\"loyal\":true,\"category\":\"HELIX\",\"meleeWeapon\":\"POWER_FIST\",\"chapter\":{\"name\":\"3\",\"marinesCount\":3}}"},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.469 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Space Marine 3 has been created and added to the collection"}
+2023-04-30 17:06:03.469 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.472 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.472 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.851599 ms
+2023-04-30 17:06:03.472 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:03.497 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563456 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-30, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:06:03.498 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:03.501 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:03.501 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.13 ms
+2023-04-30 17:06:06.333 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:06.337 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563456 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-30, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:06:06.337 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:06.340 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:06.340 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.6405 ms
+2023-04-30 17:06:09.806 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"logout","args":{},"token":"3b546f69744a565f0d7d523e177f392175f31759a16b471410423cb58b6d55447f451879585395417be553fe043b6637326029"} to /127.0.0.1:8080
+2023-04-30 17:06:09.806 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:09.809 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:09.809 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.8939 ms
+2023-04-30 17:06:13.615 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 17:06:13.716 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 17:06:13.738 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:13.752 [main] INFO  clientUtils.ConnectionManager - Ping with server: 32.5119 ms
+2023-04-30 17:06:13.752 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 17:06:13.758 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:13.765 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 17:06:13.766 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 17:06:13.771 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 17:06:13.776 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 17:06:22.304 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"fk724s","password":"niikmypass"}} to /127.0.0.1:8080
+2023-04-30 17:06:25.530 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Authorized","token":"ca2364c771094f64304783030345510cb21fa0570d48df7295ec122c677354152b94c7c3bc805e3f16934ced843f79b"}
+2023-04-30 17:06:25.531 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 17:06:25.531 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 17:06:27.811 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"ca2364c771094f64304783030345510cb21fa0570d48df7295ec122c677354152b94c7c3bc805e3f16934ced843f79b"} to /127.0.0.1:8080
+2023-04-30 17:06:27.814 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563456 ,name=1, coordinates=Coordinates(x=1.0, y=1), creationDate=2023-04-30, health=1.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=1, marinesCount=1))\nSpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:06:27.814 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:27.816 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:27.817 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.1892 ms
+2023-04-30 17:06:32.181 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:32.184 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:32.185 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.282899 ms
+2023-04-30 17:06:46.941 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"remove_by_id","args":{"id":"1682863563456"},"token":"ca2364c771094f64304783030345510cb21fa0570d48df7295ec122c677354152b94c7c3bc805e3f16934ced843f79b"} to /127.0.0.1:8080
+2023-04-30 17:06:46.944 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Space Marine 1 has been deleted"}
+2023-04-30 17:06:46.944 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:46.947 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:46.947 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.729301 ms
+2023-04-30 17:06:50.777 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"ca2364c771094f64304783030345510cb21fa0570d48df7295ec122c677354152b94c7c3bc805e3f16934ced843f79b"} to /127.0.0.1:8080
+2023-04-30 17:06:50.780 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:06:50.780 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:50.783 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:50.783 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.422601 ms
+2023-04-30 17:06:55.857 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"logout","args":{},"token":"ca2364c771094f64304783030345510cb21fa0570d48df7295ec122c677354152b94c7c3bc805e3f16934ced843f79b"} to /127.0.0.1:8080
+2023-04-30 17:06:55.858 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:55.861 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:55.861 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.023601 ms
+2023-04-30 17:06:58.910 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 17:06:59.002 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 17:06:59.016 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:06:59.025 [main] INFO  clientUtils.ConnectionManager - Ping with server: 20.1393 ms
+2023-04-30 17:06:59.025 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 17:06:59.031 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 17:06:59.035 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 17:06:59.036 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 17:06:59.040 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 17:06:59.047 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 17:07:06.847 [main] DEBUG clientUtils.ConnectionManager - Bound on port: 6790
+2023-04-30 17:07:06.944 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to localhost/127.0.0.1:8080
+2023-04-30 17:07:06.966 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:06.982 [main] INFO  clientUtils.ConnectionManager - Ping with server: 34.058699 ms
+2023-04-30 17:07:06.982 [main] DEBUG clientUtils.Console - Connected to server
+2023-04-30 17:07:06.993 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"INITIALIZATION","information":"","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:07.000 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"{\"commands\":{\"info\":\"Prints info about the collection (type, creation date, amount of elements)\",\"show\":\"Prints all elements of the collection\",\"add\":\"Adds a new element into the collection\",\"update_id\":\"Updates values of the element with the provided id\",\"remove_by_id\":\"Deletes the element with the provided id\",\"clear\":\"Clears all elements in the collection\",\"add_if_min\":\"Adds a new element into the collection if its value is lower than the lowest element in the collection\",\"remove_greater\":\"Deletes from collection all elements greater than provided\",\"remove_lower\":\"Deletes from collection all elements lower than provided\",\"remove_any_by_chapter\":\"Deletes an element with a provided chapter value\",\"count_by_melee_weapon\":\"Prints the amount of elements with the provided weapon\",\"filter_by_chapter\":\"Prints elements with the provided chapter\",\"filter_by_weapon\":\"Prints elements with the provided weapon\"},\"arguments\":{\"info\":\"{}\",\"show\":\"{}\",\"add\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"update_id\":\"{\\\"id\\\":\\\"Long\\\",\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_by_id\":\"{\\\"id\\\":\\\"Long\\\"}\",\"clear\":\"{}\",\"add_if_min\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_greater\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_lower\":\"{\\\"spaceMarine\\\":\\\"SpaceMarine\\\"}\",\"remove_any_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"count_by_melee_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\",\"filter_by_chapter\":\"{\\\"chapter\\\":\\\"Chapter\\\"}\",\"filter_by_weapon\":\"{\\\"weapon\\\":\\\"MeleeWeapon\\\"}\"}}"}
+2023-04-30 17:07:07.001 [main] DEBUG clientUtils.Console - Sent initialization query
+2023-04-30 17:07:07.005 [main] INFO  clientUtils.Console - Received commands from server: [info, show, add, update_id, remove_by_id, clear, add_if_min, remove_greater, remove_lower, remove_any_by_chapter, count_by_melee_weapon, filter_by_chapter, filter_by_weapon]
+2023-04-30 17:07:07.013 [main] DEBUG clientUtils.Console - Registered basic client commands
+2023-04-30 17:07:10.995 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"","args":{"username":"test","password":"test"}} to /127.0.0.1:8080
+2023-04-30 17:07:15.312 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"Registered","token":"3d7393e27446e122c4fd156f93ee201187704ae20a79261c65c5020042a0147ef1b67061c07573de2024021c671e4043"}
+2023-04-30 17:07:15.312 [main] DEBUG clientUtils.Console - Sent authorization query
+2023-04-30 17:07:15.312 [main] DEBUG clientUtils.Console - Authorized
+2023-04-30 17:07:20.922 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:20.926 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:20.926 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.572399 ms
+2023-04-30 17:07:22.529 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3d7393e27446e122c4fd156f93ee201187704ae20a79261c65c5020042a0147ef1b67061c07573de2024021c671e4043"} to /127.0.0.1:8080
+2023-04-30 17:07:22.533 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:07:22.533 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:22.536 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:22.536 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.6349 ms
+2023-04-30 17:07:44.739 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"remove_by_id","args":{"id":"1682863563436"},"token":"3d7393e27446e122c4fd156f93ee201187704ae20a79261c65c5020042a0147ef1b67061c07573de2024021c671e4043"} to /127.0.0.1:8080
+2023-04-30 17:07:44.742 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"ERROR","message":"You don't have permission to remove this element"}
+2023-04-30 17:07:44.742 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:44.744 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:44.745 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.5323 ms
+2023-04-30 17:07:51.016 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"COMMAND_EXEC","information":"show","args":{},"token":"3d7393e27446e122c4fd156f93ee201187704ae20a79261c65c5020042a0147ef1b67061c07573de2024021c671e4043"} to /127.0.0.1:8080
+2023-04-30 17:07:51.021 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"OK","message":"SpaceMarine(id=1682863563436 ,name=2, coordinates=Coordinates(x=2.0, y=2), creationDate=2023-04-30, health=2.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=2, marinesCount=2))\nSpaceMarine(id=1682863563467 ,name=3, coordinates=Coordinates(x=3.0, y=3), creationDate=2023-04-30, health=3.0, loyal=true, category=HELIX, meleeWeapon=POWER_FIST, chapter=Chapter(name=3, marinesCount=3))"}
+2023-04-30 17:07:51.023 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:51.027 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:51.027 [main] INFO  clientUtils.ConnectionManager - Ping with server: 3.566399 ms
+2023-04-30 17:07:55.706 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"AUTHORIZATION","information":"logout","args":{},"token":"3d7393e27446e122c4fd156f93ee201187704ae20a79261c65c5020042a0147ef1b67061c07573de2024021c671e4043"} to /127.0.0.1:8080
+2023-04-30 17:07:55.707 [main] INFO  clientUtils.ConnectionManager - Sending: {"queryType":"PING","information":"Ping","args":{}} to /127.0.0.1:8080
+2023-04-30 17:07:55.709 [main] INFO  clientUtils.ConnectionManager - Received: {"answerType":"SYSTEM","message":"Pong"}
+2023-04-30 17:07:55.710 [main] INFO  clientUtils.ConnectionManager - Ping with server: 2.470001 ms

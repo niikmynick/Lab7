@@ -1,6 +1,7 @@
 package commands.consoleCommands
 
 import kotlinx.serialization.Serializable
+import java.util.StringTokenizer
 
 /**
  * Command
@@ -31,5 +32,5 @@ abstract class Command {
      *
      * @return
      */
-    abstract fun execute(args: List<String>)
+    abstract fun execute(args: List<String>, token: String)
 }

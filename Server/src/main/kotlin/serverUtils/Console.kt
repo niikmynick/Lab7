@@ -30,8 +30,8 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    //private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager()
 
@@ -153,10 +153,10 @@ class Console {
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
                                     if (query.token in userManager.getTokens()) {
-                                        commandInvoker.executeCommand(query, "")
+                                        commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
 
                                     } else {
-                                        val answer = Answer(AnswerType.ERROR, "Unknown token. Authorize again.")
+                                        val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.")
                                         connectionManager.send(answer)
                                     }
                                 }

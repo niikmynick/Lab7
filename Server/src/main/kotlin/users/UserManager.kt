@@ -2,7 +2,6 @@ package users
 
 import org.apache.logging.log4j.LogManager
 import serverUtils.DBManager
-import serverUtils.User
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.sql.Timestamp
@@ -14,18 +13,19 @@ import kotlin.experimental.and
 class UserManager(
     private val dbManager: DBManager
 ) {
-    private val users = TreeSet<User>()
+    private val users = mutableMapOf<String, User>()
+
     private val lock = ReentrantLock()
     private val logger = LogManager.getLogger(UserManager::class.java)
 
 
     fun addUser(user: User) {
-        if (user == getByID(user.getName())) {
+        if (user == getByName(user.getName())) {
             throw Exception ("User $user cannot be added to collection")
         }
         lock.lock()
         try {
-            users.add(user)
+            users[user.getToken()] = user
         } finally {
             lock.unlock()
         }
@@ -34,16 +34,12 @@ class UserManager(
     fun getTokenTime(token: String) : Timestamp {
         lock.lock()
         try {
-            for (user in users) {
-                if (user.getToken() == token) {
-                    return user.getAccessTime()
-                }
-            }
+            return users[token]?.getAccessTime()!!
         } finally {
             lock.unlock()
         }
-        return Timestamp(0)
     }
+
     fun updateUser(data: User, user: User) {
         lock.lock()
         try {
@@ -57,7 +53,7 @@ class UserManager(
     fun removeUser(user: User) : Boolean {
         lock.lock()
         try {
-            return users.remove(user)
+            return users.remove(user.getToken()) != null
         } finally {
             lock.unlock()
         }
@@ -70,17 +66,17 @@ class UserManager(
     fun getTokens() : List<String> {
         lock.lock()
         try {
-            return users.map { e -> e.getToken() }
+            return users.keys.toList()
         } finally {
             lock.unlock()
         }
     }
-    private fun getByID(name: String) : User? {
+    private fun getByName(name: String) : User? {
         lock.lock()
         try {
             for (user in users) {
-                if (user.getName() == name) {
-                    return user
+                if (user.value.getName() == name) {
+                    return user.value
                 }
             }
         } finally {
@@ -90,10 +86,10 @@ class UserManager(
         return null
     }
 
-    fun filter(predicate: Predicate<User>): List<User> {
+    fun getByToken(token: String) : String? {
         lock.lock()
         try {
-            return users.filter { e -> predicate.test(e) }
+            return users[token]?.getName()
         } finally {
             lock.unlock()
         }
@@ -101,23 +97,16 @@ class UserManager(
 
     private fun createToken(username: String) : String {
         val token = hashing(username, createSalt())
-        for (user in users) {
-            if (user.getName() == username) {
-                user.setToken(token)
-                break
-            }
+        if (token in users.keys) {
+            logger.debug("Token already exists")
+            return createToken(username)
         }
         logger.debug("Created token")
         return token
     }
 
     fun removeToken(token: String) {
-        for (user in users) {
-            if (user.getToken() == token) {
-                users.remove(user)
-                break
-            }
-        }
+        users.remove(token)
     }
 
     private fun hashing(stringToHash: String, salt: String) : String {
@@ -156,7 +145,9 @@ class UserManager(
         val authorized = dbManager.loginUser(username, hashedPassword)
         return if (authorized) {
             logger.debug("User $username authorized")
-            createToken(username)
+            val token = createToken(username)
+            users[token] = User(username, password)
+            token
         } else {
             ""
         }
@@ -167,7 +158,9 @@ class UserManager(
         val registered = dbManager.registerUser(username, hashing(password, salt), salt)
         return if (registered) {
             logger.debug("User $username registered")
-            createToken(username)
+            val token = createToken(username)
+            users[token] = User(username, password)
+            token
         } else {
             ""
         }

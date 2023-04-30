@@ -21,10 +21,10 @@ class Exit(private val connectionManager: ConnectionManager): Command() {
     /**
      * Sets execution flag to false
      */
-    override fun execute(args: List<String>) {
+    override fun execute(args: List<String>, token: String) {
         if (Validator.verifyArgs(0, args)) {
             setFlag(false)
-            connectionManager.send(Query(QueryType.AUTHORIZATION, "logout", mapOf(), Console.token))
+            connectionManager.send(Query(QueryType.AUTHORIZATION, "logout", mapOf(), token))
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }
