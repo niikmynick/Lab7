@@ -50,7 +50,7 @@ class DBManager(
         statement.setString(1, id)
         val resultSet = statement.executeQuery()
         resultSet.next()
-        val result = resultSet.getString("username")
+        val result = resultSet.getString("user_login")
         resultSet.close()
         statement.close()
         connection.close()
@@ -155,6 +155,32 @@ class DBManager(
         connection.close()
     }
 
+    fun deleteSpaceMarine(id: Long) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE id = '$id'")
+        val result = resultSet.next()
+        if (result) {
+            statement.executeUpdate("DELETE FROM collection WHERE id = '$id'")
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+    }
+
+    fun deleteToken(token: String) {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM tokens WHERE token = '$token'")
+        val result = resultSet.next()
+        if (result) {
+            statement.executeUpdate("DELETE FROM tokens WHERE token = '$token'")
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+    }
+
     fun getUserElements(login: String) : MutableList<String> {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
@@ -183,18 +209,18 @@ class DBManager(
         connection.close()
     }
 
-    fun saveRelationship(element: MutableMap.MutableEntry<Long, String>) {
+    fun saveRelationship(username: String, elementId: Long) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        val resultSet = statement.executeUpdate("INSERT INTO relationships (user_login, element_id) VALUES ('${element.value}','${element.key}') ON CONFLICT DO NOTHING;")
+        val resultSet = statement.executeUpdate("INSERT INTO relationships (user_login, element_id) VALUES ('${username}','${elementId}') ON CONFLICT DO NOTHING;")
         statement.close()
         connection.close()
     }
 
-    fun saveTokens(element: MutableMap.MutableEntry<String, User>) {
+    fun saveTokens(token: String, user: User) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        val resultSet = statement.executeUpdate("INSERT INTO tokens (token, user_login, access_time) VALUES ('${element.key}','${element.value.getName()}','${element.value.getAccessTime()}') ON CONFLICT DO NOTHING;")
+        val resultSet = statement.executeUpdate("INSERT INTO tokens (token, user_login, access_time) VALUES ('${token}','${user.getName()}','${user.getAccessTime()}') ON CONFLICT DO NOTHING;")
         statement.close()
         connection.close()
     }
@@ -211,6 +237,33 @@ class DBManager(
         statement.close()
         connection.close()
         return result
+    }
+
+    fun loadTokens() : MutableMap<String, User>{
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM tokens")
+        val result = mutableMapOf<String, User>()
+        while (resultSet.next()) {
+            val username = resultSet.getString("user_login")
+            val accessTime = resultSet.getTimestamp("access_time")
+            val password = loadPasswordByUsername(username)
+            val user = User(username, password)
+            user.setAccessTime(accessTime)
+            result[resultSet.getString("token")] = user
+        }
+        resultSet.close()
+        statement.close()
+        connection.close()
+        return result
+    }
+
+    fun loadPasswordByUsername(username: String) : String {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM users where login = '$username'")
+        resultSet.next()
+        return resultSet.getString("password")
     }
 
 }

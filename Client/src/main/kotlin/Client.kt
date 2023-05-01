@@ -9,6 +9,8 @@ fun main() {
 
     console.connect()
     console.authorize()
+    if (console.authorized) {
+        console.startInteractiveMode()
+    }
 
-    console.startInteractiveMode()
 }

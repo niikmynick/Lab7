@@ -4,6 +4,7 @@ import clientUtils.readers.StringReader
 import commands.*
 import commands.consoleCommands.*
 import exceptions.InvalidInputException
+import exceptions.NotAuthorized
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import utils.*
@@ -29,6 +30,7 @@ class Console {
 
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var token = ""
+    var authorized: Boolean = false
 
 
     fun connect() {
@@ -113,7 +115,7 @@ class Console {
         registerBasicCommands()
     }
 
-    fun authorize() {
+    fun authorize(){
         outputManager.surePrint("Login or register to use the collection: ")
         val username = StringReader(outputManager, inputManager).read("Username: ")
         val password = StringReader(outputManager, inputManager).read("Password: ")
@@ -125,9 +127,9 @@ class Console {
             authorize()
         } else {
             logger.debug("Authorized")
+            authorized = true
             token = answer.token
         }
-
     }
     fun startInteractiveMode() {
         var executeFlag: Boolean? = true
@@ -146,7 +148,10 @@ class Console {
             } catch (e: InvalidInputException) {
                 outputManager.surePrint(e.message)
                 logger.warn(e.message)
-            } catch (e: Exception) {
+            } catch (e: NotAuthorized) {
+                authorize()
+            }
+            catch (e: Exception) {
                 outputManager.surePrint(e.message.toString())
                 logger.warn(e.message)
             }

@@ -33,7 +33,7 @@ class Console {
 //    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
     private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
     private val fileManager = FileManager(dbManager)
-    private val collectionManager = CollectionManager()
+    private val collectionManager = CollectionManager(dbManager)
 
     // users
     private val userManager = UserManager(dbManager)
@@ -121,7 +121,7 @@ class Console {
                     actions()
                 }
             }
-        }, 120000, time)
+        }, 120000, time) //120000
     }
 
     /**

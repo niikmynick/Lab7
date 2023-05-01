@@ -2,6 +2,7 @@ package collection
 
 import basicClasses.SpaceMarine
 import exceptions.SpaceMarineIdAlreadyExists
+import serverUtils.DBManager
 import java.util.Date
 import java.util.TreeSet
 import java.util.concurrent.locks.ReentrantLock
@@ -12,8 +13,12 @@ import java.util.function.Predicate
  * Implements methods used in commands
  * @property date Saves creation date
  */
-class CollectionManager {
+class CollectionManager(private val dbManager: DBManager) {
     private val collection = TreeSet<SpaceMarine>()
+
+    /**
+     * Element_id to user_login
+     */
     private val relationship = mutableMapOf<Long, String>()
 
     private val date: Date = Date()
@@ -34,6 +39,8 @@ class CollectionManager {
         try {
             collection.add(element)
             relationship[element.getId()] = username
+            dbManager.saveSpacemarine(element)
+            dbManager.saveRelationship(username, element.getId())
         } finally {
             lock.unlock()
         }
@@ -82,6 +89,7 @@ class CollectionManager {
             spaceMarine.setHealth(data.getHealth())
             spaceMarine.setLoyalty(data.getLoyalty())
             spaceMarine.setMeleeWeapon(data.getWeapon())
+            dbManager.saveSpacemarine(spaceMarine)
         } finally {
             lock.unlock()
         }
@@ -96,6 +104,8 @@ class CollectionManager {
 
         lock.lock()
         try {
+            dbManager.deleteSpaceMarine(spaceMarine.getId())
+            relationship.remove(spaceMarine.getId())
             return collection.remove(spaceMarine)
         } finally {
             lock.unlock()
@@ -105,7 +115,7 @@ class CollectionManager {
     fun clear(username: String) {
         for (spaceMarine in collection) {
             if (relationship[spaceMarine.getId()] == username) {
-                collection.remove(spaceMarine)
+                this.remove(spaceMarine, username)
             }
         }
     }

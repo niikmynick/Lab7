@@ -13,7 +13,10 @@ import kotlin.experimental.and
 class UserManager(
     private val dbManager: DBManager
 ) {
-    val users = mutableMapOf<String, User>()
+    /**
+     * Token to User
+     */
+    var users = mutableMapOf<String, User>()
 
     private val lock = ReentrantLock()
     private val logger = LogManager.getLogger(UserManager::class.java)
@@ -111,6 +114,8 @@ class UserManager(
 
     fun removeToken(token: String) {
         users.remove(token)
+        dbManager.deleteToken(token)
+        logger.debug("Removed token: $token")
     }
 
     private fun hashing(stringToHash: String, salt: String) : String {
@@ -151,6 +156,7 @@ class UserManager(
             logger.debug("User $username authorized")
             val token = createToken(username)
             users[token] = User(username, password)
+            dbManager.saveTokens(token, users[token]!!)
             token
         } else {
             ""
@@ -164,6 +170,7 @@ class UserManager(
             logger.debug("User $username registered")
             val token = createToken(username)
             users[token] = User(username, password)
+            dbManager.saveTokens(token, users[token]!!)
             token
         } else {
             ""

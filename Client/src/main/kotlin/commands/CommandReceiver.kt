@@ -5,6 +5,7 @@ import commands.consoleCommands.Command
 import clientUtils.*
 import clientUtils.readers.*
 import exceptions.InvalidInputException
+import exceptions.NotAuthorized
 import utils.*
 
 class CommandReceiver(private val commandInvoker: CommandInvoker,
@@ -48,7 +49,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
         inputManager.startScriptReader(filepath)
     }
 
-    fun unknownCommand(commandName:String, commandArgs: List<String> ,args: Map<String, String>, token: String) {
+    fun unknownCommand(commandName:String, commandArgs: List<String> ,args: Map<String, String>, token: String){
         val sending = mutableMapOf<String, String>()
 
         if (("id" in args.keys) and (commandArgs.isEmpty())) {
@@ -69,6 +70,9 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
 
         val query = Query(QueryType.COMMAND_EXEC, commandName, sending, token)
         val answer = connectionManager.checkedSendReceive(query)
+        if (answer.message == "Unknown token. Authorize again.") {
+            throw NotAuthorized()
+        }
         outputManager.println(answer.message)
     }
 }
