@@ -67,7 +67,8 @@ class Console {
      */
     fun startInteractiveMode() {
         logger.info("The server is ready to receive commands")
-        connectionManager.datagramChannel.register(selector, SelectionKey.OP_READ)
+        connectionManager.datagramChannelClient.register(selector, SelectionKey.OP_READ)
+        connectionManager.datagramChannelServer.register(selector, SelectionKey.OP_READ)
 
         while (executeFlag) {
             selector.select()
@@ -81,25 +82,32 @@ class Console {
                 val key = iter.next()
                 iter.remove()
                 if (key.isReadable) {
-                    val client = key.channel() as DatagramChannel
-                    try {
-                        connectionManager.datagramChannel = client
-                        val query = connectionManager.receive()
-                        threadPool.execute {
+                    val request = key.channel() as DatagramChannel
+                    when (request.localAddress) {
+                        connectionManager.addressForServer -> {
+                            connectionManager.datagramChannelServer = request
+                            val received = connectionManager.receiveFromServer()
+                            threadPool.execute {
 
+                            }
                         }
-                    } catch (e: Exception) {
-                        logger.error("Error while executing command: ${e.message}")
-                        val answer = Answer(AnswerType.ERROR, e.message.toString())
-                        connectionManager.send(answer)
+                        connectionManager.addressForClient -> {
+                            connectionManager.datagramChannelClient = request
+                            val received = connectionManager.receiveFromClient()
+                            threadPool.execute {
+
+                            }
+                        }
+                        else -> {}
                     }
+
                 }
             }
         }
 
         threadPool.shutdown()
-
-        connectionManager.datagramChannel.close()
+        connectionManager.datagramChannelClient.close()
+        connectionManager.datagramChannelServer.close()
         selector.close()
     }
 

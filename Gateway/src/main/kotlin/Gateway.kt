@@ -11,14 +11,15 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val port = 8080
+        val portClient = 8181
+        val portServer = 8080
         val host = "localhost"
 
         initialize()
 
         start {
 
-            startServer(host, port)
+            startGateway(host, portClient, portServer)
 
         }
 
