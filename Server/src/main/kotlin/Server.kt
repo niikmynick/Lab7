@@ -12,8 +12,11 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val port = 8080
+        val port = 8090
         val host = "localhost"
+
+        val gatewayHost = "localhost"
+        val gatewayPort = 8071
 
         initialize()
 
@@ -35,6 +38,7 @@ fun main() {
         start {
 
             startServer(host, port)
+            registrationRequest(gatewayHost, gatewayPort)
 
         }
 

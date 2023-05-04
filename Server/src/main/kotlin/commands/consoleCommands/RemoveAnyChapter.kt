@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import serverUtils.Validator
 import exceptions.InvalidArgumentException
+import utils.Answer
 
 /**
  * Remove any chapter command
@@ -35,9 +36,9 @@ class RemoveAnyChapter() : Command() {
     /**
      * Calls [CommandReceiver.removeByChapter]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(1, args)) {
-            commandReceiver.removeByChapter(args, username)
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(2, args)) {
+            return commandReceiver.removeByChapter(args, username)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

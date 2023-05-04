@@ -17,8 +17,8 @@ import utils.*
  * @property commandReceiver
  */
 
-class Console {
-    private val connectionManager = ConnectionManager("localhost", 8080)
+class Console(private var host: String, private var port: Int) {
+    private var connectionManager = ConnectionManager(host, port)
 
     private val outputManager = OutputManager()
     private val inputManager = InputManager(outputManager)
@@ -79,7 +79,7 @@ class Console {
      * Registers commands and waits for user prompt
      */
     private fun initialize() {
-        val query = Query(QueryType.INITIALIZATION, "", mapOf())
+        val query = Query(QueryType.INITIALIZATION, "", mutableMapOf())
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent initialization query")
         when (answer.answerType) {
@@ -119,7 +119,7 @@ class Console {
         outputManager.surePrint("Login or register to use the collection: ")
         val username = StringReader(outputManager, inputManager).read("Username: ")
         val password = StringReader(outputManager, inputManager).read("Password: ")
-        val query = Query(QueryType.AUTHORIZATION, "", mapOf("username" to username, "password" to password))
+        val query = Query(QueryType.AUTHORIZATION, "", mutableMapOf("username" to username, "password" to password))
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent authorization query")
         if (answer.answerType == AnswerType.ERROR) {

@@ -27,8 +27,8 @@ class FileManager(
             val tokens = dbManager.loadTokens()
 
             for (element in collection) {
-                val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element)
-                val parent = dbManager.getRelationship(spaceMarine.getId().toString())
+                val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element.key)
+                val parent = element.value
                 collectionManager.add(spaceMarine, parent)
                 logger.info("Loaded $spaceMarine")
             }
@@ -47,11 +47,9 @@ class FileManager(
             logger.info("Saving to database")
 
             for (element in collectionManager.getCollection()) {
-                dbManager.saveSpacemarine(element)
-                logger.info("Saved $element")
-            }
-            for (element in collectionManager.getRelationship()) {
-                dbManager.saveRelationship(element.value, element.key)
+                val relation = collectionManager.getRelationship()
+                val username = relation[element.getId()]!!
+                dbManager.saveSpacemarine(element, username)
                 logger.info("Saved $element")
             }
             for (element in userManager.getUsersMap()) {

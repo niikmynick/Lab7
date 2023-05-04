@@ -20,131 +20,114 @@ class CommandReceiver(private val collectionManager: CollectionManager,
     /**
      * Sends the collection's info to the client
      */
-    fun info() {
-        try {
-            val answer = Answer(AnswerType.OK, collectionManager.getInfo())
-            connectionManager.send(answer)
+    fun info(args: Map<String, String>) : Answer{
+        return try {
+            Answer(AnswerType.OK, collectionManager.getInfo(), receiver = args["sender"]!!)
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Sends each element in the collection to the client
      */
-    fun show() {
-        try {
-            val answer = Answer(AnswerType.OK, collectionManager.show().joinToString("\n"))
-            connectionManager.send(answer)
+    fun show(args: Map<String, String>) : Answer{
+        return try {
+            Answer(AnswerType.OK, collectionManager.show().joinToString("\n"), receiver = args["sender"]!!)
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Creates new Space Marine and adds it into collection
      */
-    fun add(args: Map<String, String>, username: String) {
-        try {
+    fun add(args: Map<String, String>, username: String) : Answer{
+        return try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
             collectionManager.add(spaceMarine, username)
-            val answer = Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection")
-            connectionManager.send(answer)
+            Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection", receiver = args["sender"]!!)
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Searches for a Space Marine with provided id and updates its values
      */
-    fun updateByID(args: Map<String, String>, username: String) {
+    fun updateByID(args: Map<String, String>, username: String) : Answer{
         val id = args["id"]!!
 
-        try {
+        return try {
             val oldSpaceMarine = collectionManager.getByID(id.toLong())
                 ?: throw InvalidArgumentException("No Space Marine with id: $id was found")
             val newSpaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
             collectionManager.update(newSpaceMarine, oldSpaceMarine, username)
-            val answer = Answer(AnswerType.OK, "Space Marine ${oldSpaceMarine.getName()} has been updated")
-            connectionManager.send(answer)
+            Answer(AnswerType.OK, "Space Marine ${oldSpaceMarine.getName()} has been updated", receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Searches for a Space Marine with the provided id and removes it from the collection
      */
-    fun removeByID(args: Map<String, String>, username: String) {
+    fun removeByID(args: Map<String, String>, username: String) : Answer{
         val id = args["id"]!!
 
-        try {
+        return try {
             val spaceMarine = collectionManager.getByID(id.toLong())
                 ?: throw InvalidArgumentException("No Space Marine with id: $id was found")
 
             collectionManager.remove(spaceMarine, username)
-            val answer = Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been deleted")
-            connectionManager.send(answer)
+            Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been deleted", receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Clears the collection
      */
-    fun clear(username: String) {
-        if (collectionManager.getCollection().size > 0) {
+    fun clear(args: Map<String, String>, username: String) : Answer{
+        return if (collectionManager.getCollection().size > 0) {
             try {
                 collectionManager.clear(username)
-                val answer = Answer(AnswerType.OK, "Your collection has been cleared")
-                connectionManager.send(answer)
+                Answer(AnswerType.OK, "Your collection has been cleared", receiver = args["sender"]!!)
             } catch (e: Exception) {
-                val answer = Answer(AnswerType.ERROR, e.message.toString())
-                connectionManager.send(answer)
+                Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
             }
         } else {
-            val answer = Answer(AnswerType.ERROR, "The collection is already empty")
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, "The collection is already empty", receiver = args["sender"]!!)
         }
     }
 
-    fun addMin(args: Map<String, String>, username: String) {
+    fun addMin(args: Map<String, String>, username: String) : Answer{
         try {
             val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(args["spaceMarine"]!!)
-            if (collectionManager.getCollection().isNotEmpty()) {
+            return if (collectionManager.getCollection().isNotEmpty()) {
                 if (spaceMarine < collectionManager.getCollection().first()) {
                     collectionManager.add(spaceMarine, username)
-                    val answer = Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection")
-                    connectionManager.send(answer)
+                    Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection", receiver = args["sender"]!!)
                 } else {
-                    val answer = Answer(AnswerType.ERROR, "Space Marine ${spaceMarine.getName()} has not been added to the collection, because it is not the smallest")
-                    connectionManager.send(answer)
+                    Answer(AnswerType.ERROR, "Space Marine ${spaceMarine.getName()} has not been added to the collection, because it is not the smallest", receiver = args["sender"]!!)
                 }
             } else {
                 collectionManager.add(spaceMarine, username)
-                val answer = Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection")
-                connectionManager.send(answer)
+                Answer(AnswerType.OK, "Space Marine ${spaceMarine.getName()} has been created and added to the collection", receiver = args["sender"]!!)
             }
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Removes all elements greater than provided
      */
-    fun removeGreater(args: Map<String, String>, username: String) {
+    fun removeGreater(args: Map<String, String>, username: String) : Answer{
         val id = args["id"]
         try {
             val collection = collectionManager.getCollection()
@@ -158,23 +141,21 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                     count++
                 }
             }
-            val answer = Answer(AnswerType.OK, when (count) {
+            return Answer(AnswerType.OK, when (count) {
                 0 -> { "No Space Marines were deleted" }
                 1 -> { "Only 1 Space Marine was deleted" }
                 else -> { "$count Space Marines have been deleted" }
-            })
-            connectionManager.send(answer)
+            }, receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Removes all elements lower than provided
      */
-    fun removeLower(args: Map<String, String>, username: String) {
+    fun removeLower(args: Map<String, String>, username: String) : Answer{
         val id = args["id"]
         try {
             val collection = collectionManager.getCollection()
@@ -189,23 +170,21 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                 }
             }
 
-            val answer = Answer(AnswerType.OK, when (count) {
+            return Answer(AnswerType.OK, when (count) {
                 0 -> { "No Space Marines were deleted" }
                 1 -> { "Only 1 Space Marine was deleted" }
                 else -> { "$count Space Marines have been deleted" }
-            })
-            connectionManager.send(answer)
+            }, receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
     /**
      * Removes first found element with [Chapter] equal to provided
      */
-    fun removeByChapter(args: Map<String, String>, username: String) {
+    fun removeByChapter(args: Map<String, String>, username: String) : Answer{
         try {
             val chapter = jsonCreator.stringToObject<Chapter>(args["chapter"]!!)
 
@@ -219,22 +198,20 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                 }
             }
 
-            val answer = Answer(AnswerType.OK, when (count) {
+            return Answer(AnswerType.OK, when (count) {
                 0 -> { "No Space Marines with $chapter was found" }
                 1 -> { "Only 1 Space Marine with $chapter was found and deleted" }
                 else -> { "$count Space Marines with $chapter were found and deleted" }
-            })
+            }, receiver = args["sender"]!!)
 
-            connectionManager.send(answer)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
 
     }
 
-    fun countByWeapon(args: Map<String, String>) {
+    fun countByWeapon(args: Map<String, String>) : Answer{
         try {
             val weapon = jsonCreator.stringToObject<MeleeWeapon>(args["weapon"]!!)
             val collection = collectionManager.getCollection()
@@ -246,23 +223,21 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                         count++
                     }
                 }
-                val answer = Answer(AnswerType.OK, when (count) {
+                return Answer(AnswerType.OK, when (count) {
                     0 -> { "No Space Marines with $weapon were found" }
                     1 -> { "Only 1 Space Marine with $weapon was found" }
                     else -> { "$count Space Marines with $weapon were found" }
-                })
+                }, receiver = args["sender"]!!)
 
-                connectionManager.send(answer)
             } else {
                 throw Exception("The collection is empty")
             }
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
-    fun filterByChapter(args: Map<String, String>) {
+    fun filterByChapter(args: Map<String, String>) : Answer{
         try {
             val chapter = jsonCreator.stringToObject<Chapter>(args["chapter"]!!)
             val filteredList = mutableListOf<SpaceMarine>()
@@ -275,16 +250,14 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                 throw Exception("No Space Marines with $chapter were found")
             }
 
-            val answer = Answer(AnswerType.OK, filteredList.joinToString("\n"))
-            connectionManager.send(answer)
+            return Answer(AnswerType.OK, filteredList.joinToString("\n"), receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 
-    fun filterByWeapon(args: Map<String, String>) {
+    fun filterByWeapon(args: Map<String, String>) : Answer{
         try {
             val weapon = jsonCreator.stringToObject<MeleeWeapon>(args["weapon"]!!)
             val filteredList = mutableListOf<SpaceMarine>()
@@ -296,12 +269,10 @@ class CommandReceiver(private val collectionManager: CollectionManager,
                 throw Exception("No Space Marines with $weapon were found")
             }
 
-            val answer = Answer(AnswerType.OK, filteredList.joinToString("\n"))
-            connectionManager.send(answer)
+            return Answer(AnswerType.OK, filteredList.joinToString("\n"), receiver = args["sender"]!!)
 
         } catch (e: Exception) {
-            val answer = Answer(AnswerType.ERROR, e.message.toString())
-            connectionManager.send(answer)
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = args["sender"]!!)
         }
     }
 

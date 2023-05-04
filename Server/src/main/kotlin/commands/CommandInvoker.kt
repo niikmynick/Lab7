@@ -27,8 +27,8 @@ class CommandInvoker(private val connectionManager: ConnectionManager) {
      * Executes the command with the provided [query] argument.
      * @param query A [Query] object containing the command and its arguments.
      */
-    fun executeCommand(query: Query, username: String) {
-        try {
+    fun executeCommand(query: Query, username: String) : Answer{
+        return try {
             val commandName = query.information
             commandsHistory += commandName
 
@@ -36,8 +36,7 @@ class CommandInvoker(private val connectionManager: ConnectionManager) {
             command.execute(query.args, username)
 
         } catch (e:Error) {
-            val answer = Answer(AnswerType.ERROR, e.toString())
-            connectionManager.send(answer)
+            Answer(AnswerType.ERROR, e.toString(), receiver = query.args["sender"]!!)
         }
     }
 

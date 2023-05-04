@@ -5,4 +5,5 @@ enum class AnswerType {
     OK,
     SYSTEM,
     AUTH_ERROR,
+    REGISTRATION_REQUEST
 }

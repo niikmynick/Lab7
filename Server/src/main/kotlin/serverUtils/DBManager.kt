@@ -31,35 +31,14 @@ class DBManager(
     private fun initCollection() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        statement.executeUpdate("create table if not exists collection(id character varying(1000) primary key,info character varying(1000) not null);")
+        statement.executeUpdate("create table if not exists collection(id serial primary key,info character varying(1000) not null, user_login character varying(50) references users (login) ON DELETE SET NULL ON UPDATE CASCADE);")
         statement.close()
         connection.close()
     }
 
-    private fun initRelationship() {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        statement.executeUpdate("create table if not exists relationships(user_login character varying(50) references users (login) ON DELETE SET NULL ON UPDATE CASCADE,element_id character varying(1000) UNIQUE references collection (id) ON DELETE CASCADE ON UPDATE CASCADE);")
-        statement.close()
-        connection.close()
-    }
-
-    fun getRelationship(id:String): String {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.prepareStatement("SELECT * FROM relationships WHERE element_id = ?")
-        statement.setString(1, id)
-        val resultSet = statement.executeQuery()
-        resultSet.next()
-        val result = resultSet.getString("user_login")
-        resultSet.close()
-        statement.close()
-        connection.close()
-        return result
-    }
     fun initDB() {
         initUsers()
         initCollection()
-        initRelationship()
         initTokens()
     }
 
@@ -181,38 +160,18 @@ class DBManager(
         connection.close()
     }
 
-    fun getUserElements(login: String) : MutableList<String> {
+    fun saveSpacemarine(spaceMarine: SpaceMarine, username: String) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT element_id FROM relationships WHERE user_login = '$login'")
-        val result = mutableListOf<String>()
-        while (resultSet.next()) {
-            result.add(resultSet.getString("element_id"))
-        }
-        resultSet.close()
-        statement.close()
-        connection.close()
-        return result
-    }
-    fun saveSpacemarine(spaceMarine: SpaceMarine) {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE ID = '${spaceMarine.getId()}'")
+        val id = spaceMarine.getId().toInt()
+        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE ID = '${id}'")
         val result = resultSet.next()
         if (result) {
             statement.executeUpdate("UPDATE collection SET INFO = '${jsonCreator.objectToString(spaceMarine)}' WHERE ID = '${spaceMarine.getId()}'")
         } else {
-            statement.executeUpdate("INSERT INTO collection (ID, INFO) VALUES ('${spaceMarine.getId()}', '${jsonCreator.objectToString(spaceMarine)}')")
+            statement.executeUpdate("INSERT INTO collection (INFO, USER_LOGIN) VALUES ('${jsonCreator.objectToString(spaceMarine)}', '${username}');")
         }
         resultSet.close()
-        statement.close()
-        connection.close()
-    }
-
-    fun saveRelationship(username: String, elementId: Long) {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeUpdate("INSERT INTO relationships (user_login, element_id) VALUES ('${username}','${elementId}') ON CONFLICT DO NOTHING;")
         statement.close()
         connection.close()
     }
@@ -225,13 +184,13 @@ class DBManager(
         connection.close()
     }
 
-    fun loadCollection() : List<String> {
+    fun loadCollection() : Map<String, String> {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
         val resultSet = statement.executeQuery("SELECT * FROM collection")
-        val result = mutableListOf<String>()
+        val result = mutableMapOf<String, String>()
         while (resultSet.next()) {
-            result.add(resultSet.getString("INFO"))
+            result[resultSet.getString("INFO")] = resultSet.getString("USER_LOGIN")
         }
         resultSet.close()
         statement.close()
@@ -258,12 +217,20 @@ class DBManager(
         return result
     }
 
-    fun loadPasswordByUsername(username: String) : String {
+    private fun loadPasswordByUsername(username: String) : String {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
         val resultSet = statement.executeQuery("SELECT * FROM users where login = '$username'")
         resultSet.next()
         return resultSet.getString("password")
+    }
+
+    fun getIdBySpacemarine(spaceMarine: SpaceMarine) : Long {
+        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE INFO = '${jsonCreator.objectToString(spaceMarine)}'")
+        resultSet.next()
+        return resultSet.getLong("id")
     }
 
 }

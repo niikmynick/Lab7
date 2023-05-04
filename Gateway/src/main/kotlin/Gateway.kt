@@ -1,5 +1,6 @@
 import gatewayUtils.Console
 
+
 fun server(actions: Console.() -> Unit) {
     val console = Console()
     console.actions()
@@ -11,15 +12,15 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val portClient = 8181
-        val portServer = 8080
+        val portClient = 8060
+        val portServer = 8070
+        val portPing = 8080
         val host = "localhost"
 
-        initialize()
 
         start {
 
-            startGateway(host, portClient, portServer)
+            startGateway(host, portClient, portServer, portPing)
 
         }
 
@@ -27,6 +28,7 @@ fun main() {
         }
 
         startInteractiveMode()
+
 
     }
 

@@ -144,21 +144,25 @@ class Console {
                 iter.remove()
                 if (key.isReadable) {
                     val client = key.channel() as DatagramChannel
+                    connectionManager.datagramChannel = client
+                    val query = connectionManager.receive()
+                    val receiver = query.args["sender"]!!
                     try {
-                        connectionManager.datagramChannel = client
-                        val query = connectionManager.receive()
                         threadPool.execute {
                             when (query.queryType) {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
+                                    fileManager.load(collectionManager, userManager)
                                     if (query.token in userManager.getTokens()) {
                                         val user = userManager.users[query.token]!!
                                         user.setAccessTime(Timestamp(System.currentTimeMillis()))
                                         userManager.users[query.token] = user
-                                        commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
+                                        val answer = commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
+                                        fileManager.save(collectionManager, userManager)
+                                        connectionManager.send(answer)
                                     } else {
-                                        val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.")
+                                        val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
                                         connectionManager.send(answer)
                                     }
                                 }
@@ -177,13 +181,13 @@ class Console {
                                         sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
                                     }
 
-                                    val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo))
+                                    val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo), receiver = receiver)
                                     connectionManager.send(answer)
                                 }
 
                                 QueryType.PING -> {
                                     logger.info("Received ping request")
-                                    val answer = Answer(AnswerType.SYSTEM, "Pong")
+                                    val answer = Answer(AnswerType.SYSTEM, "Pong", receiver = receiver)
                                     connectionManager.send(answer)
                                 }
 
@@ -196,17 +200,17 @@ class Console {
                                             val token =
                                                 userManager.login(query.args["username"]!!, query.args["password"]!!)
                                             if (token.isNotEmpty()) {
-                                                Answer(AnswerType.OK, "Authorized", token)
+                                                Answer(AnswerType.OK, "Authorized", token, receiver = receiver)
                                             } else {
-                                                Answer(AnswerType.ERROR, "Wrong password")
+                                                Answer(AnswerType.ERROR, "Wrong password", receiver = receiver)
                                             }
                                         } else {
                                             val token =
                                                 userManager.register(query.args["username"]!!, query.args["password"]!!)
                                             if (token.isNotEmpty()) {
-                                                Answer(AnswerType.OK, "Registered", token)
+                                                Answer(AnswerType.OK, "Registered", token, receiver = receiver)
                                             } else {
-                                                Answer(AnswerType.ERROR, "Could not register")
+                                                Answer(AnswerType.ERROR, "Could not register", receiver = receiver)
                                             }
                                         }
                                         connectionManager.send(answer)
@@ -216,7 +220,7 @@ class Console {
                         }
                     } catch (e: Exception) {
                         logger.error("Error while executing command: ${e.message}")
-                        val answer = Answer(AnswerType.ERROR, e.message.toString())
+                        val answer = Answer(AnswerType.ERROR, e.message.toString(), receiver = receiver)
                         connectionManager.send(answer)
                     }
                 }
@@ -224,62 +228,6 @@ class Console {
         }
 
         threadPool.shutdown()
-
-//
-//        while (executeFlag) {
-//            selector.select()
-//            val selectedKeys = selector.selectedKeys()
-//
-//            if (selectedKeys.isEmpty()) continue
-//
-//            val iter = selectedKeys.iterator()
-//            while (iter.hasNext()) {
-//                val key = iter.next()
-//                iter.remove()
-//                if (key.isReadable) {
-//                    val client = key.channel() as DatagramChannel
-//                    try {
-//                        connectionManager.datagramChannel = client
-//                        val query = connectionManager.receive()
-//
-//                        when (query.queryType) {
-//                            QueryType.COMMAND_EXEC -> {
-//                                logger.info("Received command: ${query.information}")
-//                                commandInvoker.executeCommand(query)
-//                            }
-//
-//                            QueryType.INITIALIZATION -> {
-//                                logger.trace("Received initialization request")
-//
-//                                val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
-//                                    "commands" to mutableMapOf(),
-//                                    "arguments" to mutableMapOf()
-//                                )
-//                                val commands = commandInvoker.getCommandMap()
-//
-//                                for (command in commands.keys) {
-//                                    sendingInfo["commands"]!! += (command to commands[command]!!.getInfo())
-//                                    sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
-//                                }
-//
-//                                val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo))
-//                                connectionManager.send(answer)
-//                            }
-//
-//                            QueryType.PING -> {
-//                                logger.info("Received ping request")
-//                                val answer = Answer(AnswerType.SYSTEM, "Pong")
-//                                connectionManager.send(answer)
-//                            }
-//                        }
-//                    } catch (e:Exception) {
-//                        logger.error("Error while executing command: ${e.message}")
-//                        val answer = Answer(AnswerType.ERROR, e.message.toString())
-//                        connectionManager.send(answer)
-//                    }
-//                }
-//            }
-//        }
         connectionManager.datagramChannel.close()
         selector.close()
     }
@@ -303,6 +251,7 @@ class Console {
     }
 
     fun cleanTokens() {
+        userManager.users = dbManager.loadTokens()
         for (token in userManager.getTokens()) {
             val time = userManager.getTokenTime(token)
             if (Timestamp(System.currentTimeMillis()).time - time.time > 300000) { //300000

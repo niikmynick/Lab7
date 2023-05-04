@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import serverUtils.Validator
 import exceptions.InvalidArgumentException
+import utils.Answer
 
 /**
  * Count by melee weapon command
@@ -35,9 +36,9 @@ class CountByMeleeWeapon() : Command() {
     /**
      * Calls [CommandReceiver.countByWeapon]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(1, args)) {
-            commandReceiver.countByWeapon(args)
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(2, args)) {
+            return commandReceiver.countByWeapon(args)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 

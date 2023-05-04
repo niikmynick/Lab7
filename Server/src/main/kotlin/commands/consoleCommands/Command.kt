@@ -1,6 +1,7 @@
 package commands.consoleCommands
 
 import kotlinx.serialization.Serializable
+import utils.Answer
 
 /**
  * Command
@@ -24,5 +25,5 @@ abstract class Command {
      *
      * @return
      */
-    abstract fun execute(args: Map<String, String>, username: String)
+    abstract fun execute(args: Map<String, String>, username: String) : Answer
 }

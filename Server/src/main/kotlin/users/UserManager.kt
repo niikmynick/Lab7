@@ -5,9 +5,7 @@ import serverUtils.DBManager
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.sql.Timestamp
-import java.util.*
 import java.util.concurrent.locks.ReentrantLock
-import java.util.function.Predicate
 import kotlin.experimental.and
 
 class UserManager(
@@ -144,8 +142,7 @@ class UserManager(
         for (element in bytes) {
             sb.append(((element and 0xff.toByte()) + 0x100).toString(16).substring(1))
         }
-        val salt = sb.toString()
-        return salt
+        return sb.toString()
     }
 
     fun login(username: String, password: String) : String {

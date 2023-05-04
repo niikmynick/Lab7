@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import serverUtils.Validator
 import exceptions.InvalidArgumentException
+import utils.Answer
 
 /**
  * Remove greater command
@@ -35,10 +36,10 @@ class RemoveGreater() : Command() {
     /**
      * Calls [CommandReceiver.removeGreater]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(1, args)) {
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(2, args)) {
             try {
-                commandReceiver.removeGreater(args, username)
+                return commandReceiver.removeGreater(args, username)
             } catch (e:Exception) {
                 throw InvalidArgumentException("Expected an argument but it was not found")
             }

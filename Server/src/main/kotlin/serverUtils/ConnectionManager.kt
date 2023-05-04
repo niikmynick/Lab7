@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import utils.Answer
+import utils.AnswerType
 import utils.Query
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
@@ -36,7 +37,7 @@ class ConnectionManager {
         while (unbound) {
             try {
                 this.port++
-                this.address = InetSocketAddress(host, port)
+                this.address = InetSocketAddress(this.host, this.port)
                 datagramChannel.bind(address)
                 unbound = false
             } catch (_:Exception) {}
@@ -74,5 +75,14 @@ class ConnectionManager {
         val data = ByteBuffer.wrap(jsonAnswer)
 
        sendAsync(data, remoteAddress)
+    }
+
+    fun registrationRequest(host: String, port: Int) {
+        val request = Answer(AnswerType.REGISTRATION_REQUEST, "Registration request", receiver = "")
+        buffer = ByteBuffer.allocate(4096)
+        val jsonAnswer = Json.encodeToString(Answer.serializer(), request).toByteArray()
+        val data = ByteBuffer.wrap(jsonAnswer)
+        val receiver = InetSocketAddress(host, port)
+        sendAsync(data, receiver)
     }
 }

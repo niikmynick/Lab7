@@ -1,24 +1,21 @@
 package gatewayUtils
 
 
+
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import java.net.InetSocketAddress
 import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
-import java.sql.Timestamp
 import java.util.*
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
 
 /**
  * Class that handles user commands and provides them all the necessary parameters
- * @property connectionManager Manages connections to the server
- * @property fileManager Used for loading data to the collection
- * @property collectionManager Manages the collection of objects
- * @property commandInvoker Invokes commands that operate on the collection
- * @property commandReceiver Receives commands and executes them
+ * @property connectionManager Manages connections to the gateway
  */
 class Console {
     // connection
@@ -26,7 +23,6 @@ class Console {
     private val selector = Selector.open()
 
     // utils
-    private val jsonCreator = JsonCreator()
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var executeFlag = true
 
@@ -40,12 +36,6 @@ class Console {
         connectionManager.actions()
     }
 
-    /**
-     * Registers commands and waits for user prompt
-     */
-    fun initialize() {
-
-    }
 
     private fun onTimeComplete(actions: Console.() -> Unit) {
         actions()
@@ -70,6 +60,7 @@ class Console {
         connectionManager.datagramChannelClient.register(selector, SelectionKey.OP_READ)
         connectionManager.datagramChannelServer.register(selector, SelectionKey.OP_READ)
 
+
         while (executeFlag) {
             selector.select()
             val selectedKeys = selector.selectedKeys()
@@ -88,6 +79,16 @@ class Console {
                             connectionManager.datagramChannelServer = request
                             val received = connectionManager.receiveFromServer()
                             threadPool.execute {
+                                logger.info("Received from server: $received")
+                                val serverAddress = connectionManager.remoteAddressServer
+                                if (received.answerType == AnswerType.REGISTRATION_REQUEST) {
+                                    connectionManager.availableServers += serverAddress
+                                } else {
+                                    val host = received.receiver.split(':')[0].replace("/","")
+                                    val port = received.receiver.split(':')[1].toInt()
+                                    val address = InetSocketAddress(host, port)
+                                    connectionManager.sendToClient(received, address)
+                                }
 
                             }
                         }
@@ -95,6 +96,23 @@ class Console {
                             connectionManager.datagramChannelClient = request
                             val received = connectionManager.receiveFromClient()
                             threadPool.execute {
+                                logger.info("Received from client: $received")
+                                val clientAddress = connectionManager.remoteAddressClient
+                                received.args["sender"] = clientAddress.toString()
+                                try {
+                                    do {
+                                        val address = connectionManager.availableServers.pop()
+                                        val isConnected = connectionManager.connected(address)
+                                        if (isConnected) {
+                                            connectionManager.availableServers.addLast(address)
+                                            connectionManager.sendToServer(received, address, "channel")
+                                        }
+                                    } while (!isConnected)
+                                } catch (e:Exception) {
+                                    logger.warn("No server was found")
+                                    logger.warn(e.message)
+                                }
+
 
                             }
                         }

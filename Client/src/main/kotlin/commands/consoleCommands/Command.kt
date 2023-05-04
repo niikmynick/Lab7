@@ -1,7 +1,6 @@
 package commands.consoleCommands
 
 import kotlinx.serialization.Serializable
-import java.util.StringTokenizer
 
 /**
  * Command

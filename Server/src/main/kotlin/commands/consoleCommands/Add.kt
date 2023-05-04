@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import serverUtils.Validator
 import exceptions.InvalidArgumentException
+import utils.Answer
 
 
 /**
@@ -31,9 +32,9 @@ class Add() : Command() {
     /**
      * Calls [CommandReceiver.add]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(1, args)) {
-            commandReceiver.add(args, username)
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(2, args)) {
+            return commandReceiver.add(args, username)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

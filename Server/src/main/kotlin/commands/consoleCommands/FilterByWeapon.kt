@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import exceptions.InvalidArgumentException
 import serverUtils.Validator
+import utils.Answer
 
 class FilterByWeapon() : Command() {
 
@@ -26,9 +27,9 @@ class FilterByWeapon() : Command() {
     /**
      * Calls [CommandReceiver.filterByWeapon]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(1, args)) {
-            commandReceiver.filterByWeapon(args)
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(2, args)) {
+            return commandReceiver.filterByWeapon(args)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

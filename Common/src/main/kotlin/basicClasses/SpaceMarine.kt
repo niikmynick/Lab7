@@ -29,7 +29,7 @@ data class SpaceMarine (
     /**
      * Defined automatically with [Timestamp]
      */
-    private val id: Long = Timestamp(System.currentTimeMillis()).time,//Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private var id: Long = Timestamp(System.currentTimeMillis()).time,//Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private var name: String, //Поле не может быть null, Строка не может быть пустой
     private var coordinates: Coordinates, //Поле не может быть null
     /**
@@ -85,6 +85,10 @@ data class SpaceMarine (
      */
     fun getId(): Long {
         return id
+    }
+
+    fun setId(long: Long) {
+        this.id = long
     }
 
     /**

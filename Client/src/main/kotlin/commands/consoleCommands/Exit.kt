@@ -1,7 +1,6 @@
 package commands.consoleCommands
 
 import clientUtils.ConnectionManager
-import clientUtils.Console
 import clientUtils.Validator
 import exceptions.InvalidArgumentException
 import utils.Query
@@ -24,7 +23,7 @@ class Exit(private val connectionManager: ConnectionManager): Command() {
     override fun execute(args: List<String>, token: String) {
         if (Validator.verifyArgs(0, args)) {
             setFlag(false)
-            connectionManager.send(Query(QueryType.AUTHORIZATION, "logout", mapOf(), token))
+            connectionManager.send(Query(QueryType.AUTHORIZATION, "logout", mutableMapOf(), token))
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

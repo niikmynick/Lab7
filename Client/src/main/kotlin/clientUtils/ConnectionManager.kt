@@ -38,7 +38,7 @@ class ConnectionManager(host: String, private var port: Int) {
     }
 
     private fun ping() : Double {
-        val query = Query(QueryType.PING, "Ping", mapOf())
+        val query = Query(QueryType.PING, "Ping", mutableMapOf())
         try {
             send(query)
         } catch (e:Exception) {
@@ -57,7 +57,7 @@ class ConnectionManager(host: String, private var port: Int) {
         try {
             send(query)
         } catch (e:Exception) {
-            return Answer(AnswerType.ERROR, e.message.toString())
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = "")
         }
         return receive()
     }
@@ -81,7 +81,7 @@ class ConnectionManager(host: String, private var port: Int) {
             jsonAnswer = data.decodeToString().replace("\u0000", "")
         } catch (e:Exception) {
             datagramPacket = DatagramPacket(ByteArray(4096), 4096, hostInetAddress, port)
-            return Answer(AnswerType.ERROR, e.message.toString())
+            return Answer(AnswerType.ERROR, e.message.toString(), receiver = "")
         }
 
         logger.info("Received: $jsonAnswer")

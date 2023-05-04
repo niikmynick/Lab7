@@ -37,10 +37,12 @@ class CollectionManager(private val dbManager: DBManager) {
                 "$element cannot be added to collection as a Space Marine with this id already exists")
         lock.lock()
         try {
+            dbManager.saveSpacemarine(element, username)
+            val id = dbManager.getIdBySpacemarine(element)
+            element.setId(id)
             collection.add(element)
             relationship[element.getId()] = username
-            dbManager.saveSpacemarine(element)
-            dbManager.saveRelationship(username, element.getId())
+
         } finally {
             lock.unlock()
         }
@@ -89,7 +91,7 @@ class CollectionManager(private val dbManager: DBManager) {
             spaceMarine.setHealth(data.getHealth())
             spaceMarine.setLoyalty(data.getLoyalty())
             spaceMarine.setMeleeWeapon(data.getWeapon())
-            dbManager.saveSpacemarine(spaceMarine)
+            dbManager.saveSpacemarine(spaceMarine, username)
         } finally {
             lock.unlock()
         }

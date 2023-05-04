@@ -3,6 +3,7 @@ package commands.consoleCommands
 import commands.CommandReceiver
 import serverUtils.Validator
 import exceptions.InvalidArgumentException
+import utils.Answer
 
 /**
  * Info command
@@ -33,9 +34,9 @@ class Info() : Command() {
     /**
      * Calls [CommandReceiver.info]
      */
-    override fun execute(args: Map<String, String>, username: String) {
-        if (Validator.verifyArgs(0, args)) {
-            commandReceiver.info()
+    override fun execute(args: Map<String, String>, username: String): Answer {
+        if (Validator.verifyArgs(1, args)) {
+            return commandReceiver.info(args)
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }
