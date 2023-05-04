@@ -32,6 +32,7 @@ class ConnectionManager {
 
     var addressForClient = InetSocketAddress(host, portForClient)
     var addressForServer = InetSocketAddress(host, portForServer)
+    var addressForPinging = InetSocketAddress(host, portForPinging)
 
     var datagramChannelClient: DatagramChannel = DatagramChannel.open()
     var datagramChannelServer: DatagramChannel = DatagramChannel.open()

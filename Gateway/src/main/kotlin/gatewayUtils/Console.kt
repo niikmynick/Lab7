@@ -87,7 +87,9 @@ class Console {
                                     val host = received.receiver.split(':')[0].replace("/","")
                                     val port = received.receiver.split(':')[1].toInt()
                                     val address = InetSocketAddress(host, port)
-                                    connectionManager.sendToClient(received, address)
+                                    if ((address != connectionManager.addressForPinging) and (address != connectionManager.addressForServer)) {
+                                        connectionManager.sendToClient(received, address)
+                                    }
                                 }
 
                             }

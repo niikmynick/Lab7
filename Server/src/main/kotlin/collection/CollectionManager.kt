@@ -42,7 +42,6 @@ class CollectionManager(private val dbManager: DBManager) {
             element.setId(id)
             collection.add(element)
             relationship[element.getId()] = username
-
         } finally {
             lock.unlock()
         }

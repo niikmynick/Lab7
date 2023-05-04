@@ -149,17 +149,17 @@ class Console {
                     val receiver = query.args["sender"]!!
                     try {
                         threadPool.execute {
+                            fileManager.load(collectionManager, userManager)
                             when (query.queryType) {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
-                                    fileManager.load(collectionManager, userManager)
+
                                     if (query.token in userManager.getTokens()) {
                                         val user = userManager.users[query.token]!!
                                         user.setAccessTime(Timestamp(System.currentTimeMillis()))
                                         userManager.users[query.token] = user
                                         val answer = commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
-                                        fileManager.save(collectionManager, userManager)
                                         connectionManager.send(answer)
                                     } else {
                                         val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
@@ -217,6 +217,7 @@ class Console {
                                     }
                                 }
                             }
+                            fileManager.save(collectionManager, userManager)
                         }
                     } catch (e: Exception) {
                         logger.error("Error while executing command: ${e.message}")

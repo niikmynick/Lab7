@@ -15,6 +15,10 @@ dependencies {
     implementation ("com.charleskorn.kaml:kaml:0.51.0")
     implementation("org.postgresql:postgresql:42.3.8")
     implementation(project(":Common"))
+    // JWT
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.5") // or 'io.jsonwebtoken:jjwt-gson:0.11.5' for gson
 }
 
 tasks.test {
