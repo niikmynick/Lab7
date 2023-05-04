@@ -7,11 +7,11 @@ import commands.consoleCommands.*
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import tokenutils.JWTManager
 import users.UserManager
 import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
-import java.sql.Timestamp
 import java.util.*
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
@@ -46,6 +46,7 @@ class Console {
     private val jsonCreator = JsonCreator()
     private val logger: Logger = LogManager.getLogger(Console::class.java)
     private var executeFlag = true
+    private val jwtManager = JWTManager()
 
     // auto save
     private val timer = Timer()
@@ -104,7 +105,7 @@ class Console {
         commandInvoker.register("filter_by_weapon", FilterByWeapon(commandReceiver))
         logger.debug("Command 'filter_by_weapon' registered")
 
-        fileManager.load(collectionManager, userManager)
+        fileManager.load(collectionManager)
         logger.info("Collection loaded")
 
     }
@@ -149,17 +150,16 @@ class Console {
                     val receiver = query.args["sender"]!!
                     try {
                         threadPool.execute {
-                            fileManager.load(collectionManager, userManager)
+                            fileManager.load(collectionManager)
                             when (query.queryType) {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
 
-                                    if (query.token in userManager.getTokens()) {
-                                        val user = userManager.users[query.token]!!
-                                        user.setAccessTime(Timestamp(System.currentTimeMillis()))
-                                        userManager.users[query.token] = user
-                                        val answer = commandInvoker.executeCommand(query, userManager.getByToken(query.token)!!)
+                                    if (jwtManager.validateJWS(query.token)) {
+                                        val username = jwtManager.retrieveUsername(query.token)
+                                        val answer = commandInvoker.executeCommand(query, username)
+                                        answer.token = jwtManager.createJWS("server", username)
                                         connectionManager.send(answer)
                                     } else {
                                         val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
@@ -193,12 +193,9 @@ class Console {
 
                                 QueryType.AUTHORIZATION -> {
                                     logger.info("Received authorization request")
-                                    if (query.information == "logout") {
-                                        userManager.removeToken(query.token)
-                                    } else {
+                                    if (query.information != "logout") {
                                         val answer: Answer = if (userManager.userExists(query.args["username"]!!)) {
-                                            val token =
-                                                userManager.login(query.args["username"]!!, query.args["password"]!!)
+                                            val token = userManager.login(query.args["username"]!!, query.args["password"]!!)
                                             if (token.isNotEmpty()) {
                                                 Answer(AnswerType.OK, "Authorized", token, receiver = receiver)
                                             } else {
@@ -251,13 +248,4 @@ class Console {
         }
     }
 
-    fun cleanTokens() {
-        userManager.users = dbManager.loadTokens()
-        for (token in userManager.getTokens()) {
-            val time = userManager.getTokenTime(token)
-            if (Timestamp(System.currentTimeMillis()).time - time.time > 300000) { //300000
-                userManager.removeToken(token)
-            }
-        }
-    }
 }

@@ -20,11 +20,10 @@ class FileManager(
      * Reads data from database and adds objects to [collection]
      * @param collectionManager Current collection
      */
-    fun load(collectionManager: CollectionManager, userManager: UserManager) {
+    fun load(collectionManager: CollectionManager) {
         try {
             logger.info("Loading from database")
             val collection = dbManager.loadCollection()
-            val tokens = dbManager.loadTokens()
 
             for (element in collection) {
                 val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element.key)
@@ -33,9 +32,6 @@ class FileManager(
                 logger.info("Loaded $spaceMarine")
             }
             logger.info("Loaded ${collectionManager.getCollection().size} elements successfully")
-
-            userManager.users = tokens
-            logger.info("Loaded ${userManager.users.size} tokens successfully")
 
         } catch (e: Exception) {
             logger.warn(e.message.toString())
@@ -52,10 +48,7 @@ class FileManager(
                 dbManager.saveSpacemarine(element, username)
                 logger.info("Saved $element")
             }
-            for (element in userManager.getUsersMap()) {
-                dbManager.saveTokens(element.key, element.value)
-                logger.info("Saved $element")
-            }
+
             logger.info("Saved ${collectionManager.getCollection().size} elements successfully")
 
         } catch (e: Exception) {

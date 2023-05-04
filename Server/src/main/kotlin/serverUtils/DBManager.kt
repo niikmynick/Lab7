@@ -1,7 +1,6 @@
 package serverUtils
 
 import basicClasses.SpaceMarine
-import users.User
 import utils.JsonCreator
 import java.sql.DriverManager
 
@@ -20,14 +19,6 @@ class DBManager(
         connection.close()
     }
 
-    private fun initTokens() {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        statement.executeUpdate("create table if not exists tokens(token varchar(1000) primary key,user_login varchar(50) references users (login) ON DELETE SET NULL ON UPDATE CASCADE,access_time timestamp not null);")
-        statement.close()
-        connection.close()
-    }
-
     private fun initCollection() {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.createStatement()
@@ -39,7 +30,6 @@ class DBManager(
     fun initDB() {
         initUsers()
         initCollection()
-        initTokens()
     }
 
     fun userExists(login: String) : Boolean {
@@ -147,18 +137,6 @@ class DBManager(
         connection.close()
     }
 
-    fun deleteToken(token: String) {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM tokens WHERE token = '$token'")
-        val result = resultSet.next()
-        if (result) {
-            statement.executeUpdate("DELETE FROM tokens WHERE token = '$token'")
-        }
-        resultSet.close()
-        statement.close()
-        connection.close()
-    }
 
     fun saveSpacemarine(spaceMarine: SpaceMarine, username: String) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
@@ -176,13 +154,6 @@ class DBManager(
         connection.close()
     }
 
-    fun saveTokens(token: String, user: User) {
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeUpdate("INSERT INTO tokens (token, user_login, access_time) VALUES ('${token}','${user.getName()}','${user.getAccessTime()}') ON CONFLICT DO NOTHING;")
-        statement.close()
-        connection.close()
-    }
 
     fun loadCollection() : Map<String, String> {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
@@ -198,24 +169,6 @@ class DBManager(
         return result
     }
 
-    fun loadTokens() : MutableMap<String, User>{
-        val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM tokens")
-        val result = mutableMapOf<String, User>()
-        while (resultSet.next()) {
-            val username = resultSet.getString("user_login")
-            val accessTime = resultSet.getTimestamp("access_time")
-            val password = loadPasswordByUsername(username)
-            val user = User(username, password)
-            user.setAccessTime(accessTime)
-            result[resultSet.getString("token")] = user
-        }
-        resultSet.close()
-        statement.close()
-        connection.close()
-        return result
-    }
 
     private fun loadPasswordByUsername(username: String) : String {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)

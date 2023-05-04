@@ -112,7 +112,6 @@ class Console {
                                     } while (!isConnected)
                                 } catch (e:Exception) {
                                     logger.warn("No server was found")
-                                    logger.warn(e.message)
                                 }
 
 

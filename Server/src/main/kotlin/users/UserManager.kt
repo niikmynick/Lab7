@@ -2,48 +2,17 @@ package users
 
 import org.apache.logging.log4j.LogManager
 import serverUtils.DBManager
+import tokenutils.JWTManager
 import java.security.MessageDigest
 import java.security.SecureRandom
-import java.sql.Timestamp
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.experimental.and
 
-class UserManager(
-    private val dbManager: DBManager
-) {
-    /**
-     * Token to User
-     */
-    var users = mutableMapOf<String, User>()
+class UserManager(private val dbManager: DBManager) {
 
     private val lock = ReentrantLock()
     private val logger = LogManager.getLogger(UserManager::class.java)
-
-
-    fun addUser(user: User) {
-        if (user == getByName(user.getName())) {
-            throw Exception ("User $user cannot be added to collection")
-        }
-        lock.lock()
-        try {
-            users[user.getToken()] = user
-        } finally {
-            lock.unlock()
-        }
-    }
-
-    fun getUsersMap() : MutableMap<String, User>{
-        return users
-    }
-
-    fun getTokenTime(token: String) : Timestamp {
-        lock.lock()
-        try {
-            return users[token]?.getAccessTime()!!
-        } finally {
-            lock.unlock()
-        }
-    }
+    private val jwtManager = JWTManager()
 
     fun updateUser(data: User, user: User) {
         lock.lock()
@@ -55,66 +24,6 @@ class UserManager(
         }
     }
 
-    fun removeUser(user: User) : Boolean {
-        lock.lock()
-        try {
-            return users.remove(user.getToken()) != null
-        } finally {
-            lock.unlock()
-        }
-    }
-
-    fun clear() {
-        users.clear()
-    }
-
-    fun getTokens() : List<String> {
-        lock.lock()
-        try {
-            return users.keys.toList()
-        } finally {
-            lock.unlock()
-        }
-    }
-    private fun getByName(name: String) : User? {
-        lock.lock()
-        try {
-            for (user in users) {
-                if (user.value.getName() == name) {
-                    return user.value
-                }
-            }
-        } finally {
-            lock.unlock()
-        }
-
-        return null
-    }
-
-    fun getByToken(token: String) : String? {
-        lock.lock()
-        try {
-            return users[token]?.getName()
-        } finally {
-            lock.unlock()
-        }
-    }
-
-    private fun createToken(username: String) : String {
-        val token = hashing(username, createSalt())
-        if (token in users.keys) {
-            logger.debug("Token already exists")
-            return createToken(username)
-        }
-        logger.debug("Created token")
-        return token
-    }
-
-    fun removeToken(token: String) {
-        users.remove(token)
-        dbManager.deleteToken(token)
-        logger.debug("Removed token: $token")
-    }
 
     private fun hashing(stringToHash: String, salt: String) : String {
         var hashedString = ""
@@ -151,9 +60,7 @@ class UserManager(
         val authorized = dbManager.loginUser(username, hashedPassword)
         return if (authorized) {
             logger.debug("User $username authorized")
-            val token = createToken(username)
-            users[token] = User(username, password)
-            dbManager.saveTokens(token, users[token]!!)
+            val token = jwtManager.createJWS("server", username)
             token
         } else {
             ""
@@ -165,9 +72,7 @@ class UserManager(
         val registered = dbManager.registerUser(username, hashing(password, salt), salt)
         return if (registered) {
             logger.debug("User $username registered")
-            val token = createToken(username)
-            users[token] = User(username, password)
-            dbManager.saveTokens(token, users[token]!!)
+            val token = jwtManager.createJWS("server", username)
             token
         } else {
             ""
