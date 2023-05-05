@@ -1,7 +1,6 @@
 package gatewayUtils
 
 import exceptions.InvalidArgumentException
-
 import kotlinx.serialization.json.Json
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -22,6 +21,7 @@ import java.util.concurrent.ForkJoinPool
  * Class responsible for managing network connections
  */
 class ConnectionManager {
+    // don't represent anything, used only for initializing the vars
     private var host = "localhost"
     private var portForClient = 0
     private var portForServer = 0
@@ -172,7 +172,6 @@ class ConnectionManager {
     }
 
     fun connected(address: InetSocketAddress): Boolean {
-        datagramSocket.soTimeout = timeout
         return ping(address) < timeout
     }
 

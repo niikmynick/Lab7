@@ -46,7 +46,6 @@ class FileManager(
                 val relation = collectionManager.getRelationship()
                 val username = relation[element.getId()]!!
                 dbManager.saveSpacemarine(element, username)
-                logger.info("Saved $element")
             }
 
             logger.info("Saved ${collectionManager.getCollection().size} elements successfully")

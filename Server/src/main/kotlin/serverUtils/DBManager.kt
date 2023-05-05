@@ -126,13 +126,8 @@ class DBManager(
 
     fun deleteSpaceMarine(id: Long) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE id = '$id'")
-        val result = resultSet.next()
-        if (result) {
-            statement.executeUpdate("DELETE FROM collection WHERE id = '$id'")
-        }
-        resultSet.close()
+        val statement = connection.prepareStatement("DELETE FROM collection WHERE id = ?")
+        statement.setLong(1, id)
         statement.close()
         connection.close()
     }
@@ -140,14 +135,21 @@ class DBManager(
 
     fun saveSpacemarine(spaceMarine: SpaceMarine, username: String) {
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
-        val statement = connection.createStatement()
-        val id = spaceMarine.getId().toInt()
-        val resultSet = statement.executeQuery("SELECT * FROM collection WHERE ID = '${id}'")
+        var statement = connection.prepareStatement("SELECT * FROM collection WHERE ID = ?")
+        val id = spaceMarine.getId()
+        statement.setLong(1, id)
+        val resultSet = statement.executeQuery()
         val result = resultSet.next()
         if (result) {
-            statement.executeUpdate("UPDATE collection SET INFO = '${jsonCreator.objectToString(spaceMarine)}' WHERE ID = '${spaceMarine.getId()}'")
+            statement = connection.prepareStatement("UPDATE collection SET INFO = ? WHERE ID = ?")
+            statement.setString(1, jsonCreator.objectToString(spaceMarine))
+            statement.setLong(2, spaceMarine.getId())
+            statement.executeUpdate()
         } else {
-            statement.executeUpdate("INSERT INTO collection (INFO, USER_LOGIN) VALUES ('${jsonCreator.objectToString(spaceMarine)}', '${username}');")
+            statement = connection.prepareStatement("INSERT INTO collection (INFO, USER_LOGIN) VALUES (?, ?)")
+            statement.setString(1, jsonCreator.objectToString(spaceMarine))
+            statement.setString(2, username)
+            statement.executeUpdate()
         }
         resultSet.close()
         statement.close()

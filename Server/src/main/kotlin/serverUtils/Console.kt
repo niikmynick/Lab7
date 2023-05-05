@@ -150,17 +150,18 @@ class Console {
                     val receiver = query.args["sender"]!!
                     try {
                         threadPool.execute {
-                            fileManager.load(collectionManager)
                             when (query.queryType) {
 
                                 QueryType.COMMAND_EXEC -> {
                                     logger.info("Received command: ${query.information}")
+                                    fileManager.load(collectionManager)
 
                                     if (jwtManager.validateJWS(query.token)) {
                                         val username = jwtManager.retrieveUsername(query.token)
                                         val answer = commandInvoker.executeCommand(query, username)
                                         answer.token = jwtManager.createJWS("server", username)
                                         connectionManager.send(answer)
+                                        fileManager.save(collectionManager, userManager)
                                     } else {
                                         val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
                                         connectionManager.send(answer)
@@ -186,7 +187,7 @@ class Console {
                                 }
 
                                 QueryType.PING -> {
-                                    logger.info("Received ping request")
+                                    logger.info("Received ping request from: {}", receiver)
                                     val answer = Answer(AnswerType.SYSTEM, "Pong", receiver = receiver)
                                     connectionManager.send(answer)
                                 }
@@ -194,6 +195,7 @@ class Console {
                                 QueryType.AUTHORIZATION -> {
                                     logger.info("Received authorization request")
                                     if (query.information != "logout") {
+                                        fileManager.load(collectionManager)
                                         val answer: Answer = if (userManager.userExists(query.args["username"]!!)) {
                                             val token = userManager.login(query.args["username"]!!, query.args["password"]!!)
                                             if (token.isNotEmpty()) {
@@ -211,10 +213,11 @@ class Console {
                                             }
                                         }
                                         connectionManager.send(answer)
+                                        fileManager.save(collectionManager, userManager)
                                     }
                                 }
                             }
-                            fileManager.save(collectionManager, userManager)
+
                         }
                     } catch (e: Exception) {
                         logger.error("Error while executing command: ${e.message}")

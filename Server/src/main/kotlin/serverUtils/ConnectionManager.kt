@@ -15,6 +15,7 @@ import java.util.concurrent.ForkJoinPool
  * Class responsible for managing network connections
  */
 class ConnectionManager {
+    // don't represent anything, used only for initializing the vars
     private var host = "localhost"
     private var port = 6789
 

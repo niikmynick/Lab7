@@ -43,7 +43,7 @@ fun main() {
         }
 
         scheduleTask(60000) {//60000
-            save()
+            //save() // does not need to save constantly, as after every action to the database, its info is automatically saved into it
         }
 
         startInteractiveMode()

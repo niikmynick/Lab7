@@ -1,7 +1,6 @@
 package gatewayUtils
 
 
-
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -79,14 +78,12 @@ class Console {
                             connectionManager.datagramChannelServer = request
                             val received = connectionManager.receiveFromServer()
                             threadPool.execute {
-                                logger.info("Received from server: $received")
                                 val serverAddress = connectionManager.remoteAddressServer
                                 if (received.answerType == AnswerType.REGISTRATION_REQUEST) {
                                     connectionManager.availableServers += serverAddress
                                 } else {
-                                    val host = received.receiver.split(':')[0].replace("/","")
-                                    val port = received.receiver.split(':')[1].toInt()
-                                    val address = InetSocketAddress(host, port)
+                                    val receiver = received.receiver.split(':')
+                                    val address = InetSocketAddress(receiver[0].replace("/",""), receiver[1].toInt())
                                     if ((address != connectionManager.addressForPinging) and (address != connectionManager.addressForServer)) {
                                         connectionManager.sendToClient(received, address)
                                     }
@@ -98,7 +95,6 @@ class Console {
                             connectionManager.datagramChannelClient = request
                             val received = connectionManager.receiveFromClient()
                             threadPool.execute {
-                                logger.info("Received from client: $received")
                                 val clientAddress = connectionManager.remoteAddressClient
                                 received.args["sender"] = clientAddress.toString()
                                 try {
