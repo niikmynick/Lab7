@@ -25,10 +25,8 @@ class Help(
     override fun execute(args: List<String>, token: String) {
         if (Validator.verifyArgs(1, args)) {
             commandReceiver.help(args[0])
-
         } else if (Validator.verifyArgs(0, args)) {
-                commandReceiver.help()
-
+            commandReceiver.help()
         } else throw InvalidArgumentException("Invalid arguments were entered. Use HELP command to check")
     }
 }

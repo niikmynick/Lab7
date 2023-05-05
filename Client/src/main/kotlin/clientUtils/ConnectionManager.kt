@@ -8,9 +8,13 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 
-
+/**
+ * The ConnectionManager class is responsible for managing a connection with a server using UDP protocol.
+ */
 class ConnectionManager(host: String, private var port: Int) {
-
+    /**
+     * The timeout for connection in milliseconds
+     */
     private val timeout = 5000
     private var datagramSocket = DatagramSocket()
     private val outputManager = OutputManager()
@@ -32,11 +36,21 @@ class ConnectionManager(host: String, private var port: Int) {
 
     }
 
+    /**
+     * Checks if the ConnectionManager is connected to the server by sending a ping packet
+     * and measuring the response time.
+     * @return true if the connection is established (ping is less than timeout), false otherwise.
+     */
     fun connected(): Boolean {
         datagramSocket.soTimeout = timeout
         return ping() < timeout
     }
 
+    /**
+     * Sends a ping Query to the server and waits for a response.
+     * If an error occurs during sending, an Answer with the error message is returned.
+     * @return Time elapsed from sending the query to receiving the answer
+     */
     private fun ping() : Double {
         val query = Query(QueryType.PING, "Ping", mutableMapOf())
         try {
@@ -53,6 +67,12 @@ class ConnectionManager(host: String, private var port: Int) {
         return elapsedTimeInMs
     }
 
+    /**
+     * Sends a Query to the server and waits for a response.
+     * If an error occurs during sending, an Answer with the error message is returned.
+     * @param query The Query to send to the server.
+     * @return The Answer received from the server, or an Answer with an error message if an error occurred.
+     */
     fun checkedSendReceive(query: Query) : Answer {
         try {
             send(query)
@@ -62,6 +82,10 @@ class ConnectionManager(host: String, private var port: Int) {
         return receive()
     }
 
+    /**
+     * Sends a Query to the server.
+     * @param query The Query to send to the server.
+     */
     fun send(query: Query) {
         val jsonQuery = Json.encodeToString(Query.serializer(), query)
         val data = jsonQuery.toByteArray()
@@ -72,6 +96,13 @@ class ConnectionManager(host: String, private var port: Int) {
         datagramSocket.send(datagramPacket)
     }
 
+    /**
+     * This function receives an Answer from the server by reading the incoming data from the datagramSocket.
+     * It creates a datagramPacket to store the incoming data and read it into the packet.
+     * If there is an exception during the read, it returns an Answer object with type ERROR and the exception message.
+     * Otherwise, it decodes the incoming data into a JSON string and then deserializes it into an Answer object.
+     * @return Answer: The Answer object received from the server.
+     */
     private fun receive(): Answer {
         val data = ByteArray(4096)
         val jsonAnswer : String

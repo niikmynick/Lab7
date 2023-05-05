@@ -33,7 +33,9 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
         outputManager.println("To get information about each available command, type HELP ALL")
     }
 
-
+    /**
+     * Prints information about the provided command.
+     */
     fun help(arg:String) {
         val commands = commandInvoker.getCommandMap()
 

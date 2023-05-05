@@ -29,10 +29,18 @@ class Console(private var host: String, private var port: Int) {
     private val jsonCreator = JsonCreator()
 
     private val logger: Logger = LogManager.getLogger(Console::class.java)
+
+    /**
+     * Contains the token that authorizes the client to execute commands in the server. It is initialized as an empty string.
+     */
     private var token = ""
     var authorized: Boolean = false
 
-
+    /**
+     * Attempts to connect to a server.
+     * If connection is successful, it will initialize the connection by calling the [initialize] function.
+     * If connection fails, it will prompt the user to retry or register basic commands.
+     */
     fun connect() {
         if (connectionManager.connected()) {
             logger.debug("Connected to server")
@@ -57,6 +65,11 @@ class Console(private var host: String, private var port: Int) {
         }
     }
 
+    /**
+     * Checks if a connection with the server is active with [ConnectionManager.connected]
+     * If the connection is active, it returns true.
+     * If the connection is not active, it logs the event, prompts the user to reconnect and returns false.
+     */
     private fun checkConnection(): Boolean {
         return if (connectionManager.connected()) {
             true
@@ -68,6 +81,9 @@ class Console(private var host: String, private var port: Int) {
         }
     }
 
+    /**
+     * Registers the basic commands that can be executed without the server
+     */
     private fun registerBasicCommands() {
         commandInvoker.register("help", Help(commandReceiver))
         commandInvoker.register("exit", Exit(connectionManager))
@@ -76,7 +92,8 @@ class Console(private var host: String, private var port: Int) {
     }
 
     /**
-     * Registers commands and waits for user prompt
+     * Sends an Initialization request to the server, then receives and registers
+     * all commands with their respective needed arguments.
      */
     private fun initialize() {
         val query = Query(QueryType.INITIALIZATION, "", mutableMapOf())
@@ -115,6 +132,11 @@ class Console(private var host: String, private var port: Int) {
         registerBasicCommands()
     }
 
+    /**
+     * Requests the user to authorize.
+     * The function recursively asks for username and password until an Authorized message from the server is received.
+     * Finally, saves the received token into the [token] variable.
+     */
     fun authorize(){
         outputManager.surePrint("Login or register to use the collection: ")
         val username = StringReader(outputManager, inputManager).read("Username: ")
@@ -131,6 +153,10 @@ class Console(private var host: String, private var port: Int) {
             token = answer.token
         }
     }
+
+    /**
+     * Starts the interactive mode which asks for prompt until an [Exit] command is executed
+     */
     fun startInteractiveMode() {
         var executeFlag: Boolean? = true
         outputManager.surePrint("Waiting for user prompt ...")
