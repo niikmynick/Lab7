@@ -128,6 +128,7 @@ class DBManager(
         val connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword)
         val statement = connection.prepareStatement("DELETE FROM collection WHERE id = ?")
         statement.setLong(1, id)
+        statement.executeUpdate()
         statement.close()
         connection.close()
     }

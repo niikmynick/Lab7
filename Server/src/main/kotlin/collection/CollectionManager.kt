@@ -3,8 +3,7 @@ package collection
 import basicClasses.SpaceMarine
 import exceptions.SpaceMarineIdAlreadyExists
 import serverUtils.DBManager
-import java.util.Date
-import java.util.TreeSet
+import java.util.*
 import java.util.concurrent.locks.ReentrantLock
 import java.util.function.Predicate
 
@@ -14,7 +13,7 @@ import java.util.function.Predicate
  * @property date Saves creation date
  */
 class CollectionManager(private val dbManager: DBManager) {
-    private val collection = TreeSet<SpaceMarine>()
+    private val collection = Collections.synchronizedSortedSet(TreeSet<SpaceMarine>())
 
     /**
      * Element_id to user_login
@@ -24,8 +23,8 @@ class CollectionManager(private val dbManager: DBManager) {
     private val date: Date = Date()
     private val lock = ReentrantLock()
 
-    fun getCollection(): TreeSet<SpaceMarine> {
-        return collection
+    fun getCollection(): SortedSet<SpaceMarine> {
+        return collection as SortedSet<SpaceMarine>
     }
 
     fun getRelationship(): MutableMap<Long, String> {
@@ -100,24 +99,31 @@ class CollectionManager(private val dbManager: DBManager) {
      * Removes element
      * @param spaceMarine element in the collection
      */
-    fun remove(spaceMarine: SpaceMarine, username: String) : Boolean {
+    fun remove(spaceMarine: SpaceMarine, username: String) {
         if (relationship[spaceMarine.getId()] != username) throw Exception("You don't have permission to remove this element")
-
         lock.lock()
         try {
             dbManager.deleteSpaceMarine(spaceMarine.getId())
             relationship.remove(spaceMarine.getId())
-            return collection.remove(spaceMarine)
+            collection.remove(spaceMarine)
         } finally {
             lock.unlock()
         }
     }
 
     fun clear(username: String) {
-        for (spaceMarine in collection) {
-            if (relationship[spaceMarine.getId()] == username) {
-                this.remove(spaceMarine, username)
+        val toBeCleared = mutableListOf<SpaceMarine>()
+        try {
+            for (spaceMarine in collection) {
+                if (relationship[spaceMarine.getId()] == username) {
+                    toBeCleared.add(spaceMarine)
+                }
             }
+            for (element in toBeCleared) {
+                this.remove(element, username)
+            }
+        } catch (e:ConcurrentModificationException) {
+            clear(username)
         }
     }
 

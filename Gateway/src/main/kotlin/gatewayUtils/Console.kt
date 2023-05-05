@@ -9,6 +9,7 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
+import java.util.concurrent.Executors
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
 
@@ -29,8 +30,8 @@ class Console {
     private val timer = Timer()
 
     // multithreading
-    private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
-
+    //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
+    private val threadPool = Executors.newCachedThreadPool()
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }

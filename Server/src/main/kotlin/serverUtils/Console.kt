@@ -13,6 +13,7 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
+import java.util.concurrent.Executors
 import java.util.concurrent.ThreadPoolExecutor
 import kotlin.concurrent.timerTask
 
@@ -52,8 +53,8 @@ class Console {
     private val timer = Timer()
 
     // multithreading
-    private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
-
+    //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
+    private val threadPool = Executors.newCachedThreadPool()
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }
@@ -160,8 +161,10 @@ class Console {
                                         val username = jwtManager.retrieveUsername(query.token)
                                         val answer = commandInvoker.executeCommand(query, username)
                                         answer.token = jwtManager.createJWS("server", username)
-                                        connectionManager.send(answer)
-                                        fileManager.save(collectionManager, userManager)
+                                        threadPool.execute {
+                                            connectionManager.send(answer)
+                                            fileManager.save(collectionManager, userManager)
+                                        }
                                     } else {
                                         val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
                                         connectionManager.send(answer)
