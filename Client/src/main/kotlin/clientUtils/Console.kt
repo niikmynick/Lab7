@@ -17,7 +17,7 @@ import utils.*
  * @property commandReceiver
  */
 
-class Console(private var host: String, private var port: Int) {
+class Console(host: String, port: Int) {
     private var connectionManager = ConnectionManager(host, port)
 
     private val outputManager = OutputManager()
@@ -141,6 +141,7 @@ class Console(private var host: String, private var port: Int) {
         outputManager.surePrint("Login or register to use the collection: ")
         val username = StringReader(outputManager, inputManager).read("Username: ")
         val password = StringReader(outputManager, inputManager).read("Password: ")
+
         val query = Query(QueryType.AUTHORIZATION, "", mutableMapOf("username" to username, "password" to password))
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent authorization query")

@@ -2,6 +2,7 @@ package utils
 
 import exceptions.InvalidInputException
 import exceptions.RecursiveCallException
+import java.io.Console
 import java.io.File
 import java.io.FileReader
 import java.io.InputStream
@@ -16,6 +17,7 @@ class InputManager(private val outputManager: OutputManager) {
     constructor(inputStream: InputStream, outputManager: OutputManager) : this(outputManager) {
         this.inputStream = inputStream
     }
+
     init {
         scanners.push(Scanner(inputStream))
     }

@@ -29,4 +29,5 @@ class StringReader(private val outputManager: OutputManager, private val inputMa
 
         return value
     }
+
 }

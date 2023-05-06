@@ -1,4 +1,5 @@
 import gatewayUtils.Console
+import kotlin.concurrent.thread
 
 
 fun server(actions: Console.() -> Unit) {
@@ -17,6 +18,16 @@ fun main() {
         val portPing = 8080
         val host = "172.28.16.239"
 
+        thread {
+            while (true) {
+                when (readlnOrNull()) {
+                    "exit" -> {
+                        stop()
+                        break
+                    }
+                }
+            }
+        }
 
         start {
 

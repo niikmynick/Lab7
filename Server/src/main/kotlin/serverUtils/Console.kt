@@ -32,8 +32,8 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager(dbManager)
 
@@ -57,7 +57,8 @@ class Console {
     //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
     private val threadPool = Executors.newCachedThreadPool()
     private val taskQueue = LinkedBlockingQueue<Sending>()
-    private val threadReceiver = Receiver(taskQueue, fileManager, collectionManager, jwtManager, commandInvoker, userManager, jsonCreator)
+    private val answerQueue = LinkedBlockingQueue<Sending>()
+    private val threadReceiver = Receiver(taskQueue, fileManager, collectionManager, jwtManager, commandInvoker, userManager, jsonCreator, answerQueue)
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }
@@ -154,13 +155,11 @@ class Console {
                     val query = connectionManager.receive()
                     taskQueue.put(query)
 
-                    var answer = Answer(AnswerType.OK, "", "", "")
                     threadPool.execute {
                         threadReceiver.run{}
-                        answer = threadReceiver.answer
                     }
-                    connectionManager.send(answer)
 
+                    connectionManager.send(answerQueue.take() as Answer)
                 }
             }
         }

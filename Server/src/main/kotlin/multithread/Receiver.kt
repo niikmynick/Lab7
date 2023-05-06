@@ -16,13 +16,14 @@ class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
                private val jwtManager: JWTManager,
                private val commandInvoker: CommandInvoker,
                private val userManager: UserManager,
-               private val jsonCreator: JsonCreator) : Runnable
+               private val jsonCreator: JsonCreator,
+               private val answerQueue: LinkedBlockingQueue<Sending>) : Runnable
 {
-    lateinit var answer : Answer
+    var answer = Answer(AnswerType.ERROR, "Unknown error", receiver = "", token = "")
     private val logger: Logger = LogManager.getLogger(Receiver::class.java)
 
     override fun run() {
-        val query =taskQueue.first() as Query
+        val query = taskQueue.take() as Query
         val receiver = query.args["sender"]!!
         try {
             when (query.queryType) {
@@ -86,9 +87,12 @@ class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
                     }
                 }
             }
-    } catch (e: Exception) {
-        logger.error("Error while executing command: ${e.message}")
-        answer = Answer(AnswerType.ERROR, e.message.toString(), receiver = receiver)
-    }
+        } catch (e: Exception) {
+            logger.error("Error while executing command: ${e.message}")
+            answer = Answer(AnswerType.ERROR, e.message.toString(), receiver = receiver)
+        } finally {
+            answerQueue.put(answer)
+            taskQueue.take()
+        }
     }
 }

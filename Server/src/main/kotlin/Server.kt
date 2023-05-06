@@ -12,11 +12,11 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val port = 8090
-        val host = "localhost"
+        val port = 8070
+        val host = "172.28.27.26"
 
         // address of the gateway
-        val gatewayHost = "localhost"
+        val gatewayHost = "172.28.16.239"
         val gatewayPort = 8071
 
         initialize()

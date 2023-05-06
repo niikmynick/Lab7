@@ -1,4 +1,0 @@
-package multithread
-
-class Executor {
-}
