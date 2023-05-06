@@ -29,7 +29,7 @@ class CommandInvoker(private val connectionManager: ConnectionManager) {
      */
     fun executeCommand(query: Query, username: String) : Answer{
         return try {
-            val commandName = query.information
+            val commandName = query.message
             commandsHistory += commandName
 
             val command: Command = commandMap[commandName]!!

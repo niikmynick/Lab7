@@ -4,6 +4,7 @@ import collection.CollectionManager
 import commands.CommandInvoker
 import commands.CommandReceiver
 import commands.consoleCommands.*
+import multithread.Receiver
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -14,7 +15,7 @@ import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
 import java.util.concurrent.Executors
-import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.LinkedBlockingQueue
 import kotlin.concurrent.timerTask
 
 /**
@@ -55,6 +56,8 @@ class Console {
     // multithreading
     //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
     private val threadPool = Executors.newCachedThreadPool()
+    private val taskQueue = LinkedBlockingQueue<Sending>()
+    private val threadReceiver = Receiver(taskQueue, fileManager, collectionManager, jwtManager, commandInvoker, userManager, jsonCreator)
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }
@@ -147,86 +150,17 @@ class Console {
                 if (key.isReadable) {
                     val client = key.channel() as DatagramChannel
                     connectionManager.datagramChannel = client
+
                     val query = connectionManager.receive()
-                    val receiver = query.args["sender"]!!
-                    try {
-                        threadPool.execute {
-                            when (query.queryType) {
+                    taskQueue.put(query)
 
-                                QueryType.COMMAND_EXEC -> {
-                                    logger.info("Received command: ${query.information}")
-                                    fileManager.load(collectionManager)
-
-                                    if (jwtManager.validateJWS(query.token)) {
-                                        val username = jwtManager.retrieveUsername(query.token)
-                                        val answer = commandInvoker.executeCommand(query, username)
-                                        answer.token = jwtManager.createJWS("server", username)
-                                        threadPool.execute {
-                                            connectionManager.send(answer)
-                                            fileManager.save(collectionManager, userManager)
-                                        }
-                                    } else {
-                                        val answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
-                                        connectionManager.send(answer)
-                                    }
-                                }
-
-                                QueryType.INITIALIZATION -> {
-                                    logger.trace("Received initialization request")
-
-                                    val sendingInfo = mutableMapOf<String, MutableMap<String, String>>(
-                                        "commands" to mutableMapOf(),
-                                        "arguments" to mutableMapOf()
-                                    )
-                                    val commands = commandInvoker.getCommandMap()
-
-                                    for (command in commands.keys) {
-                                        sendingInfo["commands"]!! += (command to commands[command]!!.getInfo())
-                                        sendingInfo["arguments"]!! += (command to jsonCreator.objectToString(commands[command]!!.getArgsTypes()))
-                                    }
-
-                                    val answer = Answer(AnswerType.SYSTEM, jsonCreator.objectToString(sendingInfo), receiver = receiver)
-                                    connectionManager.send(answer)
-                                }
-
-                                QueryType.PING -> {
-                                    logger.info("Received ping request from: {}", receiver)
-                                    val answer = Answer(AnswerType.SYSTEM, "Pong", receiver = receiver)
-                                    connectionManager.send(answer)
-                                }
-
-                                QueryType.AUTHORIZATION -> {
-                                    logger.info("Received authorization request")
-                                    if (query.information != "logout") {
-                                        fileManager.load(collectionManager)
-                                        val answer: Answer = if (userManager.userExists(query.args["username"]!!)) {
-                                            val token = userManager.login(query.args["username"]!!, query.args["password"]!!)
-                                            if (token.isNotEmpty()) {
-                                                Answer(AnswerType.OK, "Authorized", token, receiver = receiver)
-                                            } else {
-                                                Answer(AnswerType.ERROR, "Wrong password", receiver = receiver)
-                                            }
-                                        } else {
-                                            val token =
-                                                userManager.register(query.args["username"]!!, query.args["password"]!!)
-                                            if (token.isNotEmpty()) {
-                                                Answer(AnswerType.OK, "Registered", token, receiver = receiver)
-                                            } else {
-                                                Answer(AnswerType.ERROR, "Could not register", receiver = receiver)
-                                            }
-                                        }
-                                        connectionManager.send(answer)
-                                        fileManager.save(collectionManager, userManager)
-                                    }
-                                }
-                            }
-
-                        }
-                    } catch (e: Exception) {
-                        logger.error("Error while executing command: ${e.message}")
-                        val answer = Answer(AnswerType.ERROR, e.message.toString(), receiver = receiver)
-                        connectionManager.send(answer)
+                    var answer = Answer(AnswerType.OK, "", "", "")
+                    threadPool.execute {
+                        threadReceiver.run{}
+                        answer = threadReceiver.answer
                     }
+                    connectionManager.send(answer)
+
                 }
             }
         }
