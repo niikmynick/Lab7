@@ -16,7 +16,7 @@ fun main() {
         val portClient = 8060 // give this to client
         val portServer = 8070 // give this to server
         val portPing = 8080
-        val host = "172.28.16.239"
+        val host = "192.168.0.185"
 
         thread {
             while (true) {

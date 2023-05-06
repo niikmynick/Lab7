@@ -4,7 +4,8 @@ import collection.CollectionManager
 import commands.CommandInvoker
 import commands.CommandReceiver
 import commands.consoleCommands.*
-import multithread.Receiver
+import multithread.ReceiverThread
+import multithread.SenderThread
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -14,8 +15,7 @@ import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
-import java.util.concurrent.Executors
-import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.*
 import kotlin.concurrent.timerTask
 
 /**
@@ -32,8 +32,8 @@ class Console {
     private val selector = Selector.open()
 
     // collection
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-//    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
+    //private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager(dbManager)
 
@@ -55,10 +55,12 @@ class Console {
 
     // multithreading
     //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
-    private val threadPool = Executors.newCachedThreadPool()
-    private val taskQueue = LinkedBlockingQueue<Sending>()
-    private val answerQueue = LinkedBlockingQueue<Sending>()
-    private val threadReceiver = Receiver(taskQueue, fileManager, collectionManager, jwtManager, commandInvoker, userManager, jsonCreator, answerQueue)
+    private val cachedPool = Executors.newCachedThreadPool()
+    private val forkJoinPool = ForkJoinPool.commonPool()
+    private val taskQueue = LinkedBlockingQueue<Sending>(10)
+    private val answerQueue = LinkedBlockingQueue<Sending>(10)
+    private val threadReceiver = ReceiverThread(taskQueue, fileManager, collectionManager, jwtManager, commandInvoker, userManager, jsonCreator, answerQueue)
+    private val threadSender = SenderThread(answerQueue, connectionManager)
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }
@@ -155,16 +157,20 @@ class Console {
                     val query = connectionManager.receive()
                     taskQueue.put(query)
 
-                    threadPool.execute {
-                        threadReceiver.run{}
+                    cachedPool.execute {
+                        threadReceiver.run()
                     }
 
-                    connectionManager.send(answerQueue.take() as Answer)
+                    forkJoinPool.execute {
+                        threadSender.run()
+                    }
+
                 }
             }
         }
 
-        threadPool.shutdown()
+        cachedPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
+        forkJoinPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
         connectionManager.datagramChannel.close()
         selector.close()
     }

@@ -10,17 +10,17 @@ import users.UserManager
 import utils.*
 import java.util.concurrent.LinkedBlockingQueue
 
-class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
-               private val fileManager: FileManager,
-               private val collectionManager: CollectionManager,
-               private val jwtManager: JWTManager,
-               private val commandInvoker: CommandInvoker,
-               private val userManager: UserManager,
-               private val jsonCreator: JsonCreator,
-               private val answerQueue: LinkedBlockingQueue<Sending>) : Runnable
+class ReceiverThread(private val taskQueue: LinkedBlockingQueue<Sending>,
+                     private val fileManager: FileManager,
+                     private val collectionManager: CollectionManager,
+                     private val jwtManager: JWTManager,
+                     private val commandInvoker: CommandInvoker,
+                     private val userManager: UserManager,
+                     private val jsonCreator: JsonCreator,
+                     private val answerQueue: LinkedBlockingQueue<Sending>) : Runnable
 {
     var answer = Answer(AnswerType.ERROR, "Unknown error", receiver = "", token = "")
-    private val logger: Logger = LogManager.getLogger(Receiver::class.java)
+    private val logger: Logger = LogManager.getLogger(ReceiverThread::class.java)
 
     override fun run() {
         val query = taskQueue.take() as Query
@@ -35,7 +35,6 @@ class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
                         val username = jwtManager.retrieveUsername(query.token)
                         answer = commandInvoker.executeCommand(query, username)
                         answer.token = jwtManager.createJWS("server", username)
-                        fileManager.save(collectionManager, userManager)
                     } else {
                         answer = Answer(AnswerType.AUTH_ERROR, "Unknown token. Authorize again.", receiver = receiver)
                     }
@@ -83,7 +82,6 @@ class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
                                 Answer(AnswerType.ERROR, "Could not register", receiver = receiver)
                             }
                         }
-                        fileManager.save(collectionManager, userManager)
                     }
                 }
             }
@@ -92,7 +90,6 @@ class Receiver(private val taskQueue: LinkedBlockingQueue<Sending>,
             answer = Answer(AnswerType.ERROR, e.message.toString(), receiver = receiver)
         } finally {
             answerQueue.put(answer)
-            taskQueue.take()
         }
     }
 }

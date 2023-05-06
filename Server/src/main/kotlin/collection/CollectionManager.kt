@@ -41,6 +41,7 @@ class CollectionManager(private val dbManager: DBManager) {
             element.setId(id)
             collection.add(element)
             relationship[element.getId()] = username
+            dbManager.saveSpacemarine(element, username)
         } finally {
             lock.unlock()
         }

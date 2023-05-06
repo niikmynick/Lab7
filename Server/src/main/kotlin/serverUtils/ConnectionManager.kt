@@ -60,11 +60,11 @@ class ConnectionManager {
         return Json.decodeFromString(Query.serializer(), jsonQuery)
     }
 
-    private fun sendAsync(data: ByteBuffer, address: InetSocketAddress) {
-        pool.execute {
-            datagramChannel.send(data, address)
-        }
-    }
+//    private fun sendAsync(data: ByteBuffer, address: InetSocketAddress) {
+//        pool.execute {
+//            datagramChannel.send(data, address)
+//        }
+//    }
     /**
      * Encodes and sends the answer to the client
      */
@@ -74,8 +74,7 @@ class ConnectionManager {
         logger.info("Sending: ${Json.encodeToString(Answer.serializer(), answer)}")
         val jsonAnswer = Json.encodeToString(Answer.serializer(), answer).toByteArray()
         val data = ByteBuffer.wrap(jsonAnswer)
-
-       sendAsync(data, remoteAddress)
+        datagramChannel.send(data, remoteAddress)
     }
 
     fun registrationRequest(host: String, port: Int) {
@@ -84,6 +83,6 @@ class ConnectionManager {
         val jsonAnswer = Json.encodeToString(Answer.serializer(), request).toByteArray()
         val data = ByteBuffer.wrap(jsonAnswer)
         val receiver = InetSocketAddress(host, port)
-        sendAsync(data, receiver)
+        datagramChannel.send(data, receiver)
     }
 }

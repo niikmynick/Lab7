@@ -13,10 +13,10 @@ fun main() {
 
     server {
         val port = 8070
-        val host = "172.28.27.26"
+        val host = "192.168.0.185"
 
         // address of the gateway
-        val gatewayHost = "172.28.16.239"
+        val gatewayHost = "192.168.0.185"
         val gatewayPort = 8071
 
         initialize()

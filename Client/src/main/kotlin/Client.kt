@@ -2,7 +2,7 @@ import clientUtils.Console
 
 
 fun client(actions: Console.() -> Unit) {
-    val console = Console("172.28.16.239", 8061)
+    val console = Console("192.168.0.185", 8061) // address of the gateway
     console.actions()
 }
 
