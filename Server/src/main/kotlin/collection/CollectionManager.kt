@@ -18,7 +18,7 @@ class CollectionManager(private val dbManager: DBManager) {
     /**
      * Element_id to user_login
      */
-    private val relationship = mutableMapOf<Long, String>()
+    private val relationship = Collections.synchronizedMap(mutableMapOf<Long, String>())
 
     private val date: Date = Date()
     private val lock = ReentrantLock()
@@ -111,20 +111,35 @@ class CollectionManager(private val dbManager: DBManager) {
         }
     }
 
+//    fun clear(username: String) {
+//        val toBeCleared = mutableListOf<SpaceMarine>()
+//        try {
+//            for (spaceMarine in collection) {
+//                if (relationship[spaceMarine.getId()] == username) {
+//                    toBeCleared.add(spaceMarine)
+//                }
+//            }
+//            for (element in toBeCleared) {
+//                this.remove(element, username)
+//            }
+//        } catch (e:ConcurrentModificationException) {
+//            clear(username)
+//        }
+//    }
+
     fun clear(username: String) {
-        val toBeCleared = mutableListOf<SpaceMarine>()
-        try {
-            for (spaceMarine in collection) {
-                if (relationship[spaceMarine.getId()] == username) {
-                    toBeCleared.add(spaceMarine)
-                }
+         val toBeCleared = mutableListOf<SpaceMarine>()
+        lock.lock()
+        for (spacemarine in collection) {
+            if (relationship[spacemarine.getId()] == username) {
+                toBeCleared.add(spacemarine)
             }
-            for (element in toBeCleared) {
-                this.remove(element, username)
-            }
-        } catch (e:ConcurrentModificationException) {
-            clear(username)
         }
+        lock.unlock()
+        for (spacemarine in toBeCleared) {
+            remove(spacemarine, username)
+        }
+
     }
 
     /**
