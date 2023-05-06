@@ -25,7 +25,7 @@ class ConnectionManager {
     private var address = InetSocketAddress(host, port)
 
     var datagramChannel: DatagramChannel = DatagramChannel.open()
-    private var buffer = ByteBuffer.allocate(4096)
+    private var buffer = ByteBuffer.allocate(8192)
     private var remoteAddress = InetSocketAddress(port)
 
     /**
@@ -53,7 +53,7 @@ class ConnectionManager {
      * @return Query object
      */
     fun receive(): Query {
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         remoteAddress = datagramChannel.receive(buffer) as InetSocketAddress
         val jsonQuery = buffer.array().decodeToString().replace("\u0000", "")
         logger.info("Received: $jsonQuery")
@@ -69,7 +69,7 @@ class ConnectionManager {
      * Encodes and sends the answer to the client
      */
     fun send(answer: Answer) {
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         logger.info("Sending answer to {}", remoteAddress)
         logger.info("Sending: ${Json.encodeToString(Answer.serializer(), answer)}")
         val jsonAnswer = Json.encodeToString(Answer.serializer(), answer).toByteArray()
@@ -80,7 +80,7 @@ class ConnectionManager {
 
     fun registrationRequest(host: String, port: Int) {
         val request = Answer(AnswerType.REGISTRATION_REQUEST, "Registration request", receiver = "")
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         val jsonAnswer = Json.encodeToString(Answer.serializer(), request).toByteArray()
         val data = ByteBuffer.wrap(jsonAnswer)
         val receiver = InetSocketAddress(host, port)

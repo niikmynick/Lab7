@@ -36,16 +36,16 @@ class ConnectionManager {
 
     var datagramChannelClient: DatagramChannel = DatagramChannel.open()
     var datagramChannelServer: DatagramChannel = DatagramChannel.open()
-    private var buffer = ByteBuffer.allocate(4096)
+    private var buffer = ByteBuffer.allocate(8192)
 
     var remoteAddressClient = InetSocketAddress(portForClient)
     var remoteAddressServer = InetSocketAddress(portForServer)
     val availableServers = LinkedList<InetSocketAddress>()
     //val serversOnCheck = mutableMapOf<InetSocketAddress, Timestamp>()
 
-    private val timeout = 5000
+    private val timeout = 15000
     private var datagramSocket = DatagramSocket()
-    private var datagramPacket = DatagramPacket(ByteArray(4096), 4096, InetAddress.getByName(host), portForPinging)
+    private var datagramPacket = DatagramPacket(ByteArray(8192), 8192, InetAddress.getByName(host), portForPinging)
 
     /**
      * Starts the server at given host and port
@@ -108,7 +108,7 @@ class ConnectionManager {
      * @return Query object
      */
     fun receiveFromClient() : Query{
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         remoteAddressClient = datagramChannelClient.receive(buffer) as InetSocketAddress
         val jsonQuery = buffer.array().decodeToString().replace("\u0000", "")
         logger.info("Received: $jsonQuery")
@@ -119,14 +119,14 @@ class ConnectionManager {
      * @return Answer object
      */
     private fun receiveFromServerSocket() : Answer {
-        val data = ByteArray(4096)
+        val data = ByteArray(8192)
         val jsonAnswer : String
         datagramPacket = DatagramPacket(data, data.size)
         try {
             datagramSocket.receive(datagramPacket)
             jsonAnswer = data.decodeToString().replace("\u0000", "")
         } catch (e:Exception) {
-            datagramPacket = DatagramPacket(ByteArray(4096), 4096, InetAddress.getByName(host), 0)
+            datagramPacket = DatagramPacket(ByteArray(8192), 8192, InetAddress.getByName(host), 0)
             return Answer(AnswerType.ERROR, e.message.toString(), receiver = "")
         }
         logger.info("Received: $jsonAnswer")
@@ -134,7 +134,7 @@ class ConnectionManager {
     }
 
     fun receiveFromServer() : Answer {
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         remoteAddressServer = datagramChannelServer.receive(buffer) as InetSocketAddress
         val jsonAnswer = buffer.array().decodeToString().replace("\u0000", "")
         logger.info("Received: $jsonAnswer")
@@ -145,7 +145,7 @@ class ConnectionManager {
      * Encodes and sends the answer to the client
      */
     fun sendToClient(answer: Answer, address: InetSocketAddress) {
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         logger.info("Sending answer to {}", address)
         logger.info("Sending: ${Json.encodeToString(Answer.serializer(), answer)}")
         val jsonAnswer = Json.encodeToString(Answer.serializer(), answer).toByteArray()
@@ -157,7 +157,7 @@ class ConnectionManager {
      * Encodes and sends the answer to the server
      */
     fun sendToServer(query: Query, address: InetSocketAddress, channelOrSocket: String) {
-        buffer = ByteBuffer.allocate(4096)
+        buffer = ByteBuffer.allocate(8192)
         logger.info("Sending query to {}", address)
         val jsonQuery = Json.encodeToString(Query.serializer(), query).toByteArray()
         logger.info("Sending: ${Json.encodeToString(Query.serializer(), query)}")

@@ -15,11 +15,11 @@ class ConnectionManager(host: String, private var port: Int) {
     /**
      * The timeout for connection in milliseconds
      */
-    private val timeout = 5000
+    private val timeout = 15000
     private var datagramSocket = DatagramSocket()
     private val outputManager = OutputManager()
     private var hostInetAddress = InetAddress.getByName(host)
-    private var datagramPacket = DatagramPacket(ByteArray(4096), 4096, hostInetAddress, port)
+    private var datagramPacket = DatagramPacket(ByteArray(8192), 8192, hostInetAddress, port)
 
     private val logger: Logger = LogManager.getLogger(ConnectionManager::class.java)
     init {
@@ -104,14 +104,14 @@ class ConnectionManager(host: String, private var port: Int) {
      * @return Answer: The Answer object received from the server.
      */
     private fun receive(): Answer {
-        val data = ByteArray(4096)
+        val data = ByteArray(8192)
         val jsonAnswer : String
         datagramPacket = DatagramPacket(data, data.size)
         try {
             datagramSocket.receive(datagramPacket)
             jsonAnswer = data.decodeToString().replace("\u0000", "")
         } catch (e:Exception) {
-            datagramPacket = DatagramPacket(ByteArray(4096), 4096, hostInetAddress, port)
+            datagramPacket = DatagramPacket(ByteArray(8192), 8192, hostInetAddress, port)
             return Answer(AnswerType.ERROR, e.message.toString(), receiver = "")
         }
 

@@ -15,6 +15,7 @@ fun main() {
         val port = 8090
         val host = "localhost"
 
+        // address of the gateway
         val gatewayHost = "localhost"
         val gatewayPort = 8071
 

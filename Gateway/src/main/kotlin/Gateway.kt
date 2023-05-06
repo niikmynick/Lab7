@@ -12,10 +12,10 @@ fun server(actions: Console.() -> Unit) {
 fun main() {
 
     server {
-        val portClient = 8060
-        val portServer = 8070
+        val portClient = 8060 // give this to client
+        val portServer = 8070 // give this to server
         val portPing = 8080
-        val host = "localhost"
+        val host = "172.28.16.239"
 
 
         start {
