@@ -28,8 +28,13 @@ class FileManager(
             for (element in collection) {
                 val spaceMarine = jsonCreator.stringToObject<SpaceMarine>(element.key)
                 val parent = element.value
-                collectionManager.add(spaceMarine, parent)
-                logger.info("Loaded $spaceMarine")
+                try {
+                    collectionManager.add(spaceMarine, parent)
+                    logger.info("Loaded $spaceMarine")
+                } catch (e:Exception) {
+                    logger.warn(e.message.toString())
+                }
+
             }
             logger.info("Loaded ${collectionManager.getCollection().size} elements successfully")
 

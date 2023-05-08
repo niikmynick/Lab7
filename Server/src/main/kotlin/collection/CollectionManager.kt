@@ -1,6 +1,7 @@
 package collection
 
 import basicClasses.SpaceMarine
+import exceptions.NotAuthorized
 import exceptions.SpaceMarineIdAlreadyExists
 import serverUtils.DBManager
 import java.util.*
@@ -79,7 +80,7 @@ class CollectionManager(private val dbManager: DBManager) {
      * Updates values of an element
      */
     fun update(data: SpaceMarine, spaceMarine: SpaceMarine, username: String) {
-        if (relationship[spaceMarine.getId()] != username) throw Exception("You don't have permission to update this element")
+        if ((relationship[spaceMarine.getId()] != username) or (username != "admin")) throw NotAuthorized("You don't have permission to update this element")
 
         lock.lock()
         try {
@@ -101,7 +102,7 @@ class CollectionManager(private val dbManager: DBManager) {
      * @param spaceMarine element in the collection
      */
     fun remove(spaceMarine: SpaceMarine, username: String) {
-        if (relationship[spaceMarine.getId()] != username) throw Exception("You don't have permission to remove this element")
+        if ((relationship[spaceMarine.getId()] != username) and (username != "admin")) throw NotAuthorized("You don't have permission to remove this element")
         lock.lock()
         try {
             dbManager.deleteSpaceMarine(spaceMarine.getId())
@@ -112,33 +113,20 @@ class CollectionManager(private val dbManager: DBManager) {
         }
     }
 
-//    fun clear(username: String) {
-//        val toBeCleared = mutableListOf<SpaceMarine>()
-//        try {
-//            for (spaceMarine in collection) {
-//                if (relationship[spaceMarine.getId()] == username) {
-//                    toBeCleared.add(spaceMarine)
-//                }
-//            }
-//            for (element in toBeCleared) {
-//                this.remove(element, username)
-//            }
-//        } catch (e:ConcurrentModificationException) {
-//            clear(username)
-//        }
-//    }
-
     fun clear(username: String) {
-         val toBeCleared = mutableListOf<SpaceMarine>()
+        val toBeCleared = mutableListOf<SpaceMarine>()
         lock.lock()
         for (spacemarine in collection) {
-            if (relationship[spacemarine.getId()] == username) {
+            if ((relationship[spacemarine.getId()] == username) or (username == "admin")) {
                 toBeCleared.add(spacemarine)
             }
         }
         lock.unlock()
         for (spacemarine in toBeCleared) {
-            remove(spacemarine, username)
+            try {
+                remove(spacemarine, username)
+            } catch (_:Exception) {}
+
         }
 
     }

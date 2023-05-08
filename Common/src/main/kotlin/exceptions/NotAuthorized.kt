@@ -1,5 +1,3 @@
 package exceptions
 
-class NotAuthorized : Exception() {
-    override val message = "Not authorized"
-}
+class NotAuthorized(message: String?) : Exception(message)

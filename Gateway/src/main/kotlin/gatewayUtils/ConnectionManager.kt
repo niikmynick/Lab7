@@ -14,8 +14,8 @@ import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.nio.ByteBuffer
 import java.nio.channels.DatagramChannel
-import java.util.LinkedList
 import java.util.concurrent.ForkJoinPool
+import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * Class responsible for managing network connections
@@ -40,8 +40,7 @@ class ConnectionManager {
 
     var remoteAddressClient = InetSocketAddress(portForClient)
     var remoteAddressServer = InetSocketAddress(portForServer)
-    val availableServers = LinkedList<InetSocketAddress>()
-    //val serversOnCheck = mutableMapOf<InetSocketAddress, Timestamp>()
+    val availableServers = LinkedBlockingQueue<InetSocketAddress>()
 
     private val timeout = 15000
     private var datagramSocket = DatagramSocket()

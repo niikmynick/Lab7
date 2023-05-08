@@ -73,7 +73,7 @@ class CommandReceiver(private val commandInvoker: CommandInvoker,
         val query = Query(QueryType.COMMAND_EXEC, commandName, sending, token)
         val answer = connectionManager.checkedSendReceive(query)
         if (answer.message == "Unknown token. Authorize again.") {
-            throw NotAuthorized()
+            throw NotAuthorized("Not authorized")
         }
         outputManager.println(answer.message)
     }

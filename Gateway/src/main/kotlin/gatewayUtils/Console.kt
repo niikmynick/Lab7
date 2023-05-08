@@ -1,16 +1,17 @@
 package gatewayUtils
 
 
+import multithread.FromClientThread
+import multithread.FromServerThread
 import utils.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import java.net.InetSocketAddress
 import java.nio.channels.DatagramChannel
 import java.nio.channels.SelectionKey
 import java.nio.channels.Selector
 import java.util.*
 import java.util.concurrent.Executors
-import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.LinkedBlockingQueue
 import kotlin.concurrent.timerTask
 
 /**
@@ -31,7 +32,13 @@ class Console {
 
     // multithreading
     //private val threadPool = ThreadPoolExecutor(0, 10, 0L, java.util.concurrent.TimeUnit.MILLISECONDS, java.util.concurrent.LinkedBlockingQueue())
-    private val threadPool = Executors.newCachedThreadPool()
+    private val fromServerThreadPool = Executors.newCachedThreadPool()
+    private val fromClientThreadPool = Executors.newCachedThreadPool()
+    private val answerQueue = LinkedBlockingQueue<Answer>()
+    private val queryQueue = LinkedBlockingQueue<Query>()
+
+    private val serverThread = FromServerThread(connectionManager, answerQueue)
+    private val clientThread = FromClientThread(connectionManager, queryQueue)
     fun start(actions: ConnectionManager.() -> Unit) {
         connectionManager.actions()
     }
@@ -73,46 +80,30 @@ class Console {
                 val key = iter.next()
                 iter.remove()
                 if (key.isReadable) {
-                    val request = key.channel() as DatagramChannel
-                    when (request.localAddress) {
+                    val activeChannel = key.channel() as DatagramChannel
+                    when (activeChannel.localAddress) {
                         connectionManager.addressForServer -> {
-                            connectionManager.datagramChannelServer = request
+                            connectionManager.datagramChannelServer = activeChannel
                             val received = connectionManager.receiveFromServer()
-                            threadPool.execute {
-                                val serverAddress = connectionManager.remoteAddressServer
-                                if (received.answerType == AnswerType.REGISTRATION_REQUEST) {
-                                    connectionManager.availableServers += serverAddress
-                                } else {
-                                    val receiver = received.receiver.split(':')
-                                    val address = InetSocketAddress(receiver[0].replace("/",""), receiver[1].toInt())
-                                    if ((address != connectionManager.addressForPinging) and (address != connectionManager.addressForServer)) {
-                                        connectionManager.sendToClient(received, address)
-                                    }
-                                }
+                            answerQueue.put(received)
 
+                            fromServerThreadPool.execute {
+                                serverThread.run()
                             }
+
                         }
                         connectionManager.addressForClient -> {
-                            connectionManager.datagramChannelClient = request
+                            connectionManager.datagramChannelClient = activeChannel
+
                             val received = connectionManager.receiveFromClient()
-                            threadPool.execute {
-                                val clientAddress = connectionManager.remoteAddressClient
-                                received.args["sender"] = clientAddress.toString()
-                                try {
-                                    do {
-                                        val address = connectionManager.availableServers.pop()
-                                        val isConnected = connectionManager.connected(address)
-                                        if (isConnected) {
-                                            connectionManager.availableServers.addLast(address)
-                                            connectionManager.sendToServer(received, address, "channel")
-                                        }
-                                    } while (!isConnected)
-                                } catch (e:Exception) {
-                                    logger.warn("No server was found")
-                                }
+                            val clientAddress = connectionManager.remoteAddressClient
+                            received.args["sender"] = clientAddress.toString()
+                            queryQueue.put(received)
 
-
+                            fromClientThreadPool.execute {
+                                clientThread.run()
                             }
+
                         }
                         else -> {}
                     }
@@ -121,7 +112,8 @@ class Console {
             }
         }
 
-        threadPool.shutdown()
+        fromClientThreadPool.shutdown()
+        fromServerThreadPool.shutdown()
         connectionManager.datagramChannelClient.close()
         connectionManager.datagramChannelServer.close()
         selector.close()

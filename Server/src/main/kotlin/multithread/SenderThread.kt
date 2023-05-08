@@ -13,7 +13,9 @@ class SenderThread(private val answerQueue: LinkedBlockingQueue<Sending>,
     var answer = Answer(AnswerType.ERROR, "Unknown error", receiver = "", token = "")
     private val logger: Logger = LogManager.getLogger(SenderThread::class.java)
     override fun run() {
-        connectionManager.send(answerQueue.take() as Answer)
+        answer = answerQueue.take() as Answer
+        logger.debug("Sending {}", answer)
+        connectionManager.send(answer)
     }
 
 }
