@@ -75,8 +75,8 @@ class ConnectionManager {
         datagramChannel.send(data, remoteAddress)
     }
 
-    fun registrationRequest(host: String, port: Int) {
-        val request = Answer(AnswerType.REGISTRATION_REQUEST, "Registration request", receiver = "")
+    fun registrationRequest(host: String, port: Int, message: String) {
+        val request = Answer(AnswerType.REGISTRATION_REQUEST, message, receiver = "")
         buffer = ByteBuffer.allocate(8192)
         val jsonAnswer = Json.encodeToString(Answer.serializer(), request).toByteArray()
         val data = ByteBuffer.wrap(jsonAnswer)

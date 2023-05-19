@@ -12,6 +12,9 @@ class FromServerThread(private val connectionManager: ConnectionManager, private
         val serverAddress = connectionManager.remoteAddressServer
         val received = answerQueue.take() as Answer
         if (received.answerType == AnswerType.REGISTRATION_REQUEST) {
+            if (received.message == "Closing Server") {
+                connectionManager.availableServers.remove(serverAddress)
+            }
             connectionManager.availableServers.add(serverAddress)
         } else {
             val receiver = received.receiver.split(':')

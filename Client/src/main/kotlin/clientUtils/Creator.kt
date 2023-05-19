@@ -6,9 +6,8 @@ import utils.InputManager
 import utils.OutputManager
 
 /**
- * Creator
- *
- * @constructor Create Creator
+ * This class is a functional wrapper around various readers.
+ * It uses these classes to read user inputs and then constructs objects based on those inputs.
  */
 class Creator(outputManager: OutputManager, inputManager: InputManager) {
     private val stringReader = StringReader(outputManager, inputManager)
@@ -20,8 +19,7 @@ class Creator(outputManager: OutputManager, inputManager: InputManager) {
     private val doubleReader = DoubleReader(outputManager, inputManager)
 
     /**
-     * provides to readers/creators. Then creates a Space Marine with user prompt
-     *
+     * Takes necessary user inputs using readers and constructs a SpaceMarine instance.
      * @return [SpaceMarine] object
      */
     fun createSpaceMarine(): SpaceMarine {

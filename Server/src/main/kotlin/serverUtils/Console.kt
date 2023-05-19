@@ -28,7 +28,7 @@ import kotlin.concurrent.timerTask
  */
 class Console {
     // connection
-    private val connectionManager = ConnectionManager()
+    val connectionManager = ConnectionManager()
     private val selector = Selector.open()
 
     // collection
@@ -168,19 +168,15 @@ class Console {
                 }
             }
         }
-
-        cachedPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
-        forkJoinPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
-        connectionManager.datagramChannel.close()
-        selector.close()
     }
 
     fun stop() {
         logger.info("Closing server")
-
         executeFlag = false
-
-        selector.wakeup()
+        cachedPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
+        forkJoinPool.awaitTermination(5000, TimeUnit.MILLISECONDS)
+        connectionManager.datagramChannel.close()
+        selector.close()
         timer.cancel()
     }
 
