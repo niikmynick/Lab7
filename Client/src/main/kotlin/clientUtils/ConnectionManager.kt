@@ -31,7 +31,9 @@ class ConnectionManager(host: String, private var port: Int) {
                 datagramSocket = DatagramSocket(port)
                 unbound = false
                 logger.debug("Bound on port: $port")
-            } catch (_:Exception) {}
+            } catch (e:Exception) {
+                logger.warn("Found closed port" + e.message)
+            }
         }
 
     }

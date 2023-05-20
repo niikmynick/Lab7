@@ -1,9 +1,14 @@
 # Project exclude paths
 /.gradle/
 /Client/build/
+/Client/logs/
 /Client/build/classes/kotlin/main/
 /Common/build/
 /Common/build/classes/kotlin/main/
 /Server/build/
+/Server/logs/
 /Server/build/classes/kotlin/main/
+/Gateway/build/
+/Gateway/logs/
 /.idea/
+/logs

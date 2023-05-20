@@ -39,7 +39,9 @@ class ConnectionManager {
                 this.address = InetSocketAddress(this.host, this.port)
                 datagramChannel.bind(address)
                 unbound = false
-            } catch (_:Exception) {}
+            } catch (e:Exception) {
+                logger.warn("Found closed port" + e.message)
+            }
         }
 
         datagramChannel.configureBlocking(false)

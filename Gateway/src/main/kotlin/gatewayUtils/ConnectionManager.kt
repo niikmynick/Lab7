@@ -72,7 +72,9 @@ class ConnectionManager {
                 this.datagramSocket.soTimeout = timeout
                 unboundPing = false
 
-            } catch (_:Exception) {}
+            } catch (e:Exception) {
+                logger.warn("Found closed port" + e.message)
+            }
         }
 
         datagramChannelClient.configureBlocking(false)
