@@ -71,7 +71,7 @@ class ReceiverThread(private val taskQueue: LinkedBlockingQueue<Sending>,
                             if (token.isNotEmpty()) {
                                 Answer(AnswerType.OK, "Authorized", token, receiver = receiver)
                             } else {
-                                Answer(AnswerType.ERROR, "Wrong password", receiver = receiver)
+                                Answer(AnswerType.AUTH_ERROR, "Wrong password", receiver = receiver)
                             }
                         } else {
                             val token =
@@ -79,7 +79,7 @@ class ReceiverThread(private val taskQueue: LinkedBlockingQueue<Sending>,
                             if (token.isNotEmpty()) {
                                 Answer(AnswerType.OK, "Registered", token, receiver = receiver)
                             } else {
-                                Answer(AnswerType.ERROR, "Could not register", receiver = receiver)
+                                Answer(AnswerType.AUTH_ERROR, "Could not register", receiver = receiver)
                             }
                         }
                     }

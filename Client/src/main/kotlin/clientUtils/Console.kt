@@ -145,7 +145,7 @@ class Console(host: String, port: Int) {
         val query = Query(QueryType.AUTHORIZATION, "", mutableMapOf("username" to username, "password" to password))
         val answer = connectionManager.checkedSendReceive(query)
         logger.debug("Sent authorization query")
-        if (answer.answerType == AnswerType.ERROR) {
+        if (answer.answerType == AnswerType.AUTH_ERROR || answer.answerType == AnswerType.ERROR) {
             outputManager.println(answer.message)
             authorize()
         } else {
