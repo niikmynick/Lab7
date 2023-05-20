@@ -63,15 +63,23 @@ class ConnectionManager {
                 this.addressForClient = InetSocketAddress(this.host, portForClient)
                 datagramChannelClient.bind(addressForClient)
                 unboundClient = false
+            } catch (e:Exception) {
+                logger.warn("Found closed port" + e.message)
+            }
+            try {
                 this.portForServer++
                 this.addressForServer = InetSocketAddress(this.host, portForServer)
                 datagramChannelServer.bind(addressForServer)
                 unboundServer = false
+            } catch (e:Exception) {
+                logger.warn("Found closed port" + e.message)
+            }
 
+            try {
+                this.portForPinging++
                 this.datagramSocket = DatagramSocket(portForPinging)
                 this.datagramSocket.soTimeout = timeout
                 unboundPing = false
-
             } catch (e:Exception) {
                 logger.warn("Found closed port" + e.message)
             }
