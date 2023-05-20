@@ -14,8 +14,7 @@ class FromServerThread(private val connectionManager: ConnectionManager, private
         if (received.answerType == AnswerType.REGISTRATION_REQUEST) {
             if (received.message == "Closing Server") {
                 connectionManager.availableServers.remove(serverAddress)
-            }
-            connectionManager.availableServers.add(serverAddress)
+            } else connectionManager.availableServers.add(serverAddress)
         } else {
             val receiver = received.receiver.split(':')
             val address = InetSocketAddress(receiver[0].replace("/",""), receiver[1].toInt())

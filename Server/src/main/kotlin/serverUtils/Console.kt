@@ -33,7 +33,7 @@ class Console {
 
     // collection
     //private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s368311", "cvyPME6q769KBBWn")
-    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", "cfJSPKlqsJNlLcPg")
+    private val dbManager = DBManager("jdbc:postgresql://localhost:5432/studs", "s372819", System.getenv("dbPassword"))
     private val fileManager = FileManager(dbManager)
     private val collectionManager = CollectionManager(dbManager)
 
